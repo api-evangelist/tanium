@@ -1,32 +1,52 @@
 aid: tanium
 name: Tanium
-description: >-
-  Learn to build with the Endpoint Platform that gives you real-time visibility
-  and control. Our Developer Program has everything you need to get started. 
+description: Tanium is a unified endpoint management and security platform that provides real-time visibility and control across all endpoints
 type: Index
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://www.tanium.com/images/tanium-logo.png
 tags:
-  - API
+- API
+- compliance
+- endpoint management
+- patch management
+- security
+- threat detection
+- unified endpoint management
 created: '2025-02-06'
 modified: '2025-02-06'
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/tanium/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/tanium/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-  - aid: tanium:tanium
-    name: Tanium
-    description: >-
-      Learn to build with the Endpoint Platform that gives you real-time
-      visibility and control. Our Developer Program has everything you need to
-      get started. 
-    humanURL: ' https://developer.tanium.com'
-    tags:
-      - API
-    properties:
-      - type: Documentation
-        url: ' https://developer.tanium.com'
+- aid: tanium:tanium
+  name: Tanium
+  description: 'Learn to build with the Endpoint Platform that gives you real-time visibility and control. Our Developer Program has everything you need to get started. '
+  humanURL: ' https://developer.tanium.com'
+  tags:
+  - API
+  properties:
+  - type: Documentation
+    url: ' https://developer.tanium.com'
 maintainers:
-  - FN: Kin Lane
-    email: info@apievangelist.com
+- FN: Kin Lane
+  email: info@apievangelist.com
+- FN: Tanium Developer Relations
+  email: developer@tanium.com
+  url: https://developer.tanium.com
+common:
+- url: https://developer.tanium.com/getting-started
+  type: getting-started
+- url: https://developer.tanium.com/authentication
+  type: authentication
+- url: https://developer.tanium.com/sdks
+  type: sdks
+- url: https://community.tanium.com/
+  type: support
+- url: https://www.tanium.com/terms-of-use/
+  type: terms-of-service
+- url: https://www.tanium.com/privacy/
+  type: privacy-policy
+- url: https://www.tanium.com/contact/
+  type: contact
+- url: https://developer.tanium.com/
+  type: portal
