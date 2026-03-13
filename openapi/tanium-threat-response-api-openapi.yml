@@ -1,0 +1,2002 @@
+openapi: 3.1.0
+info:
+  title: Tanium Threat Response API
+  description: >-
+    The Tanium Threat Response REST API enables starting investigations, viewing
+    Recorder events, gathering evidence, and performing file and directory
+    operations on endpoints for threat detection and incident response. All
+    endpoints are under the /plugin/products/threat-response/api/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+  - url: https://{tanium_server}
+    description: Tanium Server
+    variables:
+      tanium_server:
+        default: tanium.example.com
+        description: Hostname or IP address of the Tanium server
+security:
+  - apiToken: []
+tags:
+  - name: Alerts
+    description: Manage threat alerts
+  - name: Connections
+    description: Manage live endpoint connections for investigations
+  - name: Snapshots
+    description: Capture and manage endpoint memory snapshots
+  - name: Events
+    description: Retrieve Recorder events from endpoints
+  - name: Processes
+    description: Inspect endpoint processes and process trees
+  - name: Evidence
+    description: Collect and manage investigation evidence
+  - name: File Downloads
+    description: Download and manage files from endpoints
+  - name: File Operations
+    description: Browse and manage files on connected endpoints
+  - name: Intel Documents
+    description: Manage threat intelligence documents
+  - name: Labels
+    description: Manage classification labels for intel documents
+  - name: Status
+    description: Threat Response service status
+paths:
+  /plugin/products/threat-response/api/v1/status:
+    get:
+      operationId: getThreatResponseStatus
+      summary: Get Threat Response service status
+      description: >-
+        Returns the current status of the Tanium Threat Response service
+        including version information and operational state.
+      tags:
+        - Status
+      responses:
+        '200':
+          description: Status retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                        description: Threat Response version
+                      status:
+                        type: string
+                        description: Service operational status
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/alerts:
+    get:
+      operationId: listAlerts
+      summary: List threat alerts
+      description: >-
+        Retrieves a paginated list of threat alerts. Alerts can be filtered by
+        computer name, IP address, severity, priority, type, state, and
+        associated intel document or scan configuration.
+      tags:
+        - Alerts
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of alerts to return
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of alerts to skip for pagination
+          schema:
+            type: integer
+        - name: computer_ip_address
+          in: query
+          description: Filter by computer IP address
+          schema:
+            type: string
+        - name: computer_name
+          in: query
+          description: Filter by computer hostname
+          schema:
+            type: string
+        - name: scan_config_id
+          in: query
+          description: Filter by scan configuration identifier
+          schema:
+            type: integer
+        - name: intel_doc_id
+          in: query
+          description: Filter by intel document identifier
+          schema:
+            type: integer
+        - name: severity
+          in: query
+          description: Filter by alert severity
+          schema:
+            type: string
+        - name: priority
+          in: query
+          description: Filter by alert priority
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: Filter by alert type
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: Filter by alert state
+          schema:
+            type: string
+            enum:
+              - unresolved
+              - inprogress
+              - resolved
+              - dismissed
+              - ignored
+      responses:
+        '200':
+          description: Alerts retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Alert'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/alerts/{alertId}:
+    get:
+      operationId: getAlert
+      summary: Get an alert by ID
+      description: >-
+        Retrieves the full details of a specific alert including associated
+        computer information, intel document references, and current state.
+      tags:
+        - Alerts
+      parameters:
+        - name: alertId
+          in: path
+          required: true
+          description: Unique identifier of the alert
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Alert retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Alert'
+        '404':
+          description: Alert not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      operationId: updateAlertState
+      summary: Update alert state
+      description: >-
+        Updates the state of one or more alerts. Multiple alert IDs can be
+        provided as a comma-separated list in the path. Valid states are
+        unresolved, inprogress, resolved, dismissed, and ignored.
+      tags:
+        - Alerts
+      parameters:
+        - name: alertId
+          in: path
+          required: true
+          description: Alert ID or comma-separated list of alert IDs
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - state
+              properties:
+                state:
+                  type: string
+                  enum:
+                    - unresolved
+                    - inprogress
+                    - resolved
+                    - dismissed
+                    - ignored
+                  description: New state for the alert(s)
+      responses:
+        '200':
+          description: Alert state updated successfully
+        '400':
+          description: Invalid state value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alert not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/conns:
+    get:
+      operationId: listConnections
+      summary: List endpoint connections
+      description: >-
+        Retrieves a paginated list of live connections to endpoints. Connections
+        can be filtered by status, IP address, platform, and hostname.
+      tags:
+        - Connections
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of connections to return
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of connections to skip for pagination
+          schema:
+            type: integer
+        - name: status
+          in: query
+          description: Filter by connection status
+          schema:
+            type: string
+        - name: ip
+          in: query
+          description: Filter by endpoint IP address
+          schema:
+            type: string
+        - name: platform
+          in: query
+          description: Filter by endpoint platform
+          schema:
+            type: string
+        - name: hostname
+          in: query
+          description: Filter by endpoint hostname
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Connections retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Connection'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/conns/connect:
+    post:
+      operationId: createConnection
+      summary: Create a live connection to an endpoint
+      description: >-
+        Initiates a live connection to a specified endpoint for investigation
+        purposes. Requires the client ID, IP, platform, and hostname of the
+        target endpoint.
+      tags:
+        - Connections
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - client_id
+                - ip
+                - platform
+                - hostname
+              properties:
+                client_id:
+                  type: string
+                  description: Tanium client identifier of the endpoint
+                ip:
+                  type: string
+                  description: IP address of the endpoint
+                platform:
+                  type: string
+                  description: Operating system platform
+                hostname:
+                  type: string
+                  description: Hostname of the endpoint
+      responses:
+        '200':
+          description: Connection initiated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Connection'
+        '400':
+          description: Invalid connection parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/conns/{connectionId}:
+    get:
+      operationId: getConnection
+      summary: Get a connection by ID
+      description: >-
+        Retrieves the details and current status of a specific endpoint
+        connection.
+      tags:
+        - Connections
+      parameters:
+        - name: connectionId
+          in: path
+          required: true
+          description: Unique identifier of the connection
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Connection retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Connection'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/conns/close/{connectionId}:
+    post:
+      operationId: closeConnection
+      summary: Close a live connection
+      description: >-
+        Closes an active live connection to an endpoint, ending the
+        investigation session.
+      tags:
+        - Connections
+      parameters:
+        - name: connectionId
+          in: path
+          required: true
+          description: Unique identifier of the connection to close
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Connection closed successfully
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/conns/delete/{connectionId}:
+    delete:
+      operationId: deleteConnection
+      summary: Delete a connection record
+      description: >-
+        Permanently deletes a connection record from the Threat Response
+        database.
+      tags:
+        - Connections
+      parameters:
+        - name: connectionId
+          in: path
+          required: true
+          description: Unique identifier of the connection to delete
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Connection deleted successfully
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/conns/{connectionId}/snapshot:
+    post:
+      operationId: createSnapshot
+      summary: Create an endpoint snapshot
+      description: >-
+        Initiates a snapshot capture from a connected endpoint. The snapshot
+        captures a point-in-time image of endpoint Recorder data for offline
+        analysis.
+      tags:
+        - Snapshots
+      parameters:
+        - name: connectionId
+          in: path
+          required: true
+          description: Unique identifier of the connection
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Snapshot creation initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SnapshotTask'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/snapshot:
+    get:
+      operationId: listSnapshots
+      summary: List all snapshots
+      description: >-
+        Retrieves a paginated list of all endpoint snapshots captured for
+        investigations.
+      tags:
+        - Snapshots
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of snapshots to return
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of snapshots to skip for pagination
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Snapshots retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Snapshot'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteSnapshots
+      summary: Delete snapshots
+      description: >-
+        Deletes one or more snapshots by their identifiers. Provide snapshot
+        IDs in the request body.
+      tags:
+        - Snapshots
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ids
+              properties:
+                ids:
+                  type: array
+                  items:
+                    type: string
+                  description: List of snapshot IDs to delete
+      responses:
+        '200':
+          description: Snapshots deleted successfully
+        '404':
+          description: One or more snapshots not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/snapshot/{snapshotId}:
+    delete:
+      operationId: deleteLocalSnapshot
+      summary: Delete a local snapshot
+      description: >-
+        Deletes a specific snapshot stored locally on the Tanium server,
+        freeing disk space.
+      tags:
+        - Snapshots
+      parameters:
+        - name: snapshotId
+          in: path
+          required: true
+          description: Unique identifier of the snapshot to delete
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Local snapshot deleted successfully
+        '404':
+          description: Snapshot not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/conns/{connectionId}/views/{eventType}/events:
+    get:
+      operationId: listEvents
+      summary: List events by type
+      description: >-
+        Retrieves Recorder events from a connected endpoint filtered by event
+        type. Supported event types include File, Network, Registry, Process,
+        Driver, Combined, DNS, and Image.
+      tags:
+        - Events
+      parameters:
+        - name: connectionId
+          in: path
+          required: true
+          description: Unique identifier of the connection
+          schema:
+            type: string
+        - name: eventType
+          in: path
+          required: true
+          description: Type of events to retrieve
+          schema:
+            type: string
+            enum:
+              - File
+              - Network
+              - Registry
+              - Process
+              - Driver
+              - Combined
+              - DNS
+              - Image
+        - name: limit
+          in: query
+          description: Maximum number of events to return
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of events to skip for pagination
+          schema:
+            type: integer
+        - name: filter
+          in: query
+          description: Filter expression for events
+          schema:
+            type: string
+        - name: match
+          in: query
+          description: Match mode for filter expression
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: Sort order for results
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated list of fields to include
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Events retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/conns/{connectionId}/views/{eventType}/eventsCount:
+    get:
+      operationId: getEventsSummary
+      summary: Get events count summary
+      description: >-
+        Returns a summary count of Recorder events by type for a specific
+        connection, useful for understanding the volume of activity on an
+        endpoint.
+      tags:
+        - Events
+      parameters:
+        - name: connectionId
+          in: path
+          required: true
+          description: Unique identifier of the connection
+          schema:
+            type: string
+        - name: eventType
+          in: path
+          required: true
+          description: Type of events to count
+          schema:
+            type: string
+            enum:
+              - File
+              - Network
+              - Registry
+              - Process
+              - Driver
+              - Combined
+              - DNS
+              - Image
+      responses:
+        '200':
+          description: Event count retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      count:
+                        type: integer
+                        description: Total number of events of the specified type
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/conns/{connectionId}/processevents/{processTableId}/{eventType}:
+    get:
+      operationId: getProcessEvents
+      summary: Get events for a specific process
+      description: >-
+        Retrieves events associated with a specific process on a connected
+        endpoint, identified by its process table ID and event type.
+      tags:
+        - Processes
+      parameters:
+        - name: connectionId
+          in: path
+          required: true
+          description: Unique identifier of the connection
+          schema:
+            type: string
+        - name: processTableId
+          in: path
+          required: true
+          description: Process table identifier
+          schema:
+            type: string
+        - name: eventType
+          in: path
+          required: true
+          description: Type of events to retrieve for the process
+          schema:
+            type: string
+            enum:
+              - File
+              - Network
+              - Registry
+              - Process
+              - Driver
+              - DNS
+              - Image
+        - name: limit
+          in: query
+          description: Maximum number of events to return
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of events to skip for pagination
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Process events retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProcessEvent'
+        '404':
+          description: Connection or process not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/conns/{connectionId}/processtrees/{processTableId}:
+    get:
+      operationId: getProcessTree
+      summary: Get a process tree
+      description: >-
+        Retrieves the process tree for a specific process, showing parent,
+        child, and sibling processes. Useful for understanding process
+        lineage during investigations.
+      tags:
+        - Processes
+      parameters:
+        - name: connectionId
+          in: path
+          required: true
+          description: Unique identifier of the connection
+          schema:
+            type: string
+        - name: processTableId
+          in: path
+          required: true
+          description: Process table identifier
+          schema:
+            type: string
+        - name: context
+          in: query
+          description: Context level for the process tree
+          schema:
+            type: string
+            enum:
+              - parent
+              - node
+              - siblings
+              - children
+      responses:
+        '200':
+          description: Process tree retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProcessInfo'
+        '404':
+          description: Connection or process not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/filedownload:
+    get:
+      operationId: listFileDownloads
+      summary: List file downloads
+      description: >-
+        Retrieves a paginated list of files that have been downloaded from
+        endpoints during investigations.
+      tags:
+        - File Downloads
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of file downloads to return
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of file downloads to skip for pagination
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          description: Sort order for results
+          schema:
+            type: string
+        - name: hostname
+          in: query
+          description: Filter by source endpoint hostname
+          schema:
+            type: string
+        - name: hash
+          in: query
+          description: Filter by file hash
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File downloads retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FileDownload'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/filedownload/{fileId}:
+    get:
+      operationId: getFileDownload
+      summary: Get file download metadata
+      description: >-
+        Retrieves metadata for a specific downloaded file, including hash
+        values, size, and origin information.
+      tags:
+        - File Downloads
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          description: Unique identifier of the downloaded file
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File download metadata retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/FileDownload'
+        '404':
+          description: File download not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteFileDownload
+      summary: Delete a downloaded file
+      description: >-
+        Deletes a previously downloaded file from the Tanium server, freeing
+        storage space.
+      tags:
+        - File Downloads
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          description: Unique identifier of the file to delete
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File download deleted successfully
+        '404':
+          description: File download not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/filedownload/data/{fileId}:
+    get:
+      operationId: downloadFileContent
+      summary: Download file content
+      description: >-
+        Downloads the actual file content of a previously captured file. The
+        file is returned as a binary download, password-protected with the
+        default password "infected".
+      tags:
+        - File Downloads
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          description: Unique identifier of the file to download
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File content downloaded successfully
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: File not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/conns/{connectionId}/file:
+    post:
+      operationId: requestFileFromEndpoint
+      summary: Request a file download from an endpoint
+      description: >-
+        Initiates a file download from a connected endpoint. The file is
+        transferred from the endpoint to the Tanium server for analysis.
+      tags:
+        - File Operations
+      parameters:
+        - name: connectionId
+          in: path
+          required: true
+          description: Unique identifier of the connection
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - path
+              properties:
+                path:
+                  type: string
+                  description: Full file path on the endpoint to download
+      responses:
+        '200':
+          description: File download request initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/FileDownloadTask'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/intels:
+    post:
+      operationId: uploadIntelDocument
+      summary: Upload an intel document
+      description: >-
+        Uploads a new threat intelligence document to Tanium Threat Response.
+        Intel documents define indicators of compromise (IOCs) and threat
+        signatures used for alerting and scanning.
+      tags:
+        - Intel Documents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the intel document
+                description:
+                  type: string
+                  description: Description of the threat intel
+                type:
+                  type: string
+                  description: Intel document type
+                content:
+                  type: string
+                  description: Intel document content (e.g., STIX, YARA, OpenIOC)
+      responses:
+        '200':
+          description: Intel document uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IntelDocument'
+        '400':
+          description: Invalid intel document format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      operationId: listIntelDocuments
+      summary: List intel documents
+      description: >-
+        Retrieves a paginated list of threat intelligence documents configured
+        in Tanium Threat Response.
+      tags:
+        - Intel Documents
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of intel documents to return
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of intel documents to skip for pagination
+          schema:
+            type: integer
+        - name: name
+          in: query
+          description: Filter by intel document name
+          schema:
+            type: string
+        - name: description
+          in: query
+          description: Filter by description text
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: Filter by intel document type
+          schema:
+            type: string
+        - name: label_id
+          in: query
+          description: Filter by associated label identifier
+          schema:
+            type: integer
+        - name: mitre_technique_id
+          in: query
+          description: Filter by MITRE ATT&CK technique ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Intel documents retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IntelDocument'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/intels/{intelDocId}:
+    get:
+      operationId: getIntelDocument
+      summary: Get an intel document by ID
+      description: >-
+        Retrieves the full details of a specific threat intelligence document
+        including alert counts and label associations.
+      tags:
+        - Intel Documents
+      parameters:
+        - name: intelDocId
+          in: path
+          required: true
+          description: Unique identifier of the intel document
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Intel document retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IntelDocument'
+        '404':
+          description: Intel document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/intels/{intelDocId}/labels:
+    get:
+      operationId: listIntelDocumentLabels
+      summary: List labels for an intel document
+      description: >-
+        Retrieves the labels associated with a specific intel document. Labels
+        categorize and organize intel documents for easier management.
+      tags:
+        - Labels
+      parameters:
+        - name: intelDocId
+          in: path
+          required: true
+          description: Unique identifier of the intel document
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Labels retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      intelDocId:
+                        type: integer
+                      labels:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Label'
+        '404':
+          description: Intel document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: addLabelToIntelDocument
+      summary: Add a label to an intel document
+      description: >-
+        Associates a label with an intel document for classification and
+        organization purposes.
+      tags:
+        - Labels
+      parameters:
+        - name: intelDocId
+          in: path
+          required: true
+          description: Unique identifier of the intel document
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - label_id
+              properties:
+                label_id:
+                  type: integer
+                  description: Identifier of the label to associate
+      responses:
+        '200':
+          description: Label added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      intelDocId:
+                        type: integer
+                      labels:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Label'
+        '404':
+          description: Intel document or label not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/labels:
+    get:
+      operationId: listLabels
+      summary: List all labels
+      description: >-
+        Retrieves a paginated list of all labels available in Threat Response
+        for categorizing intel documents and signals.
+      tags:
+        - Labels
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of labels to return
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of labels to skip for pagination
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Labels retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Label'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/labels/{labelId}:
+    get:
+      operationId: getLabel
+      summary: Get a label by ID
+      description: >-
+        Retrieves the details of a specific label including associated
+        indicator and signal counts.
+      tags:
+        - Labels
+      parameters:
+        - name: labelId
+          in: path
+          required: true
+          description: Unique identifier of the label
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Label retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Label'
+        '404':
+          description: Label not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/evidence:
+    get:
+      operationId: listEvidence
+      summary: List investigation evidence
+      description: >-
+        Retrieves a paginated list of evidence collected during investigations.
+        Evidence can be filtered by hostname and type.
+      tags:
+        - Evidence
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of evidence items to return
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of evidence items to skip for pagination
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          description: Sort order for results
+          schema:
+            type: string
+        - name: hostname
+          in: query
+          description: Filter by endpoint hostname
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: Filter by evidence type
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Evidence retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Evidence'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createEvidence
+      summary: Create evidence from a process
+      description: >-
+        Creates an evidence record from a specific process on a connected
+        endpoint, preserving investigation findings.
+      tags:
+        - Evidence
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - connection_id
+                - ptid
+                - hostname
+              properties:
+                connection_id:
+                  type: string
+                  description: Connection identifier for the endpoint
+                ptid:
+                  type: string
+                  description: Process table identifier
+                hostname:
+                  type: string
+                  description: Hostname of the endpoint
+                summary:
+                  type: string
+                  description: Summary description of the evidence
+      responses:
+        '200':
+          description: Evidence created successfully
+        '400':
+          description: Invalid evidence parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/evidence/{evidenceId}:
+    get:
+      operationId: getEvidence
+      summary: Get evidence by ID
+      description: >-
+        Retrieves the full details of a specific evidence item including
+        associated process information and timestamps.
+      tags:
+        - Evidence
+      parameters:
+        - name: evidenceId
+          in: path
+          required: true
+          description: Unique identifier of the evidence
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Evidence retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Evidence'
+        '404':
+          description: Evidence not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteEvidence
+      summary: Delete evidence
+      description: >-
+        Deletes one or more evidence items. Multiple evidence IDs can be
+        provided as a comma-separated list.
+      tags:
+        - Evidence
+      parameters:
+        - name: evidenceId
+          in: path
+          required: true
+          description: Evidence ID or comma-separated list of evidence IDs
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Evidence deleted successfully
+        '404':
+          description: Evidence not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/evidence/properties:
+    get:
+      operationId: getEvidenceProperties
+      summary: Get evidence properties
+      description: >-
+        Retrieves the available property definitions for evidence items,
+        including filterable fields and their value types.
+      tags:
+        - Evidence
+      responses:
+        '200':
+          description: Evidence properties retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        value:
+                          type: string
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: >-
+        API token passed in the session header for authenticating with the
+        Tanium Threat Response API.
+  schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+    Alert:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique alert identifier
+        priority:
+          type: string
+          description: Alert priority level
+        severity:
+          type: string
+          description: Alert severity level
+        type:
+          type: string
+          description: Type of alert
+        state:
+          type: string
+          description: Current state of the alert
+          enum:
+            - unresolved
+            - inprogress
+            - resolved
+            - dismissed
+            - ignored
+        computerName:
+          type: string
+          description: Name of the affected computer
+        computerIpAddress:
+          type: string
+          description: IP address of the affected computer
+        guid:
+          type: string
+          description: Globally unique identifier for the alert
+        intelDocId:
+          type: integer
+          description: Associated intel document identifier
+        alertedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the alert was generated
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the alert record was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the alert was last updated
+    Connection:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique connection identifier
+        hostname:
+          type: string
+          description: Hostname of the connected endpoint
+        ip:
+          type: string
+          description: IP address of the connected endpoint
+        platform:
+          type: string
+          description: Operating system platform
+        status:
+          type: string
+          description: Current connection status
+        initiatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the connection was initiated
+        connectedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the connection was established
+        message:
+          type: string
+          description: Status message for the connection
+        clientId:
+          type: string
+          description: Tanium client identifier
+        userId:
+          type: integer
+          description: User who initiated the connection
+        eid:
+          type: string
+          description: Endpoint identifier
+        personaId:
+          type: integer
+          description: Persona identifier
+        hasTools:
+          type: boolean
+          description: Whether endpoint has investigation tools deployed
+    Snapshot:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Unique snapshot identifier
+        name:
+          type: string
+          description: Snapshot name
+        hostname:
+          type: string
+          description: Source endpoint hostname
+        connectionId:
+          type: string
+          description: Associated connection identifier
+        evidenceType:
+          type: string
+          description: Type of evidence in the snapshot
+        size:
+          type: integer
+          description: Snapshot size in bytes
+        isUpload:
+          type: boolean
+          description: Whether the snapshot was uploaded
+        recorderVersion:
+          type: string
+          description: Recorder version on the endpoint
+        created:
+          type: string
+          format: date-time
+          description: Snapshot creation timestamp
+        completed:
+          type: string
+          format: date-time
+          description: Snapshot completion timestamp
+    SnapshotTask:
+      type: object
+      properties:
+        taskId:
+          type: string
+          description: Task identifier for the snapshot operation
+        status:
+          type: string
+          description: Current task status
+        startTime:
+          type: string
+          format: date-time
+          description: Task start timestamp
+        connection:
+          type: object
+          properties:
+            id:
+              type: string
+          description: Associated connection reference
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Event identifier
+        timestamp:
+          type: string
+          format: date-time
+          description: Event timestamp
+        operation:
+          type: string
+          description: Operation type performed
+        processId:
+          type: integer
+          description: Process identifier
+        pid:
+          type: integer
+          description: Operating system process ID
+        processPath:
+          type: string
+          description: Path to the process executable
+        processTableId:
+          type: integer
+          description: Process table identifier
+        processCommandLine:
+          type: string
+          description: Full command line of the process
+        parentCommandLine:
+          type: string
+          description: Command line of the parent process
+        processHash:
+          type: string
+          description: Hash of the process executable
+        userName:
+          type: string
+          description: User running the process
+        groupName:
+          type: string
+          description: Group of the process owner
+        file:
+          type: string
+          description: File path involved in the event
+        remoteAddress:
+          type: string
+          description: Remote IP address for network events
+        remoteAddressPort:
+          type: integer
+          description: Remote port for network events
+        localAddress:
+          type: string
+          description: Local IP address for network events
+        localAddressPort:
+          type: integer
+          description: Local port for network events
+        keyPath:
+          type: string
+          description: Registry key path for registry events
+        valueName:
+          type: string
+          description: Registry value name for registry events
+        exitCode:
+          type: integer
+          description: Process exit code
+        imageLoaded:
+          type: string
+          description: Path to loaded image for image events
+        signature:
+          type: string
+          description: Digital signature information
+        signed:
+          type: boolean
+          description: Whether the file is digitally signed
+    ProcessEvent:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Event identifier
+        type:
+          type: string
+          description: Event type
+        operation:
+          type: string
+          description: Operation performed
+        detail:
+          type: string
+          description: Event detail information
+        timestamp:
+          type: string
+          format: date-time
+          description: Event timestamp
+    ProcessInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Process identifier
+        processTableId:
+          type: integer
+          description: Process table identifier
+        uniqueProcessId:
+          type: string
+          description: Globally unique process identifier
+        pid:
+          type: integer
+          description: Operating system process ID
+        processPath:
+          type: string
+          description: Path to the process executable
+        processHash:
+          type: string
+          description: Hash of the process executable
+        hashTypeName:
+          type: string
+          description: Hash algorithm used
+        userName:
+          type: string
+          description: User running the process
+        groupName:
+          type: string
+          description: Group of the process owner
+        createTime:
+          type: string
+          format: date-time
+          description: Process creation time
+        createTimeRaw:
+          type: string
+          description: Raw process creation timestamp
+        endTime:
+          type: string
+          format: date-time
+          description: Process termination time
+        endTimeRaw:
+          type: string
+          description: Raw process termination timestamp
+        exitCode:
+          type: integer
+          description: Process exit code
+        parentProcessTableId:
+          type: integer
+          description: Parent process table identifier
+        childrenCount:
+          type: integer
+          description: Number of child processes
+        fileEventsCount:
+          type: integer
+          description: Number of file events
+        networkEventsCount:
+          type: integer
+          description: Number of network events
+        registryEventsCount:
+          type: integer
+          description: Number of registry events
+        processEventsCount:
+          type: integer
+          description: Number of process events
+        dnsEventsCount:
+          type: integer
+          description: Number of DNS events
+        driverEventsCount:
+          type: integer
+          description: Number of driver events
+        imageEventsCount:
+          type: integer
+          description: Number of image load events
+        securityEventsCount:
+          type: integer
+          description: Number of security events
+        context:
+          type: string
+          description: Process context information
+    FileDownload:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Unique file download identifier
+        path:
+          type: string
+          description: Original file path on the endpoint
+        hostname:
+          type: string
+          description: Source endpoint hostname
+        hash:
+          type: string
+          description: File hash value
+        size:
+          type: integer
+          description: File size in bytes
+        evidenceType:
+          type: string
+          description: Type of evidence
+        downloaded:
+          type: string
+          format: date-time
+          description: Download completion timestamp
+        processCreationTime:
+          type: string
+          format: date-time
+          description: Associated process creation time
+        createdBy:
+          type: string
+          description: File creator user name
+        createdByProc:
+          type: string
+          description: Process that created the file
+        lastModified:
+          type: string
+          format: date-time
+          description: File last modification time
+        lastModifiedBy:
+          type: string
+          description: User who last modified the file
+        lastModifiedByProc:
+          type: string
+          description: Process that last modified the file
+    FileDownloadTask:
+      type: object
+      properties:
+        taskId:
+          type: string
+          description: Task identifier for the download operation
+        status:
+          type: string
+          description: Current task status
+        startTime:
+          type: string
+          format: date-time
+          description: Task start timestamp
+        compress:
+          type: boolean
+          description: Whether the file is compressed during transfer
+        paths:
+          type: array
+          items:
+            type: string
+          description: File paths being downloaded
+        connection:
+          type: object
+          properties:
+            id:
+              type: string
+          description: Associated connection reference
+    Evidence:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Unique evidence identifier
+        name:
+          type: string
+          description: Evidence item name
+        hostname:
+          type: string
+          description: Source endpoint hostname
+        evidenceType:
+          type: string
+          description: Type of evidence
+        type:
+          type: string
+          description: Evidence classification type
+        summary:
+          type: string
+          description: Summary description
+        size:
+          type: integer
+          description: Evidence size in bytes
+        username:
+          type: string
+          description: Associated user name
+        domain:
+          type: string
+          description: Domain of the associated user
+        commandline:
+          type: string
+          description: Associated command line
+        eventtype:
+          type: string
+          description: Type of event that generated the evidence
+        timestamp:
+          type: string
+          format: date-time
+          description: Evidence timestamp
+        createTime:
+          type: string
+          format: date-time
+          description: Process creation time
+        createTimeRaw:
+          type: string
+          description: Raw process creation timestamp
+        exitCode:
+          type: integer
+          description: Associated process exit code
+        createdAt:
+          type: string
+          format: date-time
+          description: Evidence record creation time
+    IntelDocument:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique intel document identifier
+        name:
+          type: string
+          description: Intel document name
+        description:
+          type: string
+          description: Intel document description
+        type:
+          type: string
+          description: Intel document type (STIX, YARA, OpenIOC, etc.)
+        alertCount:
+          type: integer
+          description: Total number of alerts generated
+        unresolvedAlertCount:
+          type: integer
+          description: Number of unresolved alerts
+        labelIds:
+          type: array
+          items:
+            type: integer
+          description: Associated label identifiers
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    Label:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique label identifier
+        name:
+          type: string
+          description: Label name
+        description:
+          type: string
+          description: Label description
+        indicatorCount:
+          type: integer
+          description: Number of associated indicators
+        signalCount:
+          type: integer
+          description: Number of associated signals
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp

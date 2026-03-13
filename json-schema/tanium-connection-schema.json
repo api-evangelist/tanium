@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/tanium/blob/main/json-schema/tanium-connection-schema.json",
+  "title": "Tanium Connect Connection",
+  "description": "Represents a data delivery connection in Tanium Connect. A connection links a data source (such as a saved question or event stream) to an external destination (such as a SIEM, file, or webhook) with configurable formatting, filtering, and scheduling.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique numeric identifier for the connection"
+    },
+    "name": {
+      "type": "string",
+      "description": "Connection name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Connection description"
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether the connection is enabled and will run on schedule"
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Data source identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Data source name"
+        },
+        "type": {
+          "type": "string",
+          "description": "Source type",
+          "enum": ["saved_question", "question_log", "system_status", "event", "discover", "integrity_monitor", "threat_response"]
+        }
+      },
+      "description": "Data source configuration"
+    },
+    "destination": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Destination identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Destination name"
+        },
+        "type": {
+          "type": "string",
+          "description": "Destination type",
+          "enum": ["file", "syslog", "http", "email", "s3", "sql"]
+        }
+      },
+      "description": "Destination configuration"
+    },
+    "format": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Output format type",
+          "enum": ["csv", "json", "cef", "leef", "keyvalue"]
+        },
+        "options": {
+          "type": "object",
+          "properties": {
+            "delimiter": {
+              "type": "string",
+              "description": "Field delimiter for CSV format"
+            },
+            "headerRow": {
+              "type": "boolean",
+              "description": "Whether to include a header row"
+            },
+            "timestampFormat": {
+              "type": "string",
+              "description": "Timestamp format string"
+            }
+          }
+        }
+      },
+      "description": "Output format configuration"
+    },
+    "schedule": {
+      "type": "object",
+      "properties": {
+        "intervalSeconds": {
+          "type": "integer",
+          "description": "Interval between runs in seconds"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Schedule start time"
+        },
+        "nextRunTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Next scheduled run time"
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the schedule is active"
+        }
+      },
+      "description": "Schedule configuration"
+    },
+    "lastRunStatus": {
+      "type": "string",
+      "description": "Status of the most recent execution"
+    },
+    "lastRunTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the most recent execution"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Connection creation timestamp"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Connection last update timestamp"
+    }
+  },
+  "required": ["id", "name"]
+}

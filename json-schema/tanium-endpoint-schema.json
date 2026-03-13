@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/tanium/blob/main/json-schema/tanium-endpoint-schema.json",
+  "title": "Tanium Endpoint",
+  "description": "Represents a managed endpoint (computer, server, or device) in the Tanium platform. Endpoints are the primary entities that Tanium discovers, monitors, and manages across the enterprise.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique numeric identifier for the endpoint in Tanium"
+    },
+    "computerName": {
+      "type": "string",
+      "description": "Hostname of the endpoint"
+    },
+    "computerID": {
+      "type": "string",
+      "description": "Tanium client identifier assigned to the endpoint"
+    },
+    "ipAddress": {
+      "type": "string",
+      "description": "Primary IP address of the endpoint"
+    },
+    "ipAddresses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "All IP addresses associated with the endpoint"
+    },
+    "macAddress": {
+      "type": "string",
+      "description": "Primary MAC address of the endpoint"
+    },
+    "operatingSystem": {
+      "type": "string",
+      "description": "Full operating system name and version"
+    },
+    "osPlatform": {
+      "type": "string",
+      "description": "Operating system platform category",
+      "enum": ["Windows", "Linux", "Mac", "Solaris", "AIX"]
+    },
+    "manufacturer": {
+      "type": "string",
+      "description": "Hardware manufacturer"
+    },
+    "model": {
+      "type": "string",
+      "description": "Hardware model"
+    },
+    "serialNumber": {
+      "type": "string",
+      "description": "Hardware serial number"
+    },
+    "domainName": {
+      "type": "string",
+      "description": "Active Directory or DNS domain name"
+    },
+    "lastRegistration": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the last client registration with the Tanium server"
+    },
+    "taniumClientVersion": {
+      "type": "string",
+      "description": "Version of the Tanium client installed on the endpoint"
+    },
+    "isVirtual": {
+      "type": "boolean",
+      "description": "Whether the endpoint is a virtual machine"
+    },
+    "chassisType": {
+      "type": "string",
+      "description": "Physical chassis type (Desktop, Laptop, Server, Virtual)"
+    },
+    "totalMemory": {
+      "type": "string",
+      "description": "Total physical memory"
+    },
+    "diskSpace": {
+      "type": "string",
+      "description": "Total disk space"
+    },
+    "freeDiskSpace": {
+      "type": "string",
+      "description": "Available free disk space"
+    },
+    "installedApplications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Application name"
+          },
+          "version": {
+            "type": "string",
+            "description": "Application version"
+          },
+          "vendor": {
+            "type": "string",
+            "description": "Application vendor"
+          }
+        }
+      },
+      "description": "List of installed software applications"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags assigned to the endpoint for organization"
+    }
+  },
+  "required": ["computerName"]
+}

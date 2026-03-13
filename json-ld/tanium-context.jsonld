@@ -1,0 +1,267 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "tanium": "https://developer.tanium.com/schema/",
+    "sec": "https://w3id.org/security#",
+    "stix": "https://docs.oasis-open.org/cti/stix/v2.1/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Endpoint": {
+      "@id": "tanium:Endpoint",
+      "@context": {
+        "computerName": "schema:name",
+        "computerID": "schema:identifier",
+        "ipAddress": "schema:url",
+        "ipAddresses": {
+          "@id": "tanium:ipAddresses",
+          "@container": "@set"
+        },
+        "macAddress": "tanium:macAddress",
+        "operatingSystem": "schema:operatingSystem",
+        "osPlatform": "tanium:osPlatform",
+        "manufacturer": "schema:manufacturer",
+        "model": "schema:model",
+        "serialNumber": "schema:serialNumber",
+        "domainName": "tanium:domainName",
+        "lastRegistration": {
+          "@id": "tanium:lastRegistration",
+          "@type": "xsd:dateTime"
+        },
+        "taniumClientVersion": "schema:softwareVersion",
+        "isVirtual": "tanium:isVirtual",
+        "chassisType": "tanium:chassisType",
+        "totalMemory": "tanium:totalMemory",
+        "diskSpace": "tanium:diskSpace",
+        "freeDiskSpace": "tanium:freeDiskSpace",
+        "installedApplications": {
+          "@id": "schema:softwareRequirements",
+          "@container": "@set"
+        },
+        "tags": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Question": {
+      "@id": "tanium:Question",
+      "@context": {
+        "queryText": "schema:query",
+        "expiration": {
+          "@id": "schema:expires",
+          "@type": "xsd:dateTime"
+        },
+        "selects": {
+          "@id": "tanium:selects",
+          "@container": "@list"
+        },
+        "group": "tanium:targetGroup",
+        "savedQuestion": "tanium:savedQuestion"
+      }
+    },
+
+    "SavedQuestion": {
+      "@id": "tanium:SavedQuestion",
+      "@context": {
+        "name": "schema:name",
+        "queryText": "schema:query",
+        "issueSeconds": "tanium:issueSeconds",
+        "expireSeconds": "tanium:expireSeconds",
+        "modTime": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Sensor": {
+      "@id": "tanium:Sensor",
+      "@context": {
+        "name": "schema:name",
+        "description": "schema:description",
+        "category": "schema:category",
+        "hash": "tanium:sensorHash",
+        "maxAgeSeconds": "tanium:maxAgeSeconds",
+        "contentSet": "tanium:contentSet",
+        "queries": {
+          "@id": "tanium:queries",
+          "@container": "@set"
+        },
+        "parameters": {
+          "@id": "tanium:parameters",
+          "@container": "@set"
+        },
+        "modTime": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        },
+        "creationTime": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Package": {
+      "@id": "tanium:Package",
+      "@context": {
+        "name": "schema:name",
+        "displayName": "schema:alternateName",
+        "command": "tanium:command",
+        "commandTimeout": "tanium:commandTimeout",
+        "expireSeconds": "tanium:expireSeconds",
+        "contentSet": "tanium:contentSet",
+        "files": {
+          "@id": "schema:hasPart",
+          "@container": "@set"
+        },
+        "parameters": {
+          "@id": "tanium:parameters",
+          "@container": "@set"
+        },
+        "modTime": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        },
+        "creationTime": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Action": {
+      "@id": "tanium:Action",
+      "@context": {
+        "name": "schema:name",
+        "status": "tanium:actionStatus",
+        "packageSpec": "tanium:packageSpec",
+        "actionGroup": "tanium:actionGroup",
+        "targetGroup": "tanium:targetGroup",
+        "startTime": {
+          "@id": "schema:startDate",
+          "@type": "xsd:dateTime"
+        },
+        "expirationTime": {
+          "@id": "schema:expires",
+          "@type": "xsd:dateTime"
+        },
+        "approvedFlag": "tanium:approvedFlag"
+      }
+    },
+
+    "Alert": {
+      "@id": "tanium:ThreatAlert",
+      "@context": {
+        "priority": "tanium:alertPriority",
+        "severity": "tanium:alertSeverity",
+        "type": "dcterms:type",
+        "state": "tanium:alertState",
+        "computerName": "schema:name",
+        "computerIpAddress": "tanium:ipAddress",
+        "guid": "schema:identifier",
+        "intelDocId": "tanium:intelDocId",
+        "alertedAt": {
+          "@id": "tanium:alertedAt",
+          "@type": "xsd:dateTime"
+        },
+        "createdAt": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "IntelDocument": {
+      "@id": "tanium:IntelDocument",
+      "@context": {
+        "name": "schema:name",
+        "description": "schema:description",
+        "type": "dcterms:type",
+        "alertCount": "tanium:alertCount",
+        "unresolvedAlertCount": "tanium:unresolvedAlertCount",
+        "labelIds": {
+          "@id": "tanium:labelIds",
+          "@container": "@set"
+        },
+        "createdAt": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Connection": {
+      "@id": "tanium:ConnectConnection",
+      "@context": {
+        "name": "schema:name",
+        "description": "schema:description",
+        "enabled": "tanium:enabled",
+        "source": "tanium:dataSource",
+        "destination": "tanium:dataDestination",
+        "format": "tanium:outputFormat",
+        "schedule": "tanium:schedule",
+        "lastRunStatus": "tanium:lastRunStatus",
+        "lastRunTime": {
+          "@id": "tanium:lastRunTime",
+          "@type": "xsd:dateTime"
+        },
+        "createdAt": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Evidence": {
+      "@id": "tanium:Evidence",
+      "@context": {
+        "name": "schema:name",
+        "hostname": "tanium:hostname",
+        "evidenceType": "dcterms:type",
+        "summary": "schema:description",
+        "size": "schema:contentSize",
+        "username": "tanium:username",
+        "commandline": "tanium:commandline",
+        "timestamp": {
+          "@id": "tanium:eventTimestamp",
+          "@type": "xsd:dateTime"
+        },
+        "createdAt": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "id": "schema:identifier",
+    "name": "schema:name",
+    "description": "schema:description",
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updatedAt": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "modTime": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    }
+  }
+}

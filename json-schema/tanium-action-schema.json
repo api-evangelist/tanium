@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/tanium/blob/main/json-schema/tanium-action-schema.json",
+  "title": "Tanium Action",
+  "description": "Represents an action deployed to endpoints through the Tanium platform. Actions execute packages on targeted endpoint groups for remediation, software deployment, configuration changes, or compliance enforcement.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique numeric identifier for the action"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the action"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current execution status of the action"
+    },
+    "packageSpec": {
+      "type": "object",
+      "properties": {
+        "sourceId": {
+          "type": "integer",
+          "description": "Package identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Package name"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "description": "Parameter key"
+              },
+              "value": {
+                "type": "string",
+                "description": "Parameter value"
+              }
+            }
+          },
+          "description": "Package parameters for this action"
+        }
+      },
+      "description": "Package specification deployed by this action"
+    },
+    "actionGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Action group identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Action group name"
+        }
+      },
+      "description": "Action group governing approval and targeting"
+    },
+    "targetGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Target group identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Target group name"
+        }
+      },
+      "description": "Computer group targeted by this action"
+    },
+    "startTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Scheduled or actual start time of the action"
+    },
+    "expirationTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Expiration time after which the action stops deploying"
+    },
+    "approvedFlag": {
+      "type": "integer",
+      "description": "Whether the action has been approved (1 for approved)"
+    },
+    "expireSeconds": {
+      "type": "integer",
+      "description": "Seconds until the action expires"
+    }
+  },
+  "required": ["id", "name"]
+}

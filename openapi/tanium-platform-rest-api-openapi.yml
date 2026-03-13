@@ -1,0 +1,1135 @@
+openapi: 3.1.0
+info:
+  title: Tanium Platform REST API
+  description: >-
+    The Tanium Platform REST API provides access to core platform functionality
+    including gathering endpoint information, deploying actions, evaluating
+    deployment health, managing packages, sensors, saved questions, and
+    downloading audit logs. Authentication is performed via API tokens passed in
+    the session header.
+  version: 2.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+  - url: https://{tanium_server}
+    description: Tanium Server
+    variables:
+      tanium_server:
+        default: tanium.example.com
+        description: Hostname or IP address of the Tanium server
+security:
+  - apiToken: []
+  - sessionToken: []
+tags:
+  - name: Authentication
+    description: Session and token management
+  - name: Questions
+    description: Ask and retrieve questions from endpoints
+  - name: Saved Questions
+    description: Manage saved questions
+  - name: Actions
+    description: Deploy and manage actions on endpoints
+  - name: Packages
+    description: Manage deployment packages
+  - name: Sensors
+    description: Manage endpoint sensors
+  - name: Groups
+    description: Manage computer and action groups
+paths:
+  /api/v2/session/login:
+    post:
+      operationId: createSession
+      summary: Create a new session
+      description: >-
+        Authenticates with the Tanium server using username and password
+        credentials and returns a session token for subsequent API calls. This
+        is the legacy authentication method; API tokens are preferred.
+      tags:
+        - Authentication
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  description: Tanium console username
+                password:
+                  type: string
+                  format: password
+                  description: Tanium console password
+                domain:
+                  type: string
+                  description: Authentication domain (if applicable)
+      responses:
+        '200':
+          description: Session created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      session:
+                        type: string
+                        description: Session token for subsequent requests
+        '401':
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Access denied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/api_tokens:
+    post:
+      operationId: createApiToken
+      summary: Create an API token
+      description: >-
+        Creates a new API token with optional expiration and trusted IP
+        configuration. API tokens are the preferred authentication method for
+        integrations and automated scripts.
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expire_in_days:
+                  type: integer
+                  description: Number of days until the token expires
+                trusted_ip_addresses:
+                  type: array
+                  items:
+                    type: string
+                  description: List of trusted IP addresses allowed to use this token
+                notes:
+                  type: string
+                  description: Notes about the token purpose
+      responses:
+        '200':
+          description: API token created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ApiToken'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/questions:
+    post:
+      operationId: createQuestion
+      summary: Create and ask a question
+      description: >-
+        Creates a new question and asks it across managed endpoints. The
+        question can be specified as parsed question text or as a structured
+        question object with specific sensors and selectors.
+      tags:
+        - Questions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query_text:
+                  type: string
+                  description: Natural language question text to parse and ask
+                selects:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      sensor:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            description: Sensor name
+                          hash:
+                            type: integer
+                            description: Sensor hash identifier
+                  description: List of sensor selections for the question
+                group:
+                  $ref: '#/components/schemas/GroupFilter'
+                expiration:
+                  type: string
+                  format: date-time
+                  description: Question expiration time
+      responses:
+        '200':
+          description: Question created and asked successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Question'
+        '400':
+          description: Invalid question format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/questions/{id}:
+    get:
+      operationId: getQuestion
+      summary: Get a question by ID
+      description: >-
+        Retrieves the details of a specific question by its numeric identifier,
+        including its status, expiration, and associated sensors.
+      tags:
+        - Questions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Numeric identifier of the question
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Question retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Question'
+        '404':
+          description: Question not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/result_data/question/{id}:
+    get:
+      operationId: getQuestionResults
+      summary: Get question results
+      description: >-
+        Returns the result data for a specific question identified by its ID.
+        Results include rows of data collected from responding endpoints.
+      tags:
+        - Questions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Numeric identifier of the question
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Question results retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ResultSet'
+        '404':
+          description: Question not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/parse_question:
+    post:
+      operationId: parseQuestion
+      summary: Parse question text
+      description: >-
+        Parses natural language question text into a structured question object
+        that can be used to create a question. Returns one or more possible
+        interpretations of the question text.
+      tags:
+        - Questions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - query_text
+              properties:
+                query_text:
+                  type: string
+                  description: Natural language question text to parse
+      responses:
+        '200':
+          description: Question parsed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ParsedQuestion'
+        '400':
+          description: Unable to parse question text
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/saved_questions:
+    get:
+      operationId: listSavedQuestions
+      summary: List saved questions
+      description: >-
+        Retrieves a list of all saved questions configured on the Tanium server.
+        Saved questions can be run on a schedule to continuously collect data
+        from endpoints.
+      tags:
+        - Saved Questions
+      responses:
+        '200':
+          description: Saved questions retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SavedQuestion'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/saved_questions/by-name/{name}:
+    get:
+      operationId: getSavedQuestionByName
+      summary: Get a saved question by name
+      description: >-
+        Retrieves the details of a saved question identified by its name. The
+        name must be URL-encoded if it contains special characters.
+      tags:
+        - Saved Questions
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the saved question
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Saved question retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SavedQuestion'
+        '404':
+          description: Saved question not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/result_data/saved_question/{id}:
+    get:
+      operationId: getSavedQuestionResults
+      summary: Get saved question results
+      description: >-
+        Returns the latest result data for a saved question identified by its
+        numeric ID. Results include rows of data collected from responding
+        endpoints.
+      tags:
+        - Saved Questions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Numeric identifier of the saved question
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Saved question results retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ResultSet'
+        '404':
+          description: Saved question not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/saved_actions:
+    post:
+      operationId: createSavedAction
+      summary: Create and execute an action
+      description: >-
+        Creates a saved action that deploys a package to targeted endpoints.
+        Actions can target specific computer groups and use action groups for
+        approval workflows.
+      tags:
+        - Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - package_spec
+                - action_group
+              properties:
+                name:
+                  type: string
+                  description: Name of the action
+                package_spec:
+                  type: object
+                  properties:
+                    source_id:
+                      type: integer
+                      description: Package ID to deploy
+                    name:
+                      type: string
+                      description: Package name to deploy
+                    parameters:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          key:
+                            type: string
+                          value:
+                            type: string
+                      description: Package parameters
+                  description: Package specification for the action
+                action_group:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Action group ID
+                    name:
+                      type: string
+                      description: Action group name
+                  description: Action group for approval and targeting
+                target_group:
+                  $ref: '#/components/schemas/GroupFilter'
+                expire_seconds:
+                  type: integer
+                  description: Seconds until the action expires
+                start_time:
+                  type: string
+                  format: date-time
+                  description: Scheduled start time
+      responses:
+        '200':
+          description: Action created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SavedAction'
+        '400':
+          description: Invalid action specification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/action_groups/by-name/{name}:
+    get:
+      operationId: getActionGroupByName
+      summary: Get an action group by name
+      description: >-
+        Retrieves the details of an action group identified by its name. Action
+        groups define approval policies and target restrictions for deploying
+        actions.
+      tags:
+        - Actions
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the action group
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Action group retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ActionGroup'
+        '404':
+          description: Action group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/packages/by-name/{name}:
+    get:
+      operationId: getPackageByName
+      summary: Get a package by name
+      description: >-
+        Retrieves the details of a deployment package identified by its name.
+        Packages contain scripts and files that are deployed to endpoints via
+        actions.
+      tags:
+        - Packages
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the package
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Package retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Package'
+        '404':
+          description: Package not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/packages:
+    get:
+      operationId: listPackages
+      summary: List all packages
+      description: >-
+        Retrieves a list of all deployment packages configured on the Tanium
+        server. Packages contain scripts and files that can be deployed to
+        endpoints through actions.
+      tags:
+        - Packages
+      responses:
+        '200':
+          description: Packages retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Package'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/sensors/by-name/{name}:
+    get:
+      operationId: getSensorByName
+      summary: Get a sensor by name
+      description: >-
+        Retrieves the details of a sensor identified by its name. Sensors
+        collect data from endpoints and are used in questions to query endpoint
+        state.
+      tags:
+        - Sensors
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the sensor
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Sensor retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Sensor'
+        '404':
+          description: Sensor not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/sensors:
+    get:
+      operationId: listSensors
+      summary: List all sensors
+      description: >-
+        Retrieves a list of all sensors configured on the Tanium server.
+        Sensors are scripts that collect specific data from endpoints.
+      tags:
+        - Sensors
+      responses:
+        '200':
+          description: Sensors retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Sensor'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/groups/by-name/{name}:
+    get:
+      operationId: getGroupByName
+      summary: Get a computer group by name
+      description: >-
+        Retrieves the details of a computer group identified by its name.
+        Computer groups define sets of endpoints based on filter criteria and
+        are used to target questions and actions.
+      tags:
+        - Groups
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the computer group
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Group retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Group'
+        '404':
+          description: Group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/groups:
+    get:
+      operationId: listGroups
+      summary: List all computer groups
+      description: >-
+        Retrieves a list of all computer groups configured on the Tanium
+        server. Groups organize endpoints for targeted questioning and action
+        deployment.
+      tags:
+        - Groups
+      responses:
+        '200':
+          description: Groups retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Group'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: >-
+        API token passed in the session header. Tokens are created via the
+        Tanium console under Administration > Permissions > API Tokens, or
+        via the /api/v2/api_tokens endpoint.
+    sessionToken:
+      type: apiKey
+      name: session
+      in: header
+      description: >-
+        Session token obtained by authenticating with the /api/v2/session/login
+        endpoint using username and password credentials.
+  schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+    Question:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the question
+        query_text:
+          type: string
+          description: Human-readable question text
+        expiration:
+          type: string
+          format: date-time
+          description: Question expiration timestamp
+        selects:
+          type: array
+          items:
+            type: object
+            properties:
+              sensor:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  hash:
+                    type: integer
+                  id:
+                    type: integer
+          description: Sensors selected for the question
+        group:
+          $ref: '#/components/schemas/GroupFilter'
+        management_rights_group:
+          $ref: '#/components/schemas/GroupFilter'
+        saved_question:
+          type: object
+          properties:
+            id:
+              type: integer
+          description: Associated saved question reference
+    ParsedQuestion:
+      type: object
+      properties:
+        question:
+          $ref: '#/components/schemas/Question'
+        question_text:
+          type: string
+          description: Original question text that was parsed
+    SavedQuestion:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the saved question
+        name:
+          type: string
+          description: Name of the saved question
+        query_text:
+          type: string
+          description: The question text
+        question:
+          $ref: '#/components/schemas/Question'
+        issue_seconds:
+          type: integer
+          description: Interval in seconds between question reissues
+        expire_seconds:
+          type: integer
+          description: Seconds until the question expires
+        mod_time:
+          type: string
+          format: date-time
+          description: Last modification timestamp
+    ResultSet:
+      type: object
+      properties:
+        max_available_age:
+          type: string
+          description: Maximum age of available results
+        now:
+          type: string
+          format: date-time
+          description: Current server timestamp
+        result_sets:
+          type: array
+          items:
+            type: object
+            properties:
+              age:
+                type: integer
+                description: Age of the result in seconds
+              archived_question_id:
+                type: integer
+              columns:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    hash:
+                      type: integer
+                    name:
+                      type: string
+                    type:
+                      type: integer
+              estimated_total:
+                type: integer
+                description: Estimated total rows
+              id:
+                type: integer
+              mr_tested:
+                type: integer
+              no_results_count:
+                type: integer
+              passed:
+                type: integer
+              row_count:
+                type: integer
+              rows:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    cid:
+                      type: integer
+                    data:
+                      type: array
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            text:
+                              type: string
+                    id:
+                      type: integer
+              tested:
+                type: integer
+    SavedAction:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the saved action
+        name:
+          type: string
+          description: Name of the action
+        status:
+          type: string
+          description: Current status of the action
+        package_spec:
+          type: object
+          properties:
+            source_id:
+              type: integer
+            name:
+              type: string
+          description: Package deployed by the action
+        action_group:
+          $ref: '#/components/schemas/ActionGroup'
+        target_group:
+          $ref: '#/components/schemas/GroupFilter'
+        start_time:
+          type: string
+          format: date-time
+          description: Start time of the action
+        expiration_time:
+          type: string
+          format: date-time
+          description: Expiration time of the action
+        approved_flag:
+          type: integer
+          description: Whether the action has been approved
+    ActionGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the action group
+        name:
+          type: string
+          description: Name of the action group
+        and_flag:
+          type: boolean
+          description: Whether filters are combined with AND logic
+    Package:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the package
+        name:
+          type: string
+          description: Name of the package
+        display_name:
+          type: string
+          description: Display name of the package
+        command:
+          type: string
+          description: Command line to execute
+        command_timeout:
+          type: integer
+          description: Timeout in seconds for the command
+        expire_seconds:
+          type: integer
+          description: Seconds until the package expires
+        content_set:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+          description: Content set the package belongs to
+        files:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              hash:
+                type: string
+              size:
+                type: integer
+          description: Files included in the package
+        parameters:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              default_value:
+                type: string
+              label:
+                type: string
+          description: Configurable parameters for the package
+        mod_time:
+          type: string
+          format: date-time
+          description: Last modification timestamp
+        creation_time:
+          type: string
+          format: date-time
+          description: Creation timestamp
+    Sensor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the sensor
+        name:
+          type: string
+          description: Name of the sensor
+        hash:
+          type: integer
+          description: Hash identifier for the sensor
+        description:
+          type: string
+          description: Description of what the sensor collects
+        category:
+          type: string
+          description: Category of the sensor
+        max_age_seconds:
+          type: integer
+          description: Maximum age of cached sensor results in seconds
+        content_set:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+          description: Content set the sensor belongs to
+        queries:
+          type: array
+          items:
+            type: object
+            properties:
+              platform:
+                type: string
+                description: Target platform (Windows, Linux, Mac, etc.)
+              script:
+                type: string
+                description: Script content for the sensor
+              script_type:
+                type: string
+                description: Script language type
+          description: Platform-specific query scripts
+        parameters:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              default_value:
+                type: string
+          description: Sensor parameters
+        mod_time:
+          type: string
+          format: date-time
+          description: Last modification timestamp
+        creation_time:
+          type: string
+          format: date-time
+          description: Creation timestamp
+    Group:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the group
+        name:
+          type: string
+          description: Name of the computer group
+        type:
+          type: integer
+          description: Group type identifier
+        and_flag:
+          type: boolean
+          description: Whether filters are combined with AND logic
+        sub_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupFilter'
+          description: Sub-group filter definitions
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              sensor:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  hash:
+                    type: integer
+              operator:
+                type: string
+                description: Filter operator (e.g., RegexMatch, Contains)
+              value:
+                type: string
+                description: Filter value
+          description: Membership filter criteria
+    GroupFilter:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Group identifier
+        name:
+          type: string
+          description: Group name
+        and_flag:
+          type: boolean
+          description: Whether filters are combined with AND logic
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              sensor:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  hash:
+                    type: integer
+              operator:
+                type: string
+              value:
+                type: string
+          description: Filter criteria
+    ApiToken:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the API token
+        token_string:
+          type: string
+          description: >-
+            The API token string to use in the session header. Only returned
+            on creation.
+        expire_time:
+          type: string
+          format: date-time
+          description: Token expiration timestamp
+        trusted_ip_addresses:
+          type: array
+          items:
+            type: string
+          description: List of trusted IP addresses
+        notes:
+          type: string
+          description: Notes about the token
+        creation_time:
+          type: string
+          format: date-time
+          description: Token creation timestamp

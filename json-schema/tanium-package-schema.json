@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/tanium/blob/main/json-schema/tanium-package-schema.json",
+  "title": "Tanium Package",
+  "description": "Represents a deployment package in the Tanium platform. Packages contain scripts and files that are deployed to endpoints through actions to perform remediation, configuration changes, or software installation.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique numeric identifier for the package"
+    },
+    "name": {
+      "type": "string",
+      "description": "Package name"
+    },
+    "displayName": {
+      "type": "string",
+      "description": "Human-friendly display name"
+    },
+    "command": {
+      "type": "string",
+      "description": "Command line to execute on the endpoint"
+    },
+    "commandTimeout": {
+      "type": "integer",
+      "description": "Timeout in seconds for command execution"
+    },
+    "expireSeconds": {
+      "type": "integer",
+      "description": "Seconds until the package action expires"
+    },
+    "contentSet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Content set identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Content set name"
+        }
+      },
+      "description": "Content set the package belongs to"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "File identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "File name"
+          },
+          "hash": {
+            "type": "string",
+            "description": "File hash for integrity verification"
+          },
+          "size": {
+            "type": "integer",
+            "description": "File size in bytes"
+          }
+        }
+      },
+      "description": "Files included in the package for deployment"
+    },
+    "parameters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Parameter key name"
+          },
+          "defaultValue": {
+            "type": "string",
+            "description": "Default parameter value"
+          },
+          "label": {
+            "type": "string",
+            "description": "Human-readable parameter label"
+          }
+        }
+      },
+      "description": "Configurable parameters for the package"
+    },
+    "modTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last modification timestamp"
+    },
+    "creationTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    }
+  },
+  "required": ["id", "name"]
+}

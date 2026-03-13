@@ -1,0 +1,1169 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect API
+  description: >-
+    The Tanium Connect REST API allows creating, editing, and managing
+    connections for delivering endpoint data to downstream systems. Connections
+    link data sources (saved questions, event data, system status) to
+    destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can
+    run on a schedule or be triggered by events. All endpoints are under the
+    /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+  - url: https://{tanium_server}
+    description: Tanium Server
+    variables:
+      tanium_server:
+        default: tanium.example.com
+        description: Hostname or IP address of the Tanium server
+security:
+  - apiToken: []
+tags:
+  - name: Connections
+    description: Manage data delivery connections
+  - name: Sources
+    description: Manage connection data sources
+  - name: Destinations
+    description: Manage connection destinations
+  - name: Schedules
+    description: Manage connection schedules
+  - name: Status
+    description: Connect service status and logs
+paths:
+  /plugin/products/connect/v1/connections:
+    get:
+      operationId: listConnections
+      summary: List all connections
+      description: >-
+        Retrieves a list of all configured connections. Each connection defines
+        the link between a data source in Tanium and an external destination,
+        along with formatting, filtering, and scheduling options.
+      tags:
+        - Connections
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of connections to return
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of connections to skip for pagination
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Connections retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Connection'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createConnection
+      summary: Create a new connection
+      description: >-
+        Creates a new connection linking a data source to a destination with
+        the specified format, filter, and schedule settings. The connection
+        can be configured to deliver data as CSV, JSON, or CEF formats.
+      tags:
+        - Connections
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConnectionCreate'
+      responses:
+        '200':
+          description: Connection created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Connection'
+        '400':
+          description: Invalid connection configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/connections/{connectionId}:
+    get:
+      operationId: getConnection
+      summary: Get a connection by ID
+      description: >-
+        Retrieves the full configuration and current status of a specific
+        connection, including its source, destination, format, filter, and
+        schedule settings.
+      tags:
+        - Connections
+      parameters:
+        - name: connectionId
+          in: path
+          required: true
+          description: Unique identifier of the connection
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Connection retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Connection'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      operationId: updateConnection
+      summary: Update a connection
+      description: >-
+        Updates the configuration of an existing connection. All connections
+        that share a destination are affected when the destination settings are
+        changed.
+      tags:
+        - Connections
+      parameters:
+        - name: connectionId
+          in: path
+          required: true
+          description: Unique identifier of the connection
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConnectionUpdate'
+      responses:
+        '200':
+          description: Connection updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Connection'
+        '400':
+          description: Invalid connection configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteConnection
+      summary: Delete a connection
+      description: >-
+        Permanently deletes a connection and its associated schedule. The
+        underlying source and destination configurations are not affected.
+      tags:
+        - Connections
+      parameters:
+        - name: connectionId
+          in: path
+          required: true
+          description: Unique identifier of the connection to delete
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Connection deleted successfully
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/connections/{connectionId}/run:
+    post:
+      operationId: runConnection
+      summary: Run a connection on demand
+      description: >-
+        Triggers an immediate execution of a connection outside of its normal
+        schedule. This sends the current source data to the configured
+        destination.
+      tags:
+        - Connections
+      parameters:
+        - name: connectionId
+          in: path
+          required: true
+          description: Unique identifier of the connection to run
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Connection execution initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        description: Execution status
+                      runId:
+                        type: string
+                        description: Identifier for this execution run
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/connections/{connectionId}/enable:
+    put:
+      operationId: enableConnection
+      summary: Enable a connection
+      description: >-
+        Enables a previously disabled connection, allowing it to run on its
+        configured schedule.
+      tags:
+        - Connections
+      parameters:
+        - name: connectionId
+          in: path
+          required: true
+          description: Unique identifier of the connection
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Connection enabled successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Connection'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/connections/{connectionId}/disable:
+    put:
+      operationId: disableConnection
+      summary: Disable a connection
+      description: >-
+        Disables a connection, preventing it from running on its schedule.
+        The connection configuration is preserved and can be re-enabled later.
+      tags:
+        - Connections
+      parameters:
+        - name: connectionId
+          in: path
+          required: true
+          description: Unique identifier of the connection
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Connection disabled successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Connection'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/sources:
+    get:
+      operationId: listSources
+      summary: List available data sources
+      description: >-
+        Retrieves a list of all available data sources that can be used as
+        connection sources. Sources include saved questions, question logs,
+        system status data, and event-driven data from other Tanium modules.
+      tags:
+        - Sources
+      responses:
+        '200':
+          description: Sources retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Source'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/sources/{sourceId}:
+    get:
+      operationId: getSource
+      summary: Get a data source by ID
+      description: >-
+        Retrieves the details of a specific data source, including its type,
+        configuration, and available columns for output formatting.
+      tags:
+        - Sources
+      parameters:
+        - name: sourceId
+          in: path
+          required: true
+          description: Unique identifier of the data source
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Source retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Source'
+        '404':
+          description: Source not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/destinations:
+    get:
+      operationId: listDestinations
+      summary: List all destinations
+      description: >-
+        Retrieves a list of all configured destinations. Destinations define
+        where connection data is delivered, such as files, syslog servers,
+        HTTP endpoints, email addresses, or SQL databases.
+      tags:
+        - Destinations
+      responses:
+        '200':
+          description: Destinations retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Destination'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createDestination
+      summary: Create a new destination
+      description: >-
+        Creates a new destination configuration for receiving connection data.
+        Supported destination types include file, syslog, HTTP/webhook, email,
+        AWS S3, and SQL database.
+      tags:
+        - Destinations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DestinationCreate'
+      responses:
+        '200':
+          description: Destination created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Destination'
+        '400':
+          description: Invalid destination configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/destinations/{destinationId}:
+    get:
+      operationId: getDestination
+      summary: Get a destination by ID
+      description: >-
+        Retrieves the full configuration of a specific destination including
+        its type and connection details.
+      tags:
+        - Destinations
+      parameters:
+        - name: destinationId
+          in: path
+          required: true
+          description: Unique identifier of the destination
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Destination retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Destination'
+        '404':
+          description: Destination not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      operationId: updateDestination
+      summary: Update a destination
+      description: >-
+        Updates an existing destination configuration. All connections using
+        this destination will be affected by the changes.
+      tags:
+        - Destinations
+      parameters:
+        - name: destinationId
+          in: path
+          required: true
+          description: Unique identifier of the destination
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DestinationCreate'
+      responses:
+        '200':
+          description: Destination updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Destination'
+        '400':
+          description: Invalid destination configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Destination not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteDestination
+      summary: Delete a destination
+      description: >-
+        Deletes a destination configuration. The destination cannot be deleted
+        if it is currently used by any active connections.
+      tags:
+        - Destinations
+      parameters:
+        - name: destinationId
+          in: path
+          required: true
+          description: Unique identifier of the destination to delete
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Destination deleted successfully
+        '400':
+          description: Destination is in use by active connections
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Destination not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/schedules:
+    get:
+      operationId: listSchedules
+      summary: List all schedules
+      description: >-
+        Retrieves a list of all connection schedules with their current status
+        and next run time. Schedules define how frequently connections execute
+        and deliver data.
+      tags:
+        - Schedules
+      responses:
+        '200':
+          description: Schedules retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Schedule'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/schedules/{scheduleId}:
+    get:
+      operationId: getSchedule
+      summary: Get a schedule by ID
+      description: >-
+        Retrieves the details of a specific schedule including its interval,
+        last run status, and next run time.
+      tags:
+        - Schedules
+      parameters:
+        - name: scheduleId
+          in: path
+          required: true
+          description: Unique identifier of the schedule
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Schedule retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Schedule'
+        '404':
+          description: Schedule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/status:
+    get:
+      operationId: getConnectStatus
+      summary: Get Connect service status
+      description: >-
+        Returns the current status of the Tanium Connect service including
+        version information and overall health.
+      tags:
+        - Status
+      responses:
+        '200':
+          description: Status retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                        description: Connect module version
+                      status:
+                        type: string
+                        description: Service operational status
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/logs:
+    get:
+      operationId: listConnectionLogs
+      summary: List connection execution logs
+      description: >-
+        Retrieves a paginated list of connection execution logs showing the
+        history of data deliveries, including success/failure status and
+        row counts.
+      tags:
+        - Status
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of log entries to return
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of log entries to skip for pagination
+          schema:
+            type: integer
+        - name: connectionId
+          in: query
+          description: Filter logs by connection identifier
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ConnectionLog'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: >-
+        API token passed in the session header for authenticating with the
+        Tanium Connect API.
+  schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+    Connection:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique connection identifier
+        name:
+          type: string
+          description: Connection name
+        description:
+          type: string
+          description: Connection description
+        enabled:
+          type: boolean
+          description: Whether the connection is enabled
+        source:
+          $ref: '#/components/schemas/Source'
+        destination:
+          $ref: '#/components/schemas/Destination'
+        schedule:
+          $ref: '#/components/schemas/Schedule'
+        format:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Output format type
+              enum:
+                - csv
+                - json
+                - cef
+                - leef
+                - keyvalue
+            options:
+              type: object
+              properties:
+                delimiter:
+                  type: string
+                  description: Field delimiter for CSV format
+                headerRow:
+                  type: boolean
+                  description: Include header row in CSV output
+                timestampFormat:
+                  type: string
+                  description: Timestamp format string
+              description: Format-specific options
+          description: Output format configuration
+        filter:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+              description: Whether filtering is enabled
+            rules:
+              type: array
+              items:
+                type: object
+                properties:
+                  column:
+                    type: string
+                    description: Column to filter on
+                  operator:
+                    type: string
+                    description: Filter operator
+                  value:
+                    type: string
+                    description: Filter value
+              description: Filter rules
+          description: Data filter configuration
+        lastRunStatus:
+          type: string
+          description: Status of the last execution
+        lastRunTime:
+          type: string
+          format: date-time
+          description: Timestamp of the last execution
+        createdAt:
+          type: string
+          format: date-time
+          description: Connection creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Connection last update timestamp
+    ConnectionCreate:
+      type: object
+      required:
+        - name
+        - source
+        - destination
+      properties:
+        name:
+          type: string
+          description: Connection name
+        description:
+          type: string
+          description: Connection description
+        enabled:
+          type: boolean
+          description: Whether the connection should be enabled on creation
+          default: true
+        source:
+          type: object
+          required:
+            - id
+          properties:
+            id:
+              type: integer
+              description: Source identifier
+            type:
+              type: string
+              description: Source type
+          description: Data source reference
+        destination:
+          type: object
+          required:
+            - id
+          properties:
+            id:
+              type: integer
+              description: Destination identifier
+          description: Destination reference
+        schedule:
+          type: object
+          properties:
+            intervalSeconds:
+              type: integer
+              description: Interval between runs in seconds
+            startTime:
+              type: string
+              format: date-time
+              description: Schedule start time
+          description: Schedule configuration
+        format:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - csv
+                - json
+                - cef
+                - leef
+                - keyvalue
+            options:
+              type: object
+              properties:
+                delimiter:
+                  type: string
+                headerRow:
+                  type: boolean
+                timestampFormat:
+                  type: string
+          description: Output format configuration
+        filter:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            rules:
+              type: array
+              items:
+                type: object
+                properties:
+                  column:
+                    type: string
+                  operator:
+                    type: string
+                  value:
+                    type: string
+          description: Data filter configuration
+    ConnectionUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Updated connection name
+        description:
+          type: string
+          description: Updated connection description
+        enabled:
+          type: boolean
+          description: Updated enabled state
+        source:
+          type: object
+          properties:
+            id:
+              type: integer
+            type:
+              type: string
+          description: Updated data source reference
+        destination:
+          type: object
+          properties:
+            id:
+              type: integer
+          description: Updated destination reference
+        schedule:
+          type: object
+          properties:
+            intervalSeconds:
+              type: integer
+            startTime:
+              type: string
+              format: date-time
+          description: Updated schedule configuration
+        format:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - csv
+                - json
+                - cef
+                - leef
+                - keyvalue
+            options:
+              type: object
+              properties:
+                delimiter:
+                  type: string
+                headerRow:
+                  type: boolean
+                timestampFormat:
+                  type: string
+          description: Updated output format configuration
+        filter:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            rules:
+              type: array
+              items:
+                type: object
+                properties:
+                  column:
+                    type: string
+                  operator:
+                    type: string
+                  value:
+                    type: string
+          description: Updated data filter configuration
+    Source:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique source identifier
+        name:
+          type: string
+          description: Source name
+        type:
+          type: string
+          description: Source type
+          enum:
+            - saved_question
+            - question_log
+            - system_status
+            - event
+            - discover
+            - integrity_monitor
+            - threat_response
+        description:
+          type: string
+          description: Source description
+        savedQuestionId:
+          type: integer
+          description: Associated saved question ID (for saved_question type)
+        columns:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Column name
+              type:
+                type: string
+                description: Column data type
+          description: Available output columns
+    Destination:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique destination identifier
+        name:
+          type: string
+          description: Destination name
+        type:
+          type: string
+          description: Destination type
+          enum:
+            - file
+            - syslog
+            - http
+            - email
+            - s3
+            - sql
+        configuration:
+          type: object
+          description: Type-specific destination configuration
+          properties:
+            host:
+              type: string
+              description: Destination hostname (syslog, http, sql)
+            port:
+              type: integer
+              description: Destination port (syslog, sql)
+            protocol:
+              type: string
+              description: Protocol (TCP, UDP for syslog; HTTP, HTTPS for http)
+            url:
+              type: string
+              description: Full URL for HTTP destinations
+            method:
+              type: string
+              description: HTTP method for webhook destinations
+              enum:
+                - POST
+                - PUT
+                - PATCH
+            path:
+              type: string
+              description: File path for file destinations
+            bucket:
+              type: string
+              description: S3 bucket name
+            region:
+              type: string
+              description: AWS region for S3 destinations
+            useTls:
+              type: boolean
+              description: Whether to use TLS encryption
+            headers:
+              type: object
+              additionalProperties:
+                type: string
+              description: Custom HTTP headers for webhook destinations
+        createdAt:
+          type: string
+          format: date-time
+          description: Destination creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Destination last update timestamp
+    DestinationCreate:
+      type: object
+      required:
+        - name
+        - type
+        - configuration
+      properties:
+        name:
+          type: string
+          description: Destination name
+        type:
+          type: string
+          description: Destination type
+          enum:
+            - file
+            - syslog
+            - http
+            - email
+            - s3
+            - sql
+        configuration:
+          type: object
+          description: Type-specific destination configuration
+          properties:
+            host:
+              type: string
+            port:
+              type: integer
+            protocol:
+              type: string
+            url:
+              type: string
+            method:
+              type: string
+              enum:
+                - POST
+                - PUT
+                - PATCH
+            path:
+              type: string
+            bucket:
+              type: string
+            region:
+              type: string
+            useTls:
+              type: boolean
+            headers:
+              type: object
+              additionalProperties:
+                type: string
+    Schedule:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique schedule identifier
+        connectionId:
+          type: integer
+          description: Associated connection identifier
+        intervalSeconds:
+          type: integer
+          description: Interval between runs in seconds
+        startTime:
+          type: string
+          format: date-time
+          description: Schedule start time
+        lastRunTime:
+          type: string
+          format: date-time
+          description: Timestamp of the last run
+        nextRunTime:
+          type: string
+          format: date-time
+          description: Timestamp of the next scheduled run
+        lastRunStatus:
+          type: string
+          description: Status of the last run
+        enabled:
+          type: boolean
+          description: Whether the schedule is active
+    ConnectionLog:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Log entry identifier
+        connectionId:
+          type: integer
+          description: Associated connection identifier
+        connectionName:
+          type: string
+          description: Name of the connection
+        status:
+          type: string
+          description: Execution status
+          enum:
+            - success
+            - failure
+            - partial
+        rowCount:
+          type: integer
+          description: Number of rows delivered
+        message:
+          type: string
+          description: Status or error message
+        startTime:
+          type: string
+          format: date-time
+          description: Execution start timestamp
+        endTime:
+          type: string
+          format: date-time
+          description: Execution end timestamp
+        duration:
+          type: integer
+          description: Execution duration in milliseconds

@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/tanium/blob/main/json-schema/tanium-question-schema.json",
+  "title": "Tanium Question",
+  "description": "Represents a question asked across managed endpoints in the Tanium platform. Questions are the primary mechanism for collecting real-time data from endpoints using sensors.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique numeric identifier for the question"
+    },
+    "queryText": {
+      "type": "string",
+      "description": "Human-readable question text"
+    },
+    "expiration": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the question expires and stops collecting results"
+    },
+    "selects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sensor": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Sensor name"
+              },
+              "hash": {
+                "type": "integer",
+                "description": "Sensor hash identifier"
+              },
+              "id": {
+                "type": "integer",
+                "description": "Sensor numeric identifier"
+              }
+            },
+            "description": "Sensor used for data collection"
+          }
+        }
+      },
+      "description": "List of sensors selected for the question"
+    },
+    "group": {
+      "$ref": "#/$defs/GroupFilter",
+      "description": "Target group filter restricting which endpoints answer"
+    },
+    "managementRightsGroup": {
+      "$ref": "#/$defs/GroupFilter",
+      "description": "Management rights group for access control"
+    },
+    "savedQuestion": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Associated saved question identifier"
+        }
+      },
+      "description": "Reference to an associated saved question"
+    }
+  },
+  "required": ["id"],
+  "$defs": {
+    "GroupFilter": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Group identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Group name"
+        },
+        "andFlag": {
+          "type": "boolean",
+          "description": "Whether filters are combined with AND logic"
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "sensor": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "hash": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "operator": {
+                "type": "string",
+                "description": "Filter operator (e.g., RegexMatch, Contains, Equal)"
+              },
+              "value": {
+                "type": "string",
+                "description": "Filter value"
+              }
+            }
+          },
+          "description": "Filter criteria for group membership"
+        }
+      },
+      "description": "A group filter definition used for targeting endpoints"
+    }
+  }
+}

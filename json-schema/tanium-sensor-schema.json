@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/tanium/blob/main/json-schema/tanium-sensor-schema.json",
+  "title": "Tanium Sensor",
+  "description": "Represents a sensor in the Tanium platform. Sensors are scripts that run on endpoints to collect specific data points such as installed software, running processes, network configuration, or security posture.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique numeric identifier for the sensor"
+    },
+    "name": {
+      "type": "string",
+      "description": "Sensor name used in questions"
+    },
+    "hash": {
+      "type": "integer",
+      "description": "Hash identifier for the sensor"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of what the sensor collects"
+    },
+    "category": {
+      "type": "string",
+      "description": "Category grouping for the sensor"
+    },
+    "maxAgeSeconds": {
+      "type": "integer",
+      "description": "Maximum age in seconds for cached sensor results before re-execution"
+    },
+    "contentSet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Content set identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Content set name"
+        }
+      },
+      "description": "Content set the sensor belongs to"
+    },
+    "queries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "type": "string",
+            "description": "Target platform (Windows, Linux, Mac, Solaris, AIX)"
+          },
+          "script": {
+            "type": "string",
+            "description": "Script content that runs on the endpoint"
+          },
+          "scriptType": {
+            "type": "string",
+            "description": "Script language (VBScript, PowerShell, UnixShell, Python)"
+          }
+        }
+      },
+      "description": "Platform-specific query scripts"
+    },
+    "parameters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Parameter key name"
+          },
+          "defaultValue": {
+            "type": "string",
+            "description": "Default parameter value"
+          }
+        }
+      },
+      "description": "Configurable parameters for the sensor"
+    },
+    "modTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last modification timestamp"
+    },
+    "creationTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    }
+  },
+  "required": ["id", "name"]
+}
