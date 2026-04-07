@@ -44,7 +44,7 @@ paths:
   /api/v2/session/login:
     post:
       operationId: createSession
-      summary: Create a new session
+      summary: Tanium Create a new session
       description: >-
         Authenticates with the Tanium server using username and password
         credentials and returns a session token for subsequent API calls. This
@@ -101,7 +101,7 @@ paths:
   /api/v2/api_tokens:
     post:
       operationId: createApiToken
-      summary: Create an API token
+      summary: Tanium Create an API token
       description: >-
         Creates a new API token with optional expiration and trusted IP
         configuration. API tokens are the preferred authentication method for
@@ -151,7 +151,7 @@ paths:
   /api/v2/questions:
     post:
       operationId: createQuestion
-      summary: Create and ask a question
+      summary: Tanium Create and ask a question
       description: >-
         Creates a new question and asks it across managed endpoints. The
         question can be specified as parsed question text or as a structured
@@ -214,7 +214,7 @@ paths:
   /api/v2/questions/{id}:
     get:
       operationId: getQuestion
-      summary: Get a question by ID
+      summary: Tanium Get a question by ID
       description: >-
         Retrieves the details of a specific question by its numeric identifier,
         including its status, expiration, and associated sensors.
@@ -246,7 +246,7 @@ paths:
   /api/v2/result_data/question/{id}:
     get:
       operationId: getQuestionResults
-      summary: Get question results
+      summary: Tanium Get question results
       description: >-
         Returns the result data for a specific question identified by its ID.
         Results include rows of data collected from responding endpoints.
@@ -278,7 +278,7 @@ paths:
   /api/v2/parse_question:
     post:
       operationId: parseQuestion
-      summary: Parse question text
+      summary: Tanium Parse question text
       description: >-
         Parses natural language question text into a structured question object
         that can be used to create a question. Returns one or more possible
@@ -318,7 +318,7 @@ paths:
   /api/v2/saved_questions:
     get:
       operationId: listSavedQuestions
-      summary: List saved questions
+      summary: Tanium List saved questions
       description: >-
         Retrieves a list of all saved questions configured on the Tanium server.
         Saved questions can be run on a schedule to continuously collect data
@@ -346,7 +346,7 @@ paths:
   /api/v2/saved_questions/by-name/{name}:
     get:
       operationId: getSavedQuestionByName
-      summary: Get a saved question by name
+      summary: Tanium Get a saved question by name
       description: >-
         Retrieves the details of a saved question identified by its name. The
         name must be URL-encoded if it contains special characters.
@@ -378,7 +378,7 @@ paths:
   /api/v2/result_data/saved_question/{id}:
     get:
       operationId: getSavedQuestionResults
-      summary: Get saved question results
+      summary: Tanium Get saved question results
       description: >-
         Returns the latest result data for a saved question identified by its
         numeric ID. Results include rows of data collected from responding
@@ -411,7 +411,7 @@ paths:
   /api/v2/saved_actions:
     post:
       operationId: createSavedAction
-      summary: Create and execute an action
+      summary: Tanium Create and execute an action
       description: >-
         Creates a saved action that deploys a package to targeted endpoints.
         Actions can target specific computer groups and use action groups for
@@ -496,7 +496,7 @@ paths:
   /api/v2/action_groups/by-name/{name}:
     get:
       operationId: getActionGroupByName
-      summary: Get an action group by name
+      summary: Tanium Get an action group by name
       description: >-
         Retrieves the details of an action group identified by its name. Action
         groups define approval policies and target restrictions for deploying
@@ -529,7 +529,7 @@ paths:
   /api/v2/packages/by-name/{name}:
     get:
       operationId: getPackageByName
-      summary: Get a package by name
+      summary: Tanium Get a package by name
       description: >-
         Retrieves the details of a deployment package identified by its name.
         Packages contain scripts and files that are deployed to endpoints via
@@ -562,7 +562,7 @@ paths:
   /api/v2/packages:
     get:
       operationId: listPackages
-      summary: List all packages
+      summary: Tanium List all packages
       description: >-
         Retrieves a list of all deployment packages configured on the Tanium
         server. Packages contain scripts and files that can be deployed to
@@ -590,7 +590,7 @@ paths:
   /api/v2/sensors/by-name/{name}:
     get:
       operationId: getSensorByName
-      summary: Get a sensor by name
+      summary: Tanium Get a sensor by name
       description: >-
         Retrieves the details of a sensor identified by its name. Sensors
         collect data from endpoints and are used in questions to query endpoint
@@ -623,7 +623,7 @@ paths:
   /api/v2/sensors:
     get:
       operationId: listSensors
-      summary: List all sensors
+      summary: Tanium List all sensors
       description: >-
         Retrieves a list of all sensors configured on the Tanium server.
         Sensors are scripts that collect specific data from endpoints.
@@ -650,7 +650,7 @@ paths:
   /api/v2/groups/by-name/{name}:
     get:
       operationId: getGroupByName
-      summary: Get a computer group by name
+      summary: Tanium Get a computer group by name
       description: >-
         Retrieves the details of a computer group identified by its name.
         Computer groups define sets of endpoints based on filter criteria and
@@ -683,7 +683,7 @@ paths:
   /api/v2/groups:
     get:
       operationId: listGroups
-      summary: List all computer groups
+      summary: Tanium List all computer groups
       description: >-
         Retrieves a list of all computer groups configured on the Tanium
         server. Groups organize endpoints for targeted questioning and action

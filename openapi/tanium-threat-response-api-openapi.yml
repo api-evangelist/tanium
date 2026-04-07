@@ -50,7 +50,7 @@ paths:
   /plugin/products/threat-response/api/v1/status:
     get:
       operationId: getThreatResponseStatus
-      summary: Get Threat Response service status
+      summary: Tanium Get Threat Response service status
       description: >-
         Returns the current status of the Tanium Threat Response service
         including version information and operational state.
@@ -82,7 +82,7 @@ paths:
   /plugin/products/threat-response/api/v1/alerts:
     get:
       operationId: listAlerts
-      summary: List threat alerts
+      summary: Tanium List threat alerts
       description: >-
         Retrieves a paginated list of threat alerts. Alerts can be filtered by
         computer name, IP address, severity, priority, type, state, and
@@ -167,7 +167,7 @@ paths:
   /plugin/products/threat-response/api/v1/alerts/{alertId}:
     get:
       operationId: getAlert
-      summary: Get an alert by ID
+      summary: Tanium Get an alert by ID
       description: >-
         Retrieves the full details of a specific alert including associated
         computer information, intel document references, and current state.
@@ -198,7 +198,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     put:
       operationId: updateAlertState
-      summary: Update alert state
+      summary: Tanium Update alert state
       description: >-
         Updates the state of one or more alerts. Multiple alert IDs can be
         provided as a comma-separated list in the path. Valid states are
@@ -248,7 +248,7 @@ paths:
   /plugin/products/threat-response/api/v1/conns:
     get:
       operationId: listConnections
-      summary: List endpoint connections
+      summary: Tanium List endpoint connections
       description: >-
         Retrieves a paginated list of live connections to endpoints. Connections
         can be filtered by status, IP address, platform, and hostname.
@@ -306,7 +306,7 @@ paths:
   /plugin/products/threat-response/api/v1/conns/connect:
     post:
       operationId: createConnection
-      summary: Create a live connection to an endpoint
+      summary: Tanium Create a live connection to an endpoint
       description: >-
         Initiates a live connection to a specified endpoint for investigation
         purposes. Requires the client ID, IP, platform, and hostname of the
@@ -356,7 +356,7 @@ paths:
   /plugin/products/threat-response/api/v1/conns/{connectionId}:
     get:
       operationId: getConnection
-      summary: Get a connection by ID
+      summary: Tanium Get a connection by ID
       description: >-
         Retrieves the details and current status of a specific endpoint
         connection.
@@ -388,7 +388,7 @@ paths:
   /plugin/products/threat-response/api/v1/conns/close/{connectionId}:
     post:
       operationId: closeConnection
-      summary: Close a live connection
+      summary: Tanium Close a live connection
       description: >-
         Closes an active live connection to an endpoint, ending the
         investigation session.
@@ -413,7 +413,7 @@ paths:
   /plugin/products/threat-response/api/v1/conns/delete/{connectionId}:
     delete:
       operationId: deleteConnection
-      summary: Delete a connection record
+      summary: Tanium Delete a connection record
       description: >-
         Permanently deletes a connection record from the Threat Response
         database.
@@ -438,7 +438,7 @@ paths:
   /plugin/products/threat-response/api/v1/conns/{connectionId}/snapshot:
     post:
       operationId: createSnapshot
-      summary: Create an endpoint snapshot
+      summary: Tanium Create an endpoint snapshot
       description: >-
         Initiates a snapshot capture from a connected endpoint. The snapshot
         captures a point-in-time image of endpoint Recorder data for offline
@@ -471,7 +471,7 @@ paths:
   /plugin/products/threat-response/api/v1/snapshot:
     get:
       operationId: listSnapshots
-      summary: List all snapshots
+      summary: Tanium List all snapshots
       description: >-
         Retrieves a paginated list of all endpoint snapshots captured for
         investigations.
@@ -508,7 +508,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     delete:
       operationId: deleteSnapshots
-      summary: Delete snapshots
+      summary: Tanium Delete snapshots
       description: >-
         Deletes one or more snapshots by their identifiers. Provide snapshot
         IDs in the request body.
@@ -540,7 +540,7 @@ paths:
   /plugin/products/threat-response/api/v1/snapshot/{snapshotId}:
     delete:
       operationId: deleteLocalSnapshot
-      summary: Delete a local snapshot
+      summary: Tanium Delete a local snapshot
       description: >-
         Deletes a specific snapshot stored locally on the Tanium server,
         freeing disk space.
@@ -565,7 +565,7 @@ paths:
   /plugin/products/threat-response/api/v1/conns/{connectionId}/views/{eventType}/events:
     get:
       operationId: listEvents
-      summary: List events by type
+      summary: Tanium List events by type
       description: >-
         Retrieves Recorder events from a connected endpoint filtered by event
         type. Supported event types include File, Network, Registry, Process,
@@ -645,7 +645,7 @@ paths:
   /plugin/products/threat-response/api/v1/conns/{connectionId}/views/{eventType}/eventsCount:
     get:
       operationId: getEventsSummary
-      summary: Get events count summary
+      summary: Tanium Get events count summary
       description: >-
         Returns a summary count of Recorder events by type for a specific
         connection, useful for understanding the volume of activity on an
@@ -697,7 +697,7 @@ paths:
   /plugin/products/threat-response/api/v1/conns/{connectionId}/processevents/{processTableId}/{eventType}:
     get:
       operationId: getProcessEvents
-      summary: Get events for a specific process
+      summary: Tanium Get events for a specific process
       description: >-
         Retrieves events associated with a specific process on a connected
         endpoint, identified by its process table ID and event type.
@@ -761,7 +761,7 @@ paths:
   /plugin/products/threat-response/api/v1/conns/{connectionId}/processtrees/{processTableId}:
     get:
       operationId: getProcessTree
-      summary: Get a process tree
+      summary: Tanium Get a process tree
       description: >-
         Retrieves the process tree for a specific process, showing parent,
         child, and sibling processes. Useful for understanding process
@@ -812,7 +812,7 @@ paths:
   /plugin/products/threat-response/api/v1/filedownload:
     get:
       operationId: listFileDownloads
-      summary: List file downloads
+      summary: Tanium List file downloads
       description: >-
         Retrieves a paginated list of files that have been downloaded from
         endpoints during investigations.
@@ -865,7 +865,7 @@ paths:
   /plugin/products/threat-response/api/v1/filedownload/{fileId}:
     get:
       operationId: getFileDownload
-      summary: Get file download metadata
+      summary: Tanium Get file download metadata
       description: >-
         Retrieves metadata for a specific downloaded file, including hash
         values, size, and origin information.
@@ -896,7 +896,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     delete:
       operationId: deleteFileDownload
-      summary: Delete a downloaded file
+      summary: Tanium Delete a downloaded file
       description: >-
         Deletes a previously downloaded file from the Tanium server, freeing
         storage space.
@@ -921,7 +921,7 @@ paths:
   /plugin/products/threat-response/api/v1/filedownload/data/{fileId}:
     get:
       operationId: downloadFileContent
-      summary: Download file content
+      summary: Tanium Download file content
       description: >-
         Downloads the actual file content of a previously captured file. The
         file is returned as a binary download, password-protected with the
@@ -952,7 +952,7 @@ paths:
   /plugin/products/threat-response/api/v1/conns/{connectionId}/file:
     post:
       operationId: requestFileFromEndpoint
-      summary: Request a file download from an endpoint
+      summary: Tanium Request a file download from an endpoint
       description: >-
         Initiates a file download from a connected endpoint. The file is
         transferred from the endpoint to the Tanium server for analysis.
@@ -996,7 +996,7 @@ paths:
   /plugin/products/threat-response/api/v1/intels:
     post:
       operationId: uploadIntelDocument
-      summary: Upload an intel document
+      summary: Tanium Upload an intel document
       description: >-
         Uploads a new threat intelligence document to Tanium Threat Response.
         Intel documents define indicators of compromise (IOCs) and threat
@@ -1040,7 +1040,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     get:
       operationId: listIntelDocuments
-      summary: List intel documents
+      summary: Tanium List intel documents
       description: >-
         Retrieves a paginated list of threat intelligence documents configured
         in Tanium Threat Response.
@@ -1103,7 +1103,7 @@ paths:
   /plugin/products/threat-response/api/v1/intels/{intelDocId}:
     get:
       operationId: getIntelDocument
-      summary: Get an intel document by ID
+      summary: Tanium Get an intel document by ID
       description: >-
         Retrieves the full details of a specific threat intelligence document
         including alert counts and label associations.
@@ -1135,7 +1135,7 @@ paths:
   /plugin/products/threat-response/api/v1/intels/{intelDocId}/labels:
     get:
       operationId: listIntelDocumentLabels
-      summary: List labels for an intel document
+      summary: Tanium List labels for an intel document
       description: >-
         Retrieves the labels associated with a specific intel document. Labels
         categorize and organize intel documents for easier management.
@@ -1173,7 +1173,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       operationId: addLabelToIntelDocument
-      summary: Add a label to an intel document
+      summary: Tanium Add a label to an intel document
       description: >-
         Associates a label with an intel document for classification and
         organization purposes.
@@ -1224,7 +1224,7 @@ paths:
   /plugin/products/threat-response/api/v1/labels:
     get:
       operationId: listLabels
-      summary: List all labels
+      summary: Tanium List all labels
       description: >-
         Retrieves a paginated list of all labels available in Threat Response
         for categorizing intel documents and signals.
@@ -1262,7 +1262,7 @@ paths:
   /plugin/products/threat-response/api/v1/labels/{labelId}:
     get:
       operationId: getLabel
-      summary: Get a label by ID
+      summary: Tanium Get a label by ID
       description: >-
         Retrieves the details of a specific label including associated
         indicator and signal counts.
@@ -1294,7 +1294,7 @@ paths:
   /plugin/products/threat-response/api/v1/evidence:
     get:
       operationId: listEvidence
-      summary: List investigation evidence
+      summary: Tanium List investigation evidence
       description: >-
         Retrieves a paginated list of evidence collected during investigations.
         Evidence can be filtered by hostname and type.
@@ -1346,7 +1346,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       operationId: createEvidence
-      summary: Create evidence from a process
+      summary: Tanium Create evidence from a process
       description: >-
         Creates an evidence record from a specific process on a connected
         endpoint, preserving investigation findings.
@@ -1387,7 +1387,7 @@ paths:
   /plugin/products/threat-response/api/v1/evidence/{evidenceId}:
     get:
       operationId: getEvidence
-      summary: Get evidence by ID
+      summary: Tanium Get evidence by ID
       description: >-
         Retrieves the full details of a specific evidence item including
         associated process information and timestamps.
@@ -1418,7 +1418,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     delete:
       operationId: deleteEvidence
-      summary: Delete evidence
+      summary: Tanium Delete evidence
       description: >-
         Deletes one or more evidence items. Multiple evidence IDs can be
         provided as a comma-separated list.
@@ -1443,7 +1443,7 @@ paths:
   /plugin/products/threat-response/api/v1/evidence/properties:
     get:
       operationId: getEvidenceProperties
-      summary: Get evidence properties
+      summary: Tanium Get evidence properties
       description: >-
         Retrieves the available property definitions for evidence items,
         including filterable fields and their value types.
