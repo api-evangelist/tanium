@@ -26,20 +26,20 @@ security:
   - apiToken: []
   - sessionToken: []
 tags:
+  - name: Actions
+    description: Deploy and manage actions on endpoints
   - name: Authentication
     description: Session and token management
+  - name: Groups
+    description: Manage computer and action groups
+  - name: Packages
+    description: Manage deployment packages
   - name: Questions
     description: Ask and retrieve questions from endpoints
   - name: Saved Questions
     description: Manage saved questions
-  - name: Actions
-    description: Deploy and manage actions on endpoints
-  - name: Packages
-    description: Manage deployment packages
   - name: Sensors
     description: Manage endpoint sensors
-  - name: Groups
-    description: Manage computer and action groups
 paths:
   /api/v2/session/login:
     post:

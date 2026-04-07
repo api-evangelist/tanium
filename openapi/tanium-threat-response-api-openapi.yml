@@ -28,12 +28,8 @@ tags:
     description: Manage threat alerts
   - name: Connections
     description: Manage live endpoint connections for investigations
-  - name: Snapshots
-    description: Capture and manage endpoint memory snapshots
   - name: Events
     description: Retrieve Recorder events from endpoints
-  - name: Processes
-    description: Inspect endpoint processes and process trees
   - name: Evidence
     description: Collect and manage investigation evidence
   - name: File Downloads
@@ -44,6 +40,10 @@ tags:
     description: Manage threat intelligence documents
   - name: Labels
     description: Manage classification labels for intel documents
+  - name: Processes
+    description: Inspect endpoint processes and process trees
+  - name: Snapshots
+    description: Capture and manage endpoint memory snapshots
   - name: Status
     description: Threat Response service status
 paths:

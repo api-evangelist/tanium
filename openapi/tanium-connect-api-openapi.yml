@@ -28,12 +28,12 @@ security:
 tags:
   - name: Connections
     description: Manage data delivery connections
-  - name: Sources
-    description: Manage connection data sources
   - name: Destinations
     description: Manage connection destinations
   - name: Schedules
     description: Manage connection schedules
+  - name: Sources
+    description: Manage connection data sources
   - name: Status
     description: Connect service status and logs
 paths:
