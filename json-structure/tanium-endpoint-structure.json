@@ -1,0 +1,19 @@
+{
+  "title": "Tanium Endpoint Structure",
+  "description": "Structural documentation for Tanium managed endpoint objects",
+  "type": "object",
+  "fields": [
+    {"name": "id", "type": "integer", "description": "Unique numeric identifier in Tanium"},
+    {"name": "computerName", "type": "string", "description": "Hostname of the endpoint"},
+    {"name": "computerID", "type": "string", "description": "Tanium client identifier"},
+    {"name": "ipAddress", "type": "string", "description": "Primary IP address"},
+    {"name": "ipAddresses", "type": "array", "description": "All IP addresses"},
+    {"name": "operatingSystem", "type": "string", "description": "Operating system name and version"},
+    {"name": "platform", "type": "string", "description": "Platform: Windows, Linux, Mac"},
+    {"name": "lastRegistration", "type": "string", "format": "date-time", "description": "Last check-in time"},
+    {"name": "clientID", "type": "string", "description": "Tanium client unique ID"},
+    {"name": "networkLocation", "type": "string", "description": "Network location identifier"},
+    {"name": "serialNumber", "type": "string", "description": "Hardware serial number"},
+    {"name": "status", "type": "string", "description": "Endpoint connectivity status"}
+  ]
+}

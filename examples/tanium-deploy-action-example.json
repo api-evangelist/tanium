@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://tanium.example.com/api/v2/saved_actions",
+    "headers": {
+      "session": "your-api-token-here",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Deploy Security Patch - KB5034765",
+      "package_spec": {
+        "name": "Patch - Windows Security Update",
+        "parameters": [
+          {"key": "kb_number", "value": "KB5034765"},
+          {"key": "restart", "value": "false"}
+        ]
+      },
+      "action_group": {
+        "name": "Default"
+      },
+      "target_group": {
+        "name": "Windows Servers"
+      },
+      "expire_seconds": 86400
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": 10523,
+        "name": "Deploy Security Patch - KB5034765",
+        "status": "Pending",
+        "package_spec": {
+          "source_id": 501,
+          "name": "Patch - Windows Security Update"
+        },
+        "action_group": {
+          "id": 1,
+          "name": "Default"
+        },
+        "target_group": {
+          "id": 200,
+          "name": "Windows Servers"
+        },
+        "start_time": "2026-05-03T12:00:00Z",
+        "expiration_time": "2026-05-04T12:00:00Z",
+        "approved_flag": 0
+      }
+    }
+  }
+}

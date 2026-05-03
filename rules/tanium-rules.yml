@@ -1,0 +1,75 @@
+extends: spectral:oas
+rules:
+  tanium-operation-ids-camel-case:
+    description: All operationIds must use camelCase
+    severity: warn
+    given: "$.paths[*][*].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  tanium-summary-title-case:
+    description: All operation summaries must use Title Case (no leading vendor prefix)
+    severity: warn
+    given: "$.paths[*][*].summary"
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "^Tanium "
+
+  tanium-session-header-auth:
+    description: API token authentication must use the session header
+    severity: info
+    given: "$.components.securitySchemes[*][?(@.type == 'apiKey')]"
+    then:
+      field: name
+      function: pattern
+      functionOptions:
+        match: "^session$"
+
+  tanium-paths-api-versioned:
+    description: Tanium Platform API paths must be versioned under /api/v2/
+    severity: hint
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/api/v2/|/plugin/products/)"
+
+  tanium-responses-have-data-wrapper:
+    description: Successful responses should use a data wrapper object
+    severity: hint
+    given: "$.paths[*][*].responses['200'].content['application/json'].schema"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          properties:
+            data: {}
+
+  tanium-parameters-have-descriptions:
+    description: All path and query parameters must have descriptions
+    severity: warn
+    given: "$.paths[*][*].parameters[*]"
+    then:
+      field: description
+      function: truthy
+
+  tanium-operations-have-tags:
+    description: All operations must have at least one tag
+    severity: warn
+    given: "$.paths[*][*]"
+    then:
+      field: tags
+      function: truthy
+
+  tanium-error-schema-consistent:
+    description: 4xx/5xx responses should reference the shared Error schema
+    severity: warn
+    given: "$.paths[*][*].responses[?(@property >= 400)].content['application/json'].schema"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          required: ["$ref"]

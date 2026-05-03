@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://tanium.example.com/api/v2/questions",
+    "headers": {
+      "session": "your-api-token-here",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query_text": "Get Running Processes from all machines"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": 42891,
+        "query_text": "Get Running Processes from all machines",
+        "expiration": "2026-05-03T12:10:00Z",
+        "selects": [
+          {
+            "sensor": {
+              "name": "Running Processes",
+              "hash": 3409330187,
+              "id": 3001
+            }
+          }
+        ],
+        "group": {
+          "id": 0,
+          "name": "All Computers"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,187 @@
+title: Tanium Vocabulary
+description: >-
+  Vocabulary and taxonomy for the Tanium unified endpoint management and security
+  platform, covering endpoint management, question-based data collection, action
+  deployment, threat response, and data integration concepts.
+tags:
+  - Endpoint Management
+  - Security
+  - Threat Detection
+  - Unified Endpoint Management
+
+terms:
+  - term: Endpoint
+    label: Endpoint
+    definition: >-
+      A managed computer, server, or device in the Tanium platform. Endpoints
+      run the Tanium Client agent and respond to questions and actions in
+      real-time or near-real-time.
+    category: Core Concepts
+
+  - term: Sensor
+    label: Sensor
+    definition: >-
+      A script that runs on endpoints to collect specific data. Sensors are the
+      building blocks of questions. Each sensor targets one platform
+      (Windows, Linux, Mac) and returns structured data rows.
+    category: Core Concepts
+
+  - term: Question
+    label: Question
+    definition: >-
+      A Tanium query expressed in natural language (e.g., "Get Running Processes
+      from all machines") that is distributed to managed endpoints. Endpoints
+      evaluate the question using sensors and return results.
+    category: Core Concepts
+
+  - term: Saved Question
+    label: Saved Question
+    definition: >-
+      A question that is stored and reissued on a recurring schedule
+      (defined by issue_seconds). Used for continuous data collection
+      and monitoring.
+    category: Core Concepts
+
+  - term: Action
+    label: Action
+    definition: >-
+      A deployment of a package to targeted endpoints. Actions execute
+      scripts or commands on endpoints and can be targeted to specific
+      computer groups.
+    category: Core Concepts
+
+  - term: Package
+    label: Package
+    definition: >-
+      A bundle of scripts, files, and metadata that can be deployed to
+      endpoints via actions. Packages define the command to execute and
+      any parameters that can be configured at deploy time.
+    category: Core Concepts
+
+  - term: Computer Group
+    label: Computer Group
+    definition: >-
+      A set of endpoints matching defined filter criteria (e.g., OS type,
+      IP range, sensor value). Used to scope questions and target actions.
+    category: Core Concepts
+
+  - term: Action Group
+    label: Action Group
+    definition: >-
+      A policy entity that defines approval requirements and targeting
+      restrictions for deploying actions. Ensures proper governance
+      over endpoint changes.
+    category: Core Concepts
+
+  - term: Result Set
+    label: Result Set
+    definition: >-
+      The collection of data rows returned by an endpoint question.
+      Includes metadata such as estimated total endpoints, responding
+      endpoint count, and age of results.
+    category: Core Concepts
+
+  - term: API Token
+    label: API Token
+    definition: >-
+      A long-lived authentication credential for Tanium API access, passed
+      in the session HTTP header. Created via the Tanium console or API.
+      Preferred over session tokens for integrations.
+    category: Authentication
+
+  - term: Session Token
+    label: Session Token
+    definition: >-
+      A short-lived authentication token obtained by providing username
+      and password credentials to the /api/v2/session/login endpoint.
+      Legacy method; API tokens are preferred.
+    category: Authentication
+
+  - term: Threat Response
+    label: Threat Response
+    definition: >-
+      A Tanium product module providing live endpoint investigation, alert
+      management, Recorder event analysis, process inspection, and evidence
+      collection for incident response workflows.
+    category: Products
+
+  - term: Alert
+    label: Threat Alert
+    definition: >-
+      A security event detected by Tanium Threat Response based on intel
+      documents and behavioral detection rules. Alerts can be in states
+      like unresolved, suppressed, or resolved.
+    category: Threat Response
+
+  - term: Investigation Connection
+    label: Investigation Connection
+    definition: >-
+      A live, persistent connection to a Tanium endpoint created for
+      incident investigation purposes. Enables event browsing, file
+      operations, process inspection, and evidence collection.
+    category: Threat Response
+
+  - term: Recorder Event
+    label: Recorder Event
+    definition: >-
+      An event captured by the Tanium Recorder sensor, which continuously
+      monitors endpoint activity. Event types include process, network,
+      file, DNS, registry, and security events.
+    category: Threat Response
+
+  - term: Process Tree
+    label: Process Tree
+    definition: >-
+      A hierarchical view of process ancestry showing parent-child
+      relationships for a specific process on an endpoint. Used in
+      threat investigations to understand execution context.
+    category: Threat Response
+
+  - term: Intel Document
+    label: Intel Document
+    definition: >-
+      A threat intelligence artifact (STIX, YARA, or IOC) loaded into
+      Tanium Threat Response to enable detection of known threats
+      on endpoints.
+    category: Threat Response
+
+  - term: Connect
+    label: Tanium Connect
+    definition: >-
+      A Tanium product module for creating automated data delivery
+      pipelines that export endpoint data from Tanium to downstream
+      systems such as SIEMs, databases, and webhooks.
+    category: Products
+
+  - term: Connection
+    label: Data Connection
+    definition: >-
+      A Tanium Connect configuration linking a data source (saved question,
+      event data) to a destination (syslog, file, HTTP endpoint, SQL).
+      Can run on a schedule or be triggered by events.
+    category: Connect
+
+  - term: Destination
+    label: Connection Destination
+    definition: >-
+      The target system where Tanium Connect delivers endpoint data.
+      Supported destination types include syslog, file, HTTP/webhook,
+      email, SQL database, and cloud storage.
+    category: Connect
+
+  - term: API Gateway
+    label: Tanium API Gateway
+    definition: >-
+      A GraphQL interface providing the primary integration method for
+      Tanium. Supports complex asset queries, endpoint actions, and
+      data retrieval in a single request.
+    category: Products
+
+  - term: Tanium Client
+    label: Tanium Client
+    definition: >-
+      The lightweight agent installed on each managed endpoint. Responds
+      to questions, executes actions, and communicates with the Tanium
+      Server in real-time using a proprietary peer-to-peer linear chain
+      architecture.
+    category: Core Concepts

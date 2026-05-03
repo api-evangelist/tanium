@@ -40,7 +40,7 @@ paths:
   /plugin/products/connect/v1/connections:
     get:
       operationId: listConnections
-      summary: Tanium List all connections
+      summary: List All Connections
       description: >-
         Retrieves a list of all configured connections. Each connection defines
         the link between a data source in Tanium and an external destination,
@@ -78,7 +78,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       operationId: createConnection
-      summary: Tanium Create a new connection
+      summary: Create A New Connection
       description: >-
         Creates a new connection linking a data source to a destination with
         the specified format, filter, and schedule settings. The connection
@@ -116,7 +116,7 @@ paths:
   /plugin/products/connect/v1/connections/{connectionId}:
     get:
       operationId: getConnection
-      summary: Tanium Get a connection by ID
+      summary: Get A Connection By ID
       description: >-
         Retrieves the full configuration and current status of a specific
         connection, including its source, destination, format, filter, and
@@ -148,7 +148,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     put:
       operationId: updateConnection
-      summary: Tanium Update a connection
+      summary: Update A Connection
       description: >-
         Updates the configuration of an existing connection. All connections
         that share a destination are affected when the destination settings are
@@ -192,7 +192,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     delete:
       operationId: deleteConnection
-      summary: Tanium Delete a connection
+      summary: Delete A Connection
       description: >-
         Permanently deletes a connection and its associated schedule. The
         underlying source and destination configurations are not affected.
@@ -217,7 +217,7 @@ paths:
   /plugin/products/connect/v1/connections/{connectionId}/run:
     post:
       operationId: runConnection
-      summary: Tanium Run a connection on demand
+      summary: Run A Connection On Demand
       description: >-
         Triggers an immediate execution of a connection outside of its normal
         schedule. This sends the current source data to the configured
@@ -257,7 +257,7 @@ paths:
   /plugin/products/connect/v1/connections/{connectionId}/enable:
     put:
       operationId: enableConnection
-      summary: Tanium Enable a connection
+      summary: Enable A Connection
       description: >-
         Enables a previously disabled connection, allowing it to run on its
         configured schedule.
@@ -289,7 +289,7 @@ paths:
   /plugin/products/connect/v1/connections/{connectionId}/disable:
     put:
       operationId: disableConnection
-      summary: Tanium Disable a connection
+      summary: Disable A Connection
       description: >-
         Disables a connection, preventing it from running on its schedule.
         The connection configuration is preserved and can be re-enabled later.
@@ -321,7 +321,7 @@ paths:
   /plugin/products/connect/v1/sources:
     get:
       operationId: listSources
-      summary: Tanium List available data sources
+      summary: List Available Data Sources
       description: >-
         Retrieves a list of all available data sources that can be used as
         connection sources. Sources include saved questions, question logs,
@@ -349,7 +349,7 @@ paths:
   /plugin/products/connect/v1/sources/{sourceId}:
     get:
       operationId: getSource
-      summary: Tanium Get a data source by ID
+      summary: Get A Data Source By ID
       description: >-
         Retrieves the details of a specific data source, including its type,
         configuration, and available columns for output formatting.
@@ -381,7 +381,7 @@ paths:
   /plugin/products/connect/v1/destinations:
     get:
       operationId: listDestinations
-      summary: Tanium List all destinations
+      summary: List All Destinations
       description: >-
         Retrieves a list of all configured destinations. Destinations define
         where connection data is delivered, such as files, syslog servers,
@@ -408,7 +408,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       operationId: createDestination
-      summary: Tanium Create a new destination
+      summary: Create A New Destination
       description: >-
         Creates a new destination configuration for receiving connection data.
         Supported destination types include file, syslog, HTTP/webhook, email,
@@ -440,7 +440,7 @@ paths:
   /plugin/products/connect/v1/destinations/{destinationId}:
     get:
       operationId: getDestination
-      summary: Tanium Get a destination by ID
+      summary: Get A Destination By ID
       description: >-
         Retrieves the full configuration of a specific destination including
         its type and connection details.
@@ -471,7 +471,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     put:
       operationId: updateDestination
-      summary: Tanium Update a destination
+      summary: Update A Destination
       description: >-
         Updates an existing destination configuration. All connections using
         this destination will be affected by the changes.
@@ -514,7 +514,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     delete:
       operationId: deleteDestination
-      summary: Tanium Delete a destination
+      summary: Delete A Destination
       description: >-
         Deletes a destination configuration. The destination cannot be deleted
         if it is currently used by any active connections.
@@ -545,7 +545,7 @@ paths:
   /plugin/products/connect/v1/schedules:
     get:
       operationId: listSchedules
-      summary: Tanium List all schedules
+      summary: List All Schedules
       description: >-
         Retrieves a list of all connection schedules with their current status
         and next run time. Schedules define how frequently connections execute
@@ -573,7 +573,7 @@ paths:
   /plugin/products/connect/v1/schedules/{scheduleId}:
     get:
       operationId: getSchedule
-      summary: Tanium Get a schedule by ID
+      summary: Get A Schedule By ID
       description: >-
         Retrieves the details of a specific schedule including its interval,
         last run status, and next run time.
@@ -605,7 +605,7 @@ paths:
   /plugin/products/connect/v1/status:
     get:
       operationId: getConnectStatus
-      summary: Tanium Get Connect service status
+      summary: Get Connect Service Status
       description: >-
         Returns the current status of the Tanium Connect service including
         version information and overall health.
@@ -637,7 +637,7 @@ paths:
   /plugin/products/connect/v1/logs:
     get:
       operationId: listConnectionLogs
-      summary: Tanium List connection execution logs
+      summary: List Connection Execution Logs
       description: >-
         Retrieves a paginated list of connection execution logs showing the
         history of data deliveries, including success/failure status and

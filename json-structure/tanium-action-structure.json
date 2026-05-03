@@ -1,0 +1,27 @@
+{
+  "title": "Tanium Action Structure",
+  "description": "Structural documentation for Tanium saved action objects deployed to endpoints",
+  "type": "object",
+  "fields": [
+    {"name": "id", "type": "integer", "description": "Unique action identifier"},
+    {"name": "name", "type": "string", "description": "Action name"},
+    {"name": "status", "type": "string", "description": "Current action status"},
+    {"name": "package_spec", "type": "object", "description": "Package specification for deployment",
+      "fields": [
+        {"name": "source_id", "type": "integer", "description": "Package ID"},
+        {"name": "name", "type": "string", "description": "Package name"},
+        {"name": "parameters", "type": "array", "description": "Package parameters as key/value pairs"}
+      ]
+    },
+    {"name": "action_group", "type": "object", "description": "Action group for approval and targeting",
+      "fields": [
+        {"name": "id", "type": "integer"},
+        {"name": "name", "type": "string"}
+      ]
+    },
+    {"name": "target_group", "type": "object", "description": "Computer group filter for targeting endpoints"},
+    {"name": "start_time", "type": "string", "format": "date-time", "description": "Scheduled start time"},
+    {"name": "expiration_time", "type": "string", "format": "date-time", "description": "Action expiration"},
+    {"name": "approved_flag", "type": "integer", "description": "1 if approved, 0 if pending"}
+  ]
+}

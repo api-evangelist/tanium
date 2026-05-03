@@ -1,0 +1,352 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Tanium Endpoint Management"
+  description: >-
+    Workflow capability for unified endpoint management and security operations using Tanium.
+    Combines the Platform REST API, Threat Response API, and Connect API to enable
+    endpoint visibility, action deployment, threat investigation, and data delivery
+    automation. Designed for security operations teams, IT administrators, and
+    incident responders who need real-time control across all managed endpoints.
+  tags:
+    - Compliance
+    - Endpoint Management
+    - Incident Response
+    - Patch Management
+    - Security
+    - Threat Detection
+    - Unified Endpoint Management
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TANIUM_API_TOKEN: TANIUM_API_TOKEN
+      TANIUM_SERVER: TANIUM_SERVER
+
+capability:
+  consumes:
+    - import: tanium-platform
+      location: ./shared/platform-rest-api.yaml
+    - import: tanium-threat-response
+      location: ./shared/threat-response-api.yaml
+    - import: tanium-connect
+      location: ./shared/connect-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: tanium-endpoint-management-api
+      description: "Unified REST API for Tanium endpoint management, threat response, and data integration."
+      resources:
+        - path: /v1/questions
+          name: questions
+          description: "Query endpoint state using natural language questions"
+          operations:
+            - method: POST
+              name: ask-question
+              description: "Ask a question to all managed endpoints"
+              call: "tanium-platform.create-question"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/questions/{id}/results
+          name: question-results
+          description: "Retrieve endpoint question results"
+          operations:
+            - method: GET
+              name: get-question-results
+              description: "Get results collected from endpoints for a question"
+              call: "tanium-platform.get-question-results"
+              with:
+                id: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/saved-questions
+          name: saved-questions
+          description: "Saved endpoint questions for recurring data collection"
+          operations:
+            - method: GET
+              name: list-saved-questions
+              description: "List all saved questions"
+              call: "tanium-platform.list-saved-questions"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/saved-questions/{id}/results
+          name: saved-question-results
+          description: "Results from saved questions"
+          operations:
+            - method: GET
+              name: get-saved-question-results
+              description: "Get latest results for a saved question"
+              call: "tanium-platform.get-saved-question-results"
+              with:
+                id: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/actions
+          name: actions
+          description: "Deploy actions and packages to endpoints"
+          operations:
+            - method: POST
+              name: deploy-action
+              description: "Deploy a package action to targeted endpoints"
+              call: "tanium-platform.create-action"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/packages
+          name: packages
+          description: "Endpoint deployment packages"
+          operations:
+            - method: GET
+              name: list-packages
+              description: "List all available deployment packages"
+              call: "tanium-platform.list-packages"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/sensors
+          name: sensors
+          description: "Endpoint data collection sensors"
+          operations:
+            - method: GET
+              name: list-sensors
+              description: "List all endpoint sensors"
+              call: "tanium-platform.list-sensors"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/computer-groups
+          name: computer-groups
+          description: "Endpoint targeting groups"
+          operations:
+            - method: GET
+              name: list-computer-groups
+              description: "List all computer groups for endpoint targeting"
+              call: "tanium-platform.list-groups"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/alerts
+          name: alerts
+          description: "Threat Response security alerts"
+          operations:
+            - method: GET
+              name: list-alerts
+              description: "List threat alerts from Threat Response"
+              call: "tanium-threat-response.list-alerts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/investigations
+          name: investigations
+          description: "Live endpoint investigation connections"
+          operations:
+            - method: GET
+              name: list-investigations
+              description: "List active endpoint investigation connections"
+              call: "tanium-threat-response.list-connections"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: start-investigation
+              description: "Start a live endpoint investigation connection"
+              call: "tanium-threat-response.create-connection"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/data-connections
+          name: data-connections
+          description: "Data export connections to downstream systems"
+          operations:
+            - method: GET
+              name: list-data-connections
+              description: "List data delivery connections"
+              call: "tanium-connect.list-connections"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-data-connection
+              description: "Create a data delivery connection"
+              call: "tanium-connect.create-connection"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: tanium-endpoint-management-mcp
+      transport: http
+      description: "MCP server for AI-assisted endpoint management, threat investigation, and security operations."
+      tools:
+        - name: ask-endpoint-question
+          description: "Ask a natural language question to all Tanium-managed endpoints (e.g., 'Get Running Processes from all machines')"
+          hints:
+            readOnly: true
+            idempotent: false
+            openWorld: true
+          call: "tanium-platform.create-question"
+          with:
+            query_text: "tools.query_text"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-question-results
+          description: "Get endpoint data results for a question by ID"
+          hints:
+            readOnly: true
+            idempotent: true
+            openWorld: true
+          call: "tanium-platform.get-question-results"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-saved-questions
+          description: "List all saved questions configured for recurring endpoint data collection"
+          hints:
+            readOnly: true
+            idempotent: true
+            openWorld: true
+          call: "tanium-platform.list-saved-questions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-saved-question-results
+          description: "Get the latest collected results from a saved recurring question"
+          hints:
+            readOnly: true
+            idempotent: true
+            openWorld: true
+          call: "tanium-platform.get-saved-question-results"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: deploy-package-to-endpoints
+          description: "Deploy a package action to a targeted group of endpoints"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "tanium-platform.create-action"
+          with:
+            name: "tools.name"
+            package_spec: "tools.package_spec"
+            action_group: "tools.action_group"
+            target_group: "tools.target_group"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-packages
+          description: "List all available deployment packages on the Tanium server"
+          hints:
+            readOnly: true
+            idempotent: true
+            openWorld: true
+          call: "tanium-platform.list-packages"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-sensors
+          description: "List all endpoint sensors available for data collection in questions"
+          hints:
+            readOnly: true
+            idempotent: true
+            openWorld: true
+          call: "tanium-platform.list-sensors"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-computer-groups
+          description: "List all computer groups for endpoint targeting in actions and questions"
+          hints:
+            readOnly: true
+            idempotent: true
+            openWorld: true
+          call: "tanium-platform.list-groups"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-threat-alerts
+          description: "List threat alerts detected by Tanium Threat Response"
+          hints:
+            readOnly: true
+            idempotent: true
+            openWorld: true
+          call: "tanium-threat-response.list-alerts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: start-endpoint-investigation
+          description: "Start a live investigation connection to an endpoint for incident response"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "tanium-threat-response.create-connection"
+          with:
+            target: "tools.target"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-endpoint-events
+          description: "Get Recorder events from an endpoint connection (process, network, file events)"
+          hints:
+            readOnly: true
+            idempotent: true
+            openWorld: true
+          call: "tanium-threat-response.list-events"
+          with:
+            cid: "tools.cid"
+            type: "tools.type"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-process-tree
+          description: "Get the full process ancestry tree for a suspicious process on an endpoint"
+          hints:
+            readOnly: true
+            idempotent: true
+            openWorld: true
+          call: "tanium-threat-response.get-process-tree"
+          with:
+            cid: "tools.cid"
+            pid: "tools.pid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-data-connections
+          description: "List all data delivery connections for exporting endpoint data to SIEM and other systems"
+          hints:
+            readOnly: true
+            idempotent: true
+            openWorld: true
+          call: "tanium-connect.list-connections"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-data-connection
+          description: "Create a data delivery connection to export Tanium endpoint data to a downstream system"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "tanium-connect.create-connection"
+          with:
+            name: "tools.name"
+            source: "tools.source"
+            destination: "tools.destination"
+            schedule: "tools.schedule"
+          outputParameters:
+            - type: object
+              mapping: "$."

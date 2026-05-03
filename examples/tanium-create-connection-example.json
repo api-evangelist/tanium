@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://tanium.example.com/plugin/products/connect/v1/connections",
+    "headers": {
+      "session": "your-api-token-here",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Export Installed Software to Syslog",
+      "description": "Export installed software inventory to SIEM via syslog",
+      "source": {
+        "type": "savedQuestion",
+        "savedQuestionId": 201
+      },
+      "destination": {
+        "id": 10
+      },
+      "schedule": {
+        "cronExpression": "0 */6 * * *"
+      },
+      "enabled": true
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": 55,
+        "name": "Export Installed Software to Syslog",
+        "description": "Export installed software inventory to SIEM via syslog",
+        "enabled": true,
+        "status": "active",
+        "created": "2026-05-03T12:00:00Z",
+        "modified": "2026-05-03T12:00:00Z"
+      }
+    }
+  }
+}

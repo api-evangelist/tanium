@@ -13,7 +13,7 @@ tags:
   - Threat Detection
   - Unified Endpoint Management
 created: '2025-02-06'
-modified: '2026-03-16'
+modified: '2026-05-03'
 url: https://raw.githubusercontent.com/api-evangelist/tanium/refs/heads/main/apis.yml
 specificationVersion: '0.18'
 apis:
@@ -105,8 +105,18 @@ common:
     url: json-schema/tanium-action-schema.json
   - type: JSONSchema
     url: json-schema/tanium-connection-schema.json
+  - type: JSONStructure
+    url: json-structure/tanium-endpoint-structure.json
+  - type: JSONStructure
+    url: json-structure/tanium-action-structure.json
   - type: JSONLD
     url: json-ld/tanium-context.jsonld
+  - type: SpectralRules
+    url: rules/tanium-rules.yml
+  - type: NaftikoCapabilities
+    url: capabilities/endpoint-management.yaml
+  - type: Vocabulary
+    url: vocabulary/tanium-vocabulary.yml
   - type: Portal
     url: https://developer.tanium.com/
   - type: Documentation

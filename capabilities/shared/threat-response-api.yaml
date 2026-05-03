@@ -1,0 +1,207 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Tanium Threat Response API"
+  description: "Tanium Threat Response REST API for incident investigations, alert management, endpoint connections, evidence gathering, and process analysis."
+  tags:
+    - Alerts
+    - Evidence
+    - Incident Response
+    - Investigations
+    - Security
+    - Threat Detection
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TANIUM_API_TOKEN: TANIUM_API_TOKEN
+      TANIUM_SERVER: TANIUM_SERVER
+
+capability:
+  consumes:
+    - type: http
+      namespace: tanium-threat-response
+      baseUri: "https://{{TANIUM_SERVER}}"
+      description: "Tanium Threat Response API for incident investigations"
+      authentication:
+        type: apikey
+        key: session
+        value: "{{TANIUM_API_TOKEN}}"
+        placement: header
+      resources:
+        - name: alerts
+          path: /plugin/products/threat-response/api/v1/alerts
+          description: "Manage threat alerts"
+          operations:
+            - name: list-alerts
+              method: GET
+              description: "List threat alerts"
+              inputParameters:
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum alerts to return"
+                - name: offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+                - name: state
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by alert state"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: connections
+          path: /plugin/products/threat-response/api/v1/conns
+          description: "Live endpoint connections for investigations"
+          operations:
+            - name: list-connections
+              method: GET
+              description: "List endpoint investigation connections"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-connection
+              method: POST
+              description: "Create a live connection to an endpoint"
+              body:
+                type: json
+                data:
+                  target: "{{tools.target}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: events
+          path: /plugin/products/threat-response/api/v1/conns/{cid}/events/{type}
+          description: "View Recorder events from endpoints"
+          operations:
+            - name: list-events
+              method: GET
+              description: "List events by type from an endpoint connection"
+              inputParameters:
+                - name: cid
+                  in: path
+                  type: string
+                  required: true
+                  description: "Connection ID"
+                - name: type
+                  in: path
+                  type: string
+                  required: true
+                  description: "Event type (e.g., process, network, file)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: process-tree
+          path: /plugin/products/threat-response/api/v1/conns/{cid}/processtrees/{pid}
+          description: "Get process tree for a specific process"
+          operations:
+            - name: get-process-tree
+              method: GET
+              description: "Get the process tree for a specific process"
+              inputParameters:
+                - name: cid
+                  in: path
+                  type: string
+                  required: true
+                  description: "Connection ID"
+                - name: pid
+                  in: path
+                  type: integer
+                  required: true
+                  description: "Process ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8102
+      namespace: tanium-threat-response-rest
+      resources:
+        - path: /v1/alerts
+          name: alerts
+          description: "Threat alerts"
+          operations:
+            - method: GET
+              name: list-alerts
+              description: "List threat alerts"
+              call: "tanium-threat-response.list-alerts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9102
+      namespace: tanium-threat-response-mcp
+      transport: http
+      tools:
+        - name: list-threat-alerts
+          description: "List threat alerts from Tanium Threat Response"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tanium-threat-response.list-alerts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-endpoint-connections
+          description: "List active live endpoint investigation connections"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tanium-threat-response.list-connections"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: connect-to-endpoint
+          description: "Create a live connection to an endpoint for investigation"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "tanium-threat-response.create-connection"
+          with:
+            target: "tools.target"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-endpoint-events
+          description: "Get Recorder events by type from a live endpoint connection"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tanium-threat-response.list-events"
+          with:
+            cid: "tools.cid"
+            type: "tools.type"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-process-tree
+          description: "Get the process ancestry tree for a specific process on an endpoint"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tanium-threat-response.get-process-tree"
+          with:
+            cid: "tools.cid"
+            pid: "tools.pid"
+          outputParameters:
+            - type: object
+              mapping: "$."
