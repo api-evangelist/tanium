@@ -87,6 +87,9 @@ apis:
         url: https://docs.tanium.com/connect/connect/index.html
       - type: OpenAPI
         url: openapi/tanium-connect-api-openapi.yml
+integrations:
+  - name: Become a Partner
+  - name: View all partners
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
@@ -153,3 +156,5 @@ common:
     url: https://help.tanium.com/bundle/releasenotes/page/releasenotes/index.html
   - type: Contact
     url: https://www.tanium.com/contact/
+  - type: Integrations
+    url: https://www.tanium.com/partners
