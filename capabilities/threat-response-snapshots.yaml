@@ -1,0 +1,206 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tanium Threat Response API — Snapshots
+  description: 'Tanium Threat Response API — Snapshots. 4 operations. Lead operation: Create An Endpoint Snapshot. Self-contained
+    Naftiko capability covering one Tanium business surface.'
+  tags:
+  - Tanium
+  - Snapshots
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TANIUM_API_KEY: TANIUM_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: threat-response-snapshots
+    baseUri: https://{tanium_server}
+    description: Tanium Threat Response API — Snapshots business capability. Self-contained, no shared references.
+    resources:
+    - name: plugin-products-threat-response-api-v1-conns-connectionId-snapshot
+      path: /plugin/products/threat-response/api/v1/conns/{connectionId}/snapshot
+      operations:
+      - name: createsnapshot
+        method: POST
+        description: Create An Endpoint Snapshot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connectionId
+          in: path
+          type: string
+          description: Unique identifier of the connection
+          required: true
+    - name: plugin-products-threat-response-api-v1-snapshot
+      path: /plugin/products/threat-response/api/v1/snapshot
+      operations:
+      - name: listsnapshots
+        method: GET
+        description: List All Snapshots
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of snapshots to return
+        - name: offset
+          in: query
+          type: integer
+          description: Number of snapshots to skip for pagination
+      - name: deletesnapshots
+        method: DELETE
+        description: Delete Snapshots
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: plugin-products-threat-response-api-v1-snapshot-snapshotId
+      path: /plugin/products/threat-response/api/v1/snapshot/{snapshotId}
+      operations:
+      - name: deletelocalsnapshot
+        method: DELETE
+        description: Delete A Local Snapshot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: snapshotId
+          in: path
+          type: string
+          description: Unique identifier of the snapshot to delete
+          required: true
+    authentication:
+      type: apikey
+      key: session
+      value: '{{env.TANIUM_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: threat-response-snapshots-rest
+    port: 8080
+    description: REST adapter for Tanium Threat Response API — Snapshots. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/plugin/products/threat-response/api/v1/conns/{connectionid}/snapshot
+      name: plugin-products-threat-response-api-v1-conns-connectionid-snapshot
+      description: REST surface for plugin-products-threat-response-api-v1-conns-connectionId-snapshot.
+      operations:
+      - method: POST
+        name: createsnapshot
+        description: Create An Endpoint Snapshot
+        call: threat-response-snapshots.createsnapshot
+        with:
+          connectionId: rest.connectionId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/plugin/products/threat-response/api/v1/snapshot
+      name: plugin-products-threat-response-api-v1-snapshot
+      description: REST surface for plugin-products-threat-response-api-v1-snapshot.
+      operations:
+      - method: GET
+        name: listsnapshots
+        description: List All Snapshots
+        call: threat-response-snapshots.listsnapshots
+        with:
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletesnapshots
+        description: Delete Snapshots
+        call: threat-response-snapshots.deletesnapshots
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/plugin/products/threat-response/api/v1/snapshot/{snapshotid}
+      name: plugin-products-threat-response-api-v1-snapshot-snapshotid
+      description: REST surface for plugin-products-threat-response-api-v1-snapshot-snapshotId.
+      operations:
+      - method: DELETE
+        name: deletelocalsnapshot
+        description: Delete A Local Snapshot
+        call: threat-response-snapshots.deletelocalsnapshot
+        with:
+          snapshotId: rest.snapshotId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: threat-response-snapshots-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tanium Threat Response API — Snapshots. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: create-endpoint-snapshot
+      description: Create An Endpoint Snapshot
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: threat-response-snapshots.createsnapshot
+      with:
+        connectionId: tools.connectionId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-snapshots
+      description: List All Snapshots
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: threat-response-snapshots.listsnapshots
+      with:
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-snapshots
+      description: Delete Snapshots
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: threat-response-snapshots.deletesnapshots
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-local-snapshot
+      description: Delete A Local Snapshot
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: threat-response-snapshots.deletelocalsnapshot
+      with:
+        snapshotId: tools.snapshotId
+      outputParameters:
+      - type: object
+        mapping: $.

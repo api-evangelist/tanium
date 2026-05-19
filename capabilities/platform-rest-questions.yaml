@@ -1,0 +1,208 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tanium Platform REST API — Questions
+  description: 'Tanium Platform REST API — Questions. 4 operations. Lead operation: Parse Question Text. Self-contained Naftiko
+    capability covering one Tanium business surface.'
+  tags:
+  - Tanium
+  - Questions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TANIUM_API_KEY: TANIUM_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-rest-questions
+    baseUri: https://{tanium_server}
+    description: Tanium Platform REST API — Questions business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v2-parse_question
+      path: /api/v2/parse_question
+      operations:
+      - name: parsequestion
+        method: POST
+        description: Parse Question Text
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v2-questions
+      path: /api/v2/questions
+      operations:
+      - name: createquestion
+        method: POST
+        description: Create And Ask A Question
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v2-questions-id
+      path: /api/v2/questions/{id}
+      operations:
+      - name: getquestion
+        method: GET
+        description: Get A Question By ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: integer
+          description: Numeric identifier of the question
+          required: true
+    - name: api-v2-result_data-question-id
+      path: /api/v2/result_data/question/{id}
+      operations:
+      - name: getquestionresults
+        method: GET
+        description: Get Question Results
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: integer
+          description: Numeric identifier of the question
+          required: true
+    authentication:
+      type: apikey
+      key: session
+      value: '{{env.TANIUM_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: platform-rest-questions-rest
+    port: 8080
+    description: REST adapter for Tanium Platform REST API — Questions. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/v2/parse-question
+      name: api-v2-parse-question
+      description: REST surface for api-v2-parse_question.
+      operations:
+      - method: POST
+        name: parsequestion
+        description: Parse Question Text
+        call: platform-rest-questions.parsequestion
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v2/questions
+      name: api-v2-questions
+      description: REST surface for api-v2-questions.
+      operations:
+      - method: POST
+        name: createquestion
+        description: Create And Ask A Question
+        call: platform-rest-questions.createquestion
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v2/questions/{id}
+      name: api-v2-questions-id
+      description: REST surface for api-v2-questions-id.
+      operations:
+      - method: GET
+        name: getquestion
+        description: Get A Question By ID
+        call: platform-rest-questions.getquestion
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v2/result-data/question/{id}
+      name: api-v2-result-data-question-id
+      description: REST surface for api-v2-result_data-question-id.
+      operations:
+      - method: GET
+        name: getquestionresults
+        description: Get Question Results
+        call: platform-rest-questions.getquestionresults
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-rest-questions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tanium Platform REST API — Questions. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: parse-question-text
+      description: Parse Question Text
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: platform-rest-questions.parsequestion
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-and-ask-question
+      description: Create And Ask A Question
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: platform-rest-questions.createquestion
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-question-id
+      description: Get A Question By ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-rest-questions.getquestion
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-question-results
+      description: Get Question Results
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-rest-questions.getquestionresults
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

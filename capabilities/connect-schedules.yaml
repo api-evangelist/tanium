@@ -1,0 +1,114 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tanium Connect API — Schedules
+  description: 'Tanium Connect API — Schedules. 2 operations. Lead operation: List All Schedules. Self-contained Naftiko capability
+    covering one Tanium business surface.'
+  tags:
+  - Tanium
+  - Schedules
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TANIUM_API_KEY: TANIUM_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: connect-schedules
+    baseUri: https://{tanium_server}
+    description: Tanium Connect API — Schedules business capability. Self-contained, no shared references.
+    resources:
+    - name: plugin-products-connect-v1-schedules
+      path: /plugin/products/connect/v1/schedules
+      operations:
+      - name: listschedules
+        method: GET
+        description: List All Schedules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: plugin-products-connect-v1-schedules-scheduleId
+      path: /plugin/products/connect/v1/schedules/{scheduleId}
+      operations:
+      - name: getschedule
+        method: GET
+        description: Get A Schedule By ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: scheduleId
+          in: path
+          type: integer
+          description: Unique identifier of the schedule
+          required: true
+    authentication:
+      type: apikey
+      key: session
+      value: '{{env.TANIUM_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: connect-schedules-rest
+    port: 8080
+    description: REST adapter for Tanium Connect API — Schedules. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/plugin/products/connect/v1/schedules
+      name: plugin-products-connect-v1-schedules
+      description: REST surface for plugin-products-connect-v1-schedules.
+      operations:
+      - method: GET
+        name: listschedules
+        description: List All Schedules
+        call: connect-schedules.listschedules
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/plugin/products/connect/v1/schedules/{scheduleid}
+      name: plugin-products-connect-v1-schedules-scheduleid
+      description: REST surface for plugin-products-connect-v1-schedules-scheduleId.
+      operations:
+      - method: GET
+        name: getschedule
+        description: Get A Schedule By ID
+        call: connect-schedules.getschedule
+        with:
+          scheduleId: rest.scheduleId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: connect-schedules-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tanium Connect API — Schedules. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-all-schedules
+      description: List All Schedules
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: connect-schedules.listschedules
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-schedule-id
+      description: Get A Schedule By ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: connect-schedules.getschedule
+      with:
+        scheduleId: tools.scheduleId
+      outputParameters:
+      - type: object
+        mapping: $.

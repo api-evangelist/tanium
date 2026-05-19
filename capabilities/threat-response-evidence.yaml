@@ -1,0 +1,249 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tanium Threat Response API — Evidence
+  description: 'Tanium Threat Response API — Evidence. 5 operations. Lead operation: List Investigation Evidence. Self-contained
+    Naftiko capability covering one Tanium business surface.'
+  tags:
+  - Tanium
+  - Evidence
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TANIUM_API_KEY: TANIUM_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: threat-response-evidence
+    baseUri: https://{tanium_server}
+    description: Tanium Threat Response API — Evidence business capability. Self-contained, no shared references.
+    resources:
+    - name: plugin-products-threat-response-api-v1-evidence
+      path: /plugin/products/threat-response/api/v1/evidence
+      operations:
+      - name: listevidence
+        method: GET
+        description: List Investigation Evidence
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of evidence items to return
+        - name: offset
+          in: query
+          type: integer
+          description: Number of evidence items to skip for pagination
+        - name: sort
+          in: query
+          type: string
+          description: Sort order for results
+        - name: hostname
+          in: query
+          type: string
+          description: Filter by endpoint hostname
+        - name: type
+          in: query
+          type: string
+          description: Filter by evidence type
+      - name: createevidence
+        method: POST
+        description: Create Evidence From A Process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: plugin-products-threat-response-api-v1-evidence-properties
+      path: /plugin/products/threat-response/api/v1/evidence/properties
+      operations:
+      - name: getevidenceproperties
+        method: GET
+        description: Get Evidence Properties
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: plugin-products-threat-response-api-v1-evidence-evidenceId
+      path: /plugin/products/threat-response/api/v1/evidence/{evidenceId}
+      operations:
+      - name: getevidence
+        method: GET
+        description: Get Evidence By ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: evidenceId
+          in: path
+          type: string
+          description: Unique identifier of the evidence
+          required: true
+      - name: deleteevidence
+        method: DELETE
+        description: Delete Evidence
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: evidenceId
+          in: path
+          type: string
+          description: Evidence ID or comma-separated list of evidence IDs
+          required: true
+    authentication:
+      type: apikey
+      key: session
+      value: '{{env.TANIUM_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: threat-response-evidence-rest
+    port: 8080
+    description: REST adapter for Tanium Threat Response API — Evidence. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/plugin/products/threat-response/api/v1/evidence
+      name: plugin-products-threat-response-api-v1-evidence
+      description: REST surface for plugin-products-threat-response-api-v1-evidence.
+      operations:
+      - method: GET
+        name: listevidence
+        description: List Investigation Evidence
+        call: threat-response-evidence.listevidence
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          sort: rest.sort
+          hostname: rest.hostname
+          type: rest.type
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createevidence
+        description: Create Evidence From A Process
+        call: threat-response-evidence.createevidence
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/plugin/products/threat-response/api/v1/evidence/properties
+      name: plugin-products-threat-response-api-v1-evidence-properties
+      description: REST surface for plugin-products-threat-response-api-v1-evidence-properties.
+      operations:
+      - method: GET
+        name: getevidenceproperties
+        description: Get Evidence Properties
+        call: threat-response-evidence.getevidenceproperties
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/plugin/products/threat-response/api/v1/evidence/{evidenceid}
+      name: plugin-products-threat-response-api-v1-evidence-evidenceid
+      description: REST surface for plugin-products-threat-response-api-v1-evidence-evidenceId.
+      operations:
+      - method: GET
+        name: getevidence
+        description: Get Evidence By ID
+        call: threat-response-evidence.getevidence
+        with:
+          evidenceId: rest.evidenceId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteevidence
+        description: Delete Evidence
+        call: threat-response-evidence.deleteevidence
+        with:
+          evidenceId: rest.evidenceId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: threat-response-evidence-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tanium Threat Response API — Evidence. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-investigation-evidence
+      description: List Investigation Evidence
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: threat-response-evidence.listevidence
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        sort: tools.sort
+        hostname: tools.hostname
+        type: tools.type
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-evidence-process
+      description: Create Evidence From A Process
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: threat-response-evidence.createevidence
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-evidence-properties
+      description: Get Evidence Properties
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: threat-response-evidence.getevidenceproperties
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-evidence-id
+      description: Get Evidence By ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: threat-response-evidence.getevidence
+      with:
+        evidenceId: tools.evidenceId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-evidence
+      description: Delete Evidence
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: threat-response-evidence.deleteevidence
+      with:
+        evidenceId: tools.evidenceId
+      outputParameters:
+      - type: object
+        mapping: $.

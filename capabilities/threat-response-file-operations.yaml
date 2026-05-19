@@ -1,0 +1,89 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tanium Threat Response API — File Operations
+  description: 'Tanium Threat Response API — File Operations. 1 operations. Lead operation: Request A File Download From An
+    Endpoint. Self-contained Naftiko capability covering one Tanium business surface.'
+  tags:
+  - Tanium
+  - File Operations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TANIUM_API_KEY: TANIUM_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: threat-response-file-operations
+    baseUri: https://{tanium_server}
+    description: Tanium Threat Response API — File Operations business capability. Self-contained, no shared references.
+    resources:
+    - name: plugin-products-threat-response-api-v1-conns-connectionId-file
+      path: /plugin/products/threat-response/api/v1/conns/{connectionId}/file
+      operations:
+      - name: requestfilefromendpoint
+        method: POST
+        description: Request A File Download From An Endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connectionId
+          in: path
+          type: string
+          description: Unique identifier of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: session
+      value: '{{env.TANIUM_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: threat-response-file-operations-rest
+    port: 8080
+    description: REST adapter for Tanium Threat Response API — File Operations. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/plugin/products/threat-response/api/v1/conns/{connectionid}/file
+      name: plugin-products-threat-response-api-v1-conns-connectionid-file
+      description: REST surface for plugin-products-threat-response-api-v1-conns-connectionId-file.
+      operations:
+      - method: POST
+        name: requestfilefromendpoint
+        description: Request A File Download From An Endpoint
+        call: threat-response-file-operations.requestfilefromendpoint
+        with:
+          connectionId: rest.connectionId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: threat-response-file-operations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tanium Threat Response API — File Operations. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: request-file-download-endpoint
+      description: Request A File Download From An Endpoint
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: threat-response-file-operations.requestfilefromendpoint
+      with:
+        connectionId: tools.connectionId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
