@@ -212,3 +212,5 @@ common:
     url: https://www.tanium.com/contact/
   - type: Integrations
     url: https://www.tanium.com/partners
+  - type: LLMsTxt
+    url: https://developer.tanium.com/llms.txt
