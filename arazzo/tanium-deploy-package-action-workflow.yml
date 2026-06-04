@@ -1,0 +1,125 @@
+arazzo: 1.0.1
+info:
+  title: Tanium Deploy A Package As An Action
+  summary: Resolve a package, action group, and target computer group by name, then create and execute the action.
+  description: >-
+    The standard action-deployment pattern for the Tanium Platform. The workflow
+    resolves a deployment package by name, an action group that governs approval
+    and targeting, and a target computer group that scopes the affected
+    endpoints, then creates a saved action that deploys the package to the
+    targeted endpoints. Every step spells out its request inline, including the
+    session header used for token authentication, so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: platformApi
+  url: ../openapi/tanium-platform-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: deploy-package-action
+  summary: Resolve package, action group, and computer group, then deploy an action.
+  description: >-
+    Looks up the package, action group, and target computer group by name and
+    creates a saved action that deploys the package to the targeted endpoints.
+  inputs:
+    type: object
+    required:
+    - sessionToken
+    - actionName
+    - packageName
+    - actionGroupName
+    - targetGroupName
+    properties:
+      sessionToken:
+        type: string
+        description: API token or session token passed in the session header.
+      actionName:
+        type: string
+        description: Name to assign to the new action.
+      packageName:
+        type: string
+        description: Name of the deployment package to deploy.
+      actionGroupName:
+        type: string
+        description: Name of the action group governing approval and targeting.
+      targetGroupName:
+        type: string
+        description: Name of the computer group to target with the action.
+  steps:
+  - stepId: resolvePackage
+    description: >-
+      Resolve the deployment package by name to obtain its id before building the
+      action.
+    operationId: getPackageByName
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    - name: name
+      in: path
+      value: $inputs.packageName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      packageId: $response.body#/data/id
+      resolvedPackageName: $response.body#/data/name
+  - stepId: resolveActionGroup
+    description: >-
+      Resolve the action group by name to obtain its id for approval and
+      targeting.
+    operationId: getActionGroupByName
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    - name: name
+      in: path
+      value: $inputs.actionGroupName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      actionGroupId: $response.body#/data/id
+  - stepId: resolveTargetGroup
+    description: >-
+      Resolve the target computer group by name to scope the endpoints the action
+      affects.
+    operationId: getGroupByName
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    - name: name
+      in: path
+      value: $inputs.targetGroupName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      targetGroupId: $response.body#/data/id
+  - stepId: createAction
+    description: >-
+      Create and execute a saved action that deploys the resolved package to the
+      resolved target group under the resolved action group.
+    operationId: createSavedAction
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.actionName
+        package_spec:
+          source_id: $steps.resolvePackage.outputs.packageId
+          name: $steps.resolvePackage.outputs.resolvedPackageName
+        action_group:
+          id: $steps.resolveActionGroup.outputs.actionGroupId
+        target_group:
+          id: $steps.resolveTargetGroup.outputs.targetGroupId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      actionId: $response.body#/data/id
+      actionStatus: $response.body#/data/status
+  outputs:
+    actionId: $steps.createAction.outputs.actionId
+    actionStatus: $steps.createAction.outputs.actionStatus

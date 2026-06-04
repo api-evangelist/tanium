@@ -1,0 +1,81 @@
+arazzo: 1.0.1
+info:
+  title: Tanium Run A Saved Question By Name
+  summary: Resolve a saved question by name, then read its latest endpoint result data.
+  description: >-
+    Saved questions run on a schedule and continuously collect data from
+    endpoints. This workflow resolves a saved question by its name to obtain its
+    numeric id, then reads the latest result set associated with that saved
+    question. Every step spells out its request inline, including the session
+    header used for token authentication, so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: platformApi
+  url: ../openapi/tanium-platform-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: run-saved-question
+  summary: Resolve a saved question by name and fetch its latest results.
+  description: >-
+    Looks up a saved question by name to obtain its id, then retrieves the most
+    recent result data collected by that saved question.
+  inputs:
+    type: object
+    required:
+    - sessionToken
+    - savedQuestionName
+    properties:
+      sessionToken:
+        type: string
+        description: API token or session token passed in the session header.
+      savedQuestionName:
+        type: string
+        description: Name of the saved question to resolve and read (URL-encoded if it contains special characters).
+  steps:
+  - stepId: resolveSavedQuestion
+    description: >-
+      Resolve the saved question by name to obtain its numeric id and confirm it
+      exists before reading results.
+    operationId: getSavedQuestionByName
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    - name: name
+      in: path
+      value: $inputs.savedQuestionName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      savedQuestionId: $response.body#/data/id
+    onSuccess:
+    - name: resolved
+      type: goto
+      stepId: readSavedResults
+      criteria:
+      - context: $response.body
+        condition: $.data.id != null
+        type: jsonpath
+  - stepId: readSavedResults
+    description: >-
+      Retrieve the latest result data rows collected by the resolved saved
+      question.
+    operationId: getSavedQuestionResults
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    - name: id
+      in: path
+      value: $steps.resolveSavedQuestion.outputs.savedQuestionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      rowCount: $response.body#/data/result_sets/0/row_count
+      estimatedTotal: $response.body#/data/result_sets/0/estimated_total
+      rows: $response.body#/data/result_sets/0/rows
+  outputs:
+    savedQuestionId: $steps.resolveSavedQuestion.outputs.savedQuestionId
+    rowCount: $steps.readSavedResults.outputs.rowCount
+    rows: $steps.readSavedResults.outputs.rows

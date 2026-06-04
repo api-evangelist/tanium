@@ -1,0 +1,120 @@
+arazzo: 1.0.1
+info:
+  title: Tanium Ask A Question And Get Results
+  summary: Parse question text, ask it across endpoints, poll until answered, then read the result data.
+  description: >-
+    The core interrogation pattern for the Tanium Platform. The workflow first
+    parses natural language question text into a structured question, then
+    creates and asks the question across managed endpoints, polls the question
+    by id until results have propagated, and finally reads the collected result
+    data rows. Every step spells out its request inline, including the session
+    header used for token authentication, so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: platformApi
+  url: ../openapi/tanium-platform-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: ask-question-get-results
+  summary: Ask a Tanium question and retrieve its endpoint result data.
+  description: >-
+    Parses the supplied question text, creates and asks the question, polls the
+    question until it has been issued, and returns the result set collected from
+    responding endpoints.
+  inputs:
+    type: object
+    required:
+    - sessionToken
+    - queryText
+    properties:
+      sessionToken:
+        type: string
+        description: API token or session token passed in the session header.
+      queryText:
+        type: string
+        description: Natural language question text to parse and ask (e.g. "Get Computer Name from all machines").
+  steps:
+  - stepId: parseQuestionText
+    description: >-
+      Parse the natural language question text into one or more structured
+      question interpretations before asking it.
+    operationId: parseQuestion
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    requestBody:
+      contentType: application/json
+      payload:
+        query_text: $inputs.queryText
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      parsedText: $response.body#/data/0/question_text
+  - stepId: askQuestion
+    description: >-
+      Create and ask the question across managed endpoints using the parsed
+      question text.
+    operationId: createQuestion
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    requestBody:
+      contentType: application/json
+      payload:
+        query_text: $steps.parseQuestionText.outputs.parsedText
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      questionId: $response.body#/data/id
+  - stepId: pollQuestion
+    description: >-
+      Poll the question by id until the server confirms it exists and has been
+      issued to endpoints.
+    operationId: getQuestion
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    - name: id
+      in: path
+      value: $steps.askQuestion.outputs.questionId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.data.id != null
+      type: jsonpath
+    outputs:
+      confirmedId: $response.body#/data/id
+    onSuccess:
+    - name: questionReady
+      type: goto
+      stepId: readResults
+      criteria:
+      - context: $response.body
+        condition: $.data.id != null
+        type: jsonpath
+  - stepId: readResults
+    description: >-
+      Retrieve the result data rows collected from responding endpoints for the
+      confirmed question.
+    operationId: getQuestionResults
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    - name: id
+      in: path
+      value: $steps.pollQuestion.outputs.confirmedId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      estimatedTotal: $response.body#/data/result_sets/0/estimated_total
+      rowCount: $response.body#/data/result_sets/0/row_count
+      rows: $response.body#/data/result_sets/0/rows
+  outputs:
+    questionId: $steps.askQuestion.outputs.questionId
+    rowCount: $steps.readResults.outputs.rowCount
+    rows: $steps.readResults.outputs.rows

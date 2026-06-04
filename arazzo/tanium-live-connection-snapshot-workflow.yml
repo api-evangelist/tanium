@@ -1,0 +1,114 @@
+arazzo: 1.0.1
+info:
+  title: Tanium Threat Response Live Connection And Snapshot
+  summary: Open a live connection to an endpoint, poll until connected, then capture a snapshot for offline analysis.
+  description: >-
+    The Threat Response investigation pattern. The workflow opens a live
+    connection to a specified endpoint, polls the connection by id until the
+    Recorder reports it is connected, and then initiates a point-in-time
+    snapshot of the endpoint's Recorder data for offline analysis. Every step
+    spells out its request inline, including the session header used for token
+    authentication, so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: threatResponseApi
+  url: ../openapi/tanium-threat-response-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: live-connection-snapshot
+  summary: Connect to an endpoint, poll until connected, and capture a snapshot.
+  description: >-
+    Initiates a live connection to an endpoint, polls until the connection is
+    established, and captures a Recorder snapshot from the connected endpoint.
+  inputs:
+    type: object
+    required:
+    - sessionToken
+    - clientId
+    - ip
+    - platform
+    - hostname
+    properties:
+      sessionToken:
+        type: string
+        description: API token or session token passed in the session header.
+      clientId:
+        type: string
+        description: Tanium client identifier of the target endpoint.
+      ip:
+        type: string
+        description: IP address of the target endpoint.
+      platform:
+        type: string
+        description: Operating system platform of the target endpoint.
+      hostname:
+        type: string
+        description: Hostname of the target endpoint.
+  steps:
+  - stepId: openConnection
+    description: >-
+      Initiate a live connection to the target endpoint for investigation.
+    operationId: createConnection
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    requestBody:
+      contentType: application/json
+      payload:
+        client_id: $inputs.clientId
+        ip: $inputs.ip
+        platform: $inputs.platform
+        hostname: $inputs.hostname
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      connectionId: $response.body#/data/id
+  - stepId: pollConnection
+    description: >-
+      Poll the connection by id until its status reports that the endpoint is
+      connected and ready for snapshot capture.
+    operationId: getConnection
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    - name: connectionId
+      in: path
+      value: $steps.openConnection.outputs.connectionId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.data.status == "connected"
+      type: jsonpath
+    outputs:
+      connectionStatus: $response.body#/data/status
+    onSuccess:
+    - name: connected
+      type: goto
+      stepId: captureSnapshot
+      criteria:
+      - context: $response.body
+        condition: $.data.status == "connected"
+        type: jsonpath
+  - stepId: captureSnapshot
+    description: >-
+      Initiate a point-in-time Recorder snapshot from the connected endpoint for
+      offline analysis.
+    operationId: createSnapshot
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    - name: connectionId
+      in: path
+      value: $steps.openConnection.outputs.connectionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      taskId: $response.body#/data/taskId
+      taskStatus: $response.body#/data/status
+  outputs:
+    connectionId: $steps.openConnection.outputs.connectionId
+    snapshotTaskId: $steps.captureSnapshot.outputs.taskId

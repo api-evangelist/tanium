@@ -1,0 +1,105 @@
+arazzo: 1.0.1
+info:
+  title: Tanium Ask A Question Scoped To A Computer Group
+  summary: Resolve a computer group by name, ask a question scoped to it, then read the result data.
+  description: >-
+    Computer groups define sets of endpoints based on filter criteria and are
+    used to target questions. This workflow resolves a computer group by name to
+    obtain its id, creates and asks a question scoped to that group, and reads
+    the collected result data. Every step spells out its request inline,
+    including the session header used for token authentication, so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: platformApi
+  url: ../openapi/tanium-platform-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: target-group-question
+  summary: Resolve a computer group by name and ask a question scoped to it.
+  description: >-
+    Looks up a computer group by name, asks a question targeting only that
+    group's endpoints, and returns the collected result data.
+  inputs:
+    type: object
+    required:
+    - sessionToken
+    - groupName
+    - queryText
+    properties:
+      sessionToken:
+        type: string
+        description: API token or session token passed in the session header.
+      groupName:
+        type: string
+        description: Name of the computer group to resolve and target.
+      queryText:
+        type: string
+        description: Natural language question text to ask against the group.
+  steps:
+  - stepId: resolveGroup
+    description: >-
+      Resolve the computer group by name to obtain its id for scoping the
+      question.
+    operationId: getGroupByName
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    - name: name
+      in: path
+      value: $inputs.groupName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      groupId: $response.body#/data/id
+      resolvedGroupName: $response.body#/data/name
+  - stepId: askQuestion
+    description: >-
+      Create and ask the question scoped to the resolved computer group via the
+      group filter.
+    operationId: createQuestion
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    requestBody:
+      contentType: application/json
+      payload:
+        query_text: $inputs.queryText
+        group:
+          id: $steps.resolveGroup.outputs.groupId
+          name: $steps.resolveGroup.outputs.resolvedGroupName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      questionId: $response.body#/data/id
+    onSuccess:
+    - name: asked
+      type: goto
+      stepId: readResults
+      criteria:
+      - context: $response.body
+        condition: $.data.id != null
+        type: jsonpath
+  - stepId: readResults
+    description: >-
+      Retrieve the result data rows collected from the targeted group's
+      endpoints.
+    operationId: getQuestionResults
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    - name: id
+      in: path
+      value: $steps.askQuestion.outputs.questionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      rowCount: $response.body#/data/result_sets/0/row_count
+      rows: $response.body#/data/result_sets/0/rows
+  outputs:
+    groupId: $steps.resolveGroup.outputs.groupId
+    questionId: $steps.askQuestion.outputs.questionId
+    rows: $steps.readResults.outputs.rows

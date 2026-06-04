@@ -1,0 +1,80 @@
+arazzo: 1.0.1
+info:
+  title: Tanium Connect Run A Connection On Demand
+  summary: Confirm a Connect connection by id, then trigger an immediate on-demand execution.
+  description: >-
+    Tanium Connect delivers source data to configured destinations on a
+    schedule. This workflow first retrieves a connection by id to confirm its
+    configuration exists, then triggers an immediate execution outside of the
+    normal schedule, sending the current source data to the destination. Every
+    step spells out its request inline, including the session header used for
+    token authentication, so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: connectApi
+  url: ../openapi/tanium-connect-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: connect-run-on-demand
+  summary: Confirm a Connect connection and trigger an on-demand run.
+  description: >-
+    Retrieves a Connect connection by id to confirm it exists, then triggers an
+    immediate on-demand execution and returns the run identifier.
+  inputs:
+    type: object
+    required:
+    - sessionToken
+    - connectionId
+    properties:
+      sessionToken:
+        type: string
+        description: API token or session token passed in the session header.
+      connectionId:
+        type: integer
+        description: Unique identifier of the Connect connection to run.
+  steps:
+  - stepId: confirmConnection
+    description: >-
+      Retrieve the connection by id to confirm its configuration exists before
+      triggering a run.
+    operationId: getConnection
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    - name: connectionId
+      in: path
+      value: $inputs.connectionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmedId: $response.body#/data/id
+    onSuccess:
+    - name: exists
+      type: goto
+      stepId: runConnection
+      criteria:
+      - context: $response.body
+        condition: $.data.id != null
+        type: jsonpath
+  - stepId: runConnection
+    description: >-
+      Trigger an immediate on-demand execution of the connection, sending the
+      current source data to the configured destination.
+    operationId: runConnection
+    parameters:
+    - name: session
+      in: header
+      value: $inputs.sessionToken
+    - name: connectionId
+      in: path
+      value: $inputs.connectionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      runStatus: $response.body#/data/status
+      runId: $response.body#/data/runId
+  outputs:
+    connectionId: $steps.confirmConnection.outputs.confirmedId
+    runId: $steps.runConnection.outputs.runId

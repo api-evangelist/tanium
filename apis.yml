@@ -146,6 +146,30 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: ArazzoWorkflows
+    url: arazzo/
+    workflows:
+    - url: arazzo/tanium-ask-question-get-results-workflow.yml
+      name: Tanium Ask A Question And Get Results
+      summary: Parse question text, ask it across endpoints, poll until answered, then read the result data.
+    - url: arazzo/tanium-connect-run-on-demand-workflow.yml
+      name: Tanium Connect Run A Connection On Demand
+      summary: Confirm a Connect connection by id, then trigger an immediate on-demand execution.
+    - url: arazzo/tanium-deploy-package-action-workflow.yml
+      name: Tanium Deploy A Package As An Action
+      summary: Resolve a package, action group, and target computer group by name, then create and execute the action.
+    - url: arazzo/tanium-live-connection-snapshot-workflow.yml
+      name: Tanium Threat Response Live Connection And Snapshot
+      summary: Open a live connection to an endpoint, poll until connected, then capture a snapshot for offline analysis.
+    - url: arazzo/tanium-run-saved-question-workflow.yml
+      name: Tanium Run A Saved Question By Name
+      summary: Resolve a saved question by name, then read its latest endpoint result data.
+    - url: arazzo/tanium-sensor-question-results-workflow.yml
+      name: Tanium Ask A Sensor Question And Get Results
+      summary: Resolve a sensor by name, ask a question that selects it, poll until answered, then read the result data.
+    - url: arazzo/tanium-target-group-question-workflow.yml
+      name: Tanium Ask A Question Scoped To A Computer Group
+      summary: Resolve a computer group by name, ask a question scoped to it, then read the result data.
   - type: LinkedIn
     url: https://www.linkedin.com/company/tanium
   - type: JSONSchema
