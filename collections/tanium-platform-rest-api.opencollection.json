@@ -1,0 +1,345 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Platform REST API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create A New Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/api/v2/session/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates with the Tanium server using username and password credentials and returns a session token for subsequent API calls. This is the legacy authentication method; API tokens are preferred."
+        },
+        {
+          "info": {
+            "name": "Create An API Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/api/v2/api_tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new API token with optional expiration and trusted IP configuration. API tokens are the preferred authentication method for integrations and automated scripts."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Questions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create And Ask A Question",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/api/v2/questions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new question and asks it across managed endpoints. The question can be specified as parsed question text or as a structured question object with specific sensors and selectors."
+        },
+        {
+          "info": {
+            "name": "Get A Question By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/questions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric identifier of the question"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific question by its numeric identifier, including its status, expiration, and associated sensors."
+        },
+        {
+          "info": {
+            "name": "Get Question Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/result_data/question/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric identifier of the question"
+              }
+            ]
+          },
+          "docs": "Returns the result data for a specific question identified by its ID. Results include rows of data collected from responding endpoints."
+        },
+        {
+          "info": {
+            "name": "Parse Question Text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/api/v2/parse_question",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Parses natural language question text into a structured question object that can be used to create a question. Returns one or more possible interpretations of the question text."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Saved Questions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Saved Questions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/saved_questions"
+          },
+          "docs": "Retrieves a list of all saved questions configured on the Tanium server. Saved questions can be run on a schedule to continuously collect data from endpoints."
+        },
+        {
+          "info": {
+            "name": "Get A Saved Question By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/saved_questions/by-name/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the saved question"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a saved question identified by its name. The name must be URL-encoded if it contains special characters."
+        },
+        {
+          "info": {
+            "name": "Get Saved Question Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/result_data/saved_question/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric identifier of the saved question"
+              }
+            ]
+          },
+          "docs": "Returns the latest result data for a saved question identified by its numeric ID. Results include rows of data collected from responding endpoints."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Actions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create And Execute An Action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/api/v2/saved_actions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a saved action that deploys a package to targeted endpoints. Actions can target specific computer groups and use action groups for approval workflows."
+        },
+        {
+          "info": {
+            "name": "Get An Action Group By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/action_groups/by-name/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the action group"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an action group identified by its name. Action groups define approval policies and target restrictions for deploying actions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Packages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get A Package By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/packages/by-name/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the package"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a deployment package identified by its name. Packages contain scripts and files that are deployed to endpoints via actions."
+        },
+        {
+          "info": {
+            "name": "List All Packages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/packages"
+          },
+          "docs": "Retrieves a list of all deployment packages configured on the Tanium server. Packages contain scripts and files that can be deployed to endpoints through actions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sensors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get A Sensor By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/sensors/by-name/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the sensor"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a sensor identified by its name. Sensors collect data from endpoints and are used in questions to query endpoint state."
+        },
+        {
+          "info": {
+            "name": "List All Sensors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/sensors"
+          },
+          "docs": "Retrieves a list of all sensors configured on the Tanium server. Sensors are scripts that collect specific data from endpoints."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get A Computer Group By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/groups/by-name/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the computer group"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a computer group identified by its name. Computer groups define sets of endpoints based on filter criteria and are used to target questions and actions."
+        },
+        {
+          "info": {
+            "name": "List All Computer Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/groups"
+          },
+          "docs": "Retrieves a list of all computer groups configured on the Tanium server. Groups organize endpoints for targeted questioning and action deployment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

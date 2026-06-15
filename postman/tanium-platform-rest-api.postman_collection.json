@@ -1,0 +1,2997 @@
+{
+  "info": {
+    "_postman_id": "f6f7370b-b2d2-46e3-aa61-4803d6233502",
+    "name": "Tanium Platform REST API",
+    "description": "The Tanium Platform REST API provides access to core platform functionality including gathering endpoint information, deploying actions, evaluating deployment health, managing packages, sensors, saved questions, and downloading audit logs. Authentication is performed via API tokens passed in the session header.\n\nContact Support:\n Name: Tanium Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:59.000Z",
+    "updatedAt": "2026-06-05T15:18:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f6f7370b-b2d2-46e3-aa61-4803d6233502"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "session",
+              "item": [
+                {
+                  "name": "login",
+                  "item": [
+                    {
+                      "name": "Create A New Session",
+                      "id": "64e94194-2cba-485e-8987-6cee50637d0f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"domain\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/session/login",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "session",
+                            "login"
+                          ]
+                        },
+                        "description": "Authenticates with the Tanium server using username and password credentials and returns a session token for subsequent API calls. This is the legacy authentication method; API tokens are preferred."
+                      },
+                      "response": [
+                        {
+                          "id": "b52685d4-39a0-4cdd-8b1a-2fb73700cc43",
+                          "name": "Session created successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"domain\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/session/login",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "session",
+                                "login"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"session\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:19:00.000Z",
+                          "updatedAt": "2026-06-05T15:19:00.000Z",
+                          "uid": "35240-b52685d4-39a0-4cdd-8b1a-2fb73700cc43"
+                        },
+                        {
+                          "id": "3a5ce721-5b4e-48f0-b374-441521e32912",
+                          "name": "Authentication failed",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"domain\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/session/login",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "session",
+                                "login"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"text\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:19:00.000Z",
+                          "updatedAt": "2026-06-05T15:19:00.000Z",
+                          "uid": "35240-3a5ce721-5b4e-48f0-b374-441521e32912"
+                        },
+                        {
+                          "id": "dd990949-d6fe-4d0a-bf27-8e4883a15ae2",
+                          "name": "Access denied",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"domain\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/session/login",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "session",
+                                "login"
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"text\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:19:00.000Z",
+                          "updatedAt": "2026-06-05T15:19:00.000Z",
+                          "uid": "35240-dd990949-d6fe-4d0a-bf27-8e4883a15ae2"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-64e94194-2cba-485e-8987-6cee50637d0f"
+                    }
+                  ],
+                  "id": "f91e6141-237f-4742-b5ee-2c90b4a2a83d",
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-f91e6141-237f-4742-b5ee-2c90b4a2a83d"
+                }
+              ],
+              "id": "42aac2b2-3763-47fc-986e-faa39404fc41",
+              "createdAt": "2026-06-05T15:19:00.000Z",
+              "updatedAt": "2026-06-05T15:19:00.000Z",
+              "uid": "35240-42aac2b2-3763-47fc-986e-faa39404fc41"
+            },
+            {
+              "name": "api_tokens",
+              "item": [
+                {
+                  "name": "Create An API Token",
+                  "id": "5f8d22bb-77c5-48e5-afeb-ee551f0c0a7c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"expire_in_days\": \"<integer>\",\n  \"trusted_ip_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notes\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/api_tokens",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "api_tokens"
+                      ]
+                    },
+                    "description": "Creates a new API token with optional expiration and trusted IP configuration. API tokens are the preferred authentication method for integrations and automated scripts."
+                  },
+                  "response": [
+                    {
+                      "id": "3530482e-f5fe-4656-ac81-f550d0c0831a",
+                      "name": "API token created successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"expire_in_days\": \"<integer>\",\n  \"trusted_ip_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notes\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/api_tokens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "api_tokens"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"token_string\": \"<string>\",\n    \"expire_time\": \"<dateTime>\",\n    \"trusted_ip_addresses\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"notes\": \"<string>\",\n    \"creation_time\": \"<dateTime>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-3530482e-f5fe-4656-ac81-f550d0c0831a"
+                    },
+                    {
+                      "id": "e6ceb930-a861-4484-bda7-87d5c06c7493",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"expire_in_days\": \"<integer>\",\n  \"trusted_ip_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notes\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/api_tokens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "api_tokens"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"text\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-e6ceb930-a861-4484-bda7-87d5c06c7493"
+                    },
+                    {
+                      "id": "5a81ad55-cbcf-4407-ab4d-95cf4141be72",
+                      "name": "Insufficient permissions",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"expire_in_days\": \"<integer>\",\n  \"trusted_ip_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notes\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/api_tokens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "api_tokens"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"text\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-5a81ad55-cbcf-4407-ab4d-95cf4141be72"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-5f8d22bb-77c5-48e5-afeb-ee551f0c0a7c"
+                }
+              ],
+              "id": "a8459870-507d-4017-b30d-364b9a6354c6",
+              "createdAt": "2026-06-05T15:19:00.000Z",
+              "updatedAt": "2026-06-05T15:19:00.000Z",
+              "uid": "35240-a8459870-507d-4017-b30d-364b9a6354c6"
+            },
+            {
+              "name": "questions",
+              "item": [
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "Get A Question By ID",
+                      "id": "eaf492ec-8b3f-4acd-b1b7-52fca020f26c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/questions/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "questions",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ba4dbc2a-a9d2-400e-96b4-919c6b9c4ddd",
+                              "key": "id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric identifier of the question"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the details of a specific question by its numeric identifier, including its status, expiration, and associated sensors."
+                      },
+                      "response": [
+                        {
+                          "id": "922b0428-18d0-457f-9ebb-7971823f569b",
+                          "name": "Question retrieved successfully",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/questions/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "questions",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"query_text\": \"<string>\",\n    \"expiration\": \"<dateTime>\",\n    \"selects\": [\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\",\n          \"id\": \"<integer>\"\n        }\n      },\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\",\n          \"id\": \"<integer>\"\n        }\n      }\n    ],\n    \"group\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"and_flag\": \"<boolean>\",\n      \"filters\": [\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\"\n          },\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\"\n          },\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"management_rights_group\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"and_flag\": \"<boolean>\",\n      \"filters\": [\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\"\n          },\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\"\n          },\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"saved_question\": {\n      \"id\": \"<integer>\"\n    }\n  }\n}",
+                          "createdAt": "2026-06-05T15:19:00.000Z",
+                          "updatedAt": "2026-06-05T15:19:00.000Z",
+                          "uid": "35240-922b0428-18d0-457f-9ebb-7971823f569b"
+                        },
+                        {
+                          "id": "227c9ca8-311a-495e-94e2-eedad2fc5c7c",
+                          "name": "Question not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/questions/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "questions",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"text\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:19:00.000Z",
+                          "updatedAt": "2026-06-05T15:19:00.000Z",
+                          "uid": "35240-227c9ca8-311a-495e-94e2-eedad2fc5c7c"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-eaf492ec-8b3f-4acd-b1b7-52fca020f26c"
+                    }
+                  ],
+                  "id": "0057653b-a70a-424a-ab1b-6c60a5f3a0e4",
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-0057653b-a70a-424a-ab1b-6c60a5f3a0e4"
+                },
+                {
+                  "name": "Create And Ask A Question",
+                  "id": "a71c823d-8c5f-4a4e-ab4b-bbd9114b29ce",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query_text\": \"<string>\",\n  \"selects\": [\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    },\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    }\n  ],\n  \"group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"and_flag\": \"<boolean>\",\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"expiration\": \"<dateTime>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/questions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "questions"
+                      ]
+                    },
+                    "description": "Creates a new question and asks it across managed endpoints. The question can be specified as parsed question text or as a structured question object with specific sensors and selectors."
+                  },
+                  "response": [
+                    {
+                      "id": "ddf98f29-3cc9-4db2-8b5f-38b0f8c764dd",
+                      "name": "Question created and asked successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"query_text\": \"<string>\",\n  \"selects\": [\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    },\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    }\n  ],\n  \"group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"and_flag\": \"<boolean>\",\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"expiration\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/questions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "questions"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"query_text\": \"<string>\",\n    \"expiration\": \"<dateTime>\",\n    \"selects\": [\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\",\n          \"id\": \"<integer>\"\n        }\n      },\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\",\n          \"id\": \"<integer>\"\n        }\n      }\n    ],\n    \"group\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"and_flag\": \"<boolean>\",\n      \"filters\": [\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\"\n          },\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\"\n          },\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"management_rights_group\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"and_flag\": \"<boolean>\",\n      \"filters\": [\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\"\n          },\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\"\n          },\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"saved_question\": {\n      \"id\": \"<integer>\"\n    }\n  }\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-ddf98f29-3cc9-4db2-8b5f-38b0f8c764dd"
+                    },
+                    {
+                      "id": "96ba7d0b-7514-4d69-98d5-193e6d7eafa3",
+                      "name": "Invalid question format",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"query_text\": \"<string>\",\n  \"selects\": [\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    },\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    }\n  ],\n  \"group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"and_flag\": \"<boolean>\",\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"expiration\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/questions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "questions"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"text\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-96ba7d0b-7514-4d69-98d5-193e6d7eafa3"
+                    },
+                    {
+                      "id": "2d1cefb1-b23f-4093-a624-7bd44f571b5f",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"query_text\": \"<string>\",\n  \"selects\": [\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    },\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    }\n  ],\n  \"group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"and_flag\": \"<boolean>\",\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"expiration\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/questions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "questions"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"text\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-2d1cefb1-b23f-4093-a624-7bd44f571b5f"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-a71c823d-8c5f-4a4e-ab4b-bbd9114b29ce"
+                }
+              ],
+              "id": "45fb3e60-eae2-4009-b98b-747f4f43839b",
+              "createdAt": "2026-06-05T15:19:00.000Z",
+              "updatedAt": "2026-06-05T15:19:00.000Z",
+              "uid": "35240-45fb3e60-eae2-4009-b98b-747f4f43839b"
+            },
+            {
+              "name": "result_data",
+              "item": [
+                {
+                  "name": "question",
+                  "item": [
+                    {
+                      "name": "{id}",
+                      "item": [
+                        {
+                          "name": "Get Question Results",
+                          "id": "312867c5-4bbd-4095-88c9-254eccd694ea",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/result_data/question/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "result_data",
+                                "question",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "9c38b732-577b-41c0-a3db-a1fcdcca7160",
+                                  "key": "id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Numeric identifier of the question"
+                                }
+                              ]
+                            },
+                            "description": "Returns the result data for a specific question identified by its ID. Results include rows of data collected from responding endpoints."
+                          },
+                          "response": [
+                            {
+                              "id": "be1db69f-8642-46cd-a0bf-3aa9204a3bf8",
+                              "name": "Question results retrieved successfully",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/result_data/question/:id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "result_data",
+                                    "question",
+                                    ":id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"max_available_age\": \"<string>\",\n    \"now\": \"<dateTime>\",\n    \"result_sets\": [\n      {\n        \"age\": \"<integer>\",\n        \"archived_question_id\": \"<integer>\",\n        \"columns\": [\n          {\n            \"hash\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"type\": \"<integer>\"\n          },\n          {\n            \"hash\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"type\": \"<integer>\"\n          }\n        ],\n        \"estimated_total\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"mr_tested\": \"<integer>\",\n        \"no_results_count\": \"<integer>\",\n        \"passed\": \"<integer>\",\n        \"row_count\": \"<integer>\",\n        \"rows\": [\n          {\n            \"cid\": \"<integer>\",\n            \"data\": [\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ],\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ]\n            ],\n            \"id\": \"<integer>\"\n          },\n          {\n            \"cid\": \"<integer>\",\n            \"data\": [\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ],\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ]\n            ],\n            \"id\": \"<integer>\"\n          }\n        ],\n        \"tested\": \"<integer>\"\n      },\n      {\n        \"age\": \"<integer>\",\n        \"archived_question_id\": \"<integer>\",\n        \"columns\": [\n          {\n            \"hash\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"type\": \"<integer>\"\n          },\n          {\n            \"hash\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"type\": \"<integer>\"\n          }\n        ],\n        \"estimated_total\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"mr_tested\": \"<integer>\",\n        \"no_results_count\": \"<integer>\",\n        \"passed\": \"<integer>\",\n        \"row_count\": \"<integer>\",\n        \"rows\": [\n          {\n            \"cid\": \"<integer>\",\n            \"data\": [\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ],\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ]\n            ],\n            \"id\": \"<integer>\"\n          },\n          {\n            \"cid\": \"<integer>\",\n            \"data\": [\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ],\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ]\n            ],\n            \"id\": \"<integer>\"\n          }\n        ],\n        \"tested\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-06-05T15:19:00.000Z",
+                              "updatedAt": "2026-06-05T15:19:00.000Z",
+                              "uid": "35240-be1db69f-8642-46cd-a0bf-3aa9204a3bf8"
+                            },
+                            {
+                              "id": "aacbc797-b46e-4194-bb01-57c31541620b",
+                              "name": "Question not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/result_data/question/:id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "result_data",
+                                    "question",
+                                    ":id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"text\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:19:00.000Z",
+                              "updatedAt": "2026-06-05T15:19:00.000Z",
+                              "uid": "35240-aacbc797-b46e-4194-bb01-57c31541620b"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:19:00.000Z",
+                          "updatedAt": "2026-06-05T15:19:00.000Z",
+                          "uid": "35240-312867c5-4bbd-4095-88c9-254eccd694ea"
+                        }
+                      ],
+                      "id": "ef23ab8f-42f6-4ff6-bbca-030515f3196e",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-ef23ab8f-42f6-4ff6-bbca-030515f3196e"
+                    }
+                  ],
+                  "id": "005be974-f2cd-410a-b7fd-d0bef700ed51",
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-005be974-f2cd-410a-b7fd-d0bef700ed51"
+                },
+                {
+                  "name": "saved_question",
+                  "item": [
+                    {
+                      "name": "{id}",
+                      "item": [
+                        {
+                          "name": "Get Saved Question Results",
+                          "id": "6b671341-b1a7-40ab-9c91-f19e2a747813",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/result_data/saved_question/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "result_data",
+                                "saved_question",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "b96a0af1-cd2e-4a52-8d6e-526093a22186",
+                                  "key": "id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Numeric identifier of the saved question"
+                                }
+                              ]
+                            },
+                            "description": "Returns the latest result data for a saved question identified by its numeric ID. Results include rows of data collected from responding endpoints."
+                          },
+                          "response": [
+                            {
+                              "id": "74331709-b4bf-47df-9a85-060b8a76b150",
+                              "name": "Saved question results retrieved successfully",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/result_data/saved_question/:id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "result_data",
+                                    "saved_question",
+                                    ":id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"max_available_age\": \"<string>\",\n    \"now\": \"<dateTime>\",\n    \"result_sets\": [\n      {\n        \"age\": \"<integer>\",\n        \"archived_question_id\": \"<integer>\",\n        \"columns\": [\n          {\n            \"hash\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"type\": \"<integer>\"\n          },\n          {\n            \"hash\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"type\": \"<integer>\"\n          }\n        ],\n        \"estimated_total\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"mr_tested\": \"<integer>\",\n        \"no_results_count\": \"<integer>\",\n        \"passed\": \"<integer>\",\n        \"row_count\": \"<integer>\",\n        \"rows\": [\n          {\n            \"cid\": \"<integer>\",\n            \"data\": [\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ],\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ]\n            ],\n            \"id\": \"<integer>\"\n          },\n          {\n            \"cid\": \"<integer>\",\n            \"data\": [\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ],\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ]\n            ],\n            \"id\": \"<integer>\"\n          }\n        ],\n        \"tested\": \"<integer>\"\n      },\n      {\n        \"age\": \"<integer>\",\n        \"archived_question_id\": \"<integer>\",\n        \"columns\": [\n          {\n            \"hash\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"type\": \"<integer>\"\n          },\n          {\n            \"hash\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"type\": \"<integer>\"\n          }\n        ],\n        \"estimated_total\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"mr_tested\": \"<integer>\",\n        \"no_results_count\": \"<integer>\",\n        \"passed\": \"<integer>\",\n        \"row_count\": \"<integer>\",\n        \"rows\": [\n          {\n            \"cid\": \"<integer>\",\n            \"data\": [\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ],\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ]\n            ],\n            \"id\": \"<integer>\"\n          },\n          {\n            \"cid\": \"<integer>\",\n            \"data\": [\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ],\n              [\n                {\n                  \"text\": \"<string>\"\n                },\n                {\n                  \"text\": \"<string>\"\n                }\n              ]\n            ],\n            \"id\": \"<integer>\"\n          }\n        ],\n        \"tested\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-06-05T15:19:00.000Z",
+                              "updatedAt": "2026-06-05T15:19:00.000Z",
+                              "uid": "35240-74331709-b4bf-47df-9a85-060b8a76b150"
+                            },
+                            {
+                              "id": "89ff005d-8117-462c-b0cb-40e57c0bb431",
+                              "name": "Saved question not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/result_data/saved_question/:id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "result_data",
+                                    "saved_question",
+                                    ":id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"text\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:19:00.000Z",
+                              "updatedAt": "2026-06-05T15:19:00.000Z",
+                              "uid": "35240-89ff005d-8117-462c-b0cb-40e57c0bb431"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:19:00.000Z",
+                          "updatedAt": "2026-06-05T15:19:00.000Z",
+                          "uid": "35240-6b671341-b1a7-40ab-9c91-f19e2a747813"
+                        }
+                      ],
+                      "id": "356e20b0-dff1-41fd-863d-35f6b1abaf2a",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-356e20b0-dff1-41fd-863d-35f6b1abaf2a"
+                    }
+                  ],
+                  "id": "8e69ea7a-9550-44ce-9930-b642a911bdb5",
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-8e69ea7a-9550-44ce-9930-b642a911bdb5"
+                }
+              ],
+              "id": "24107f00-e1fa-4b47-886d-2aece578e48e",
+              "createdAt": "2026-06-05T15:19:00.000Z",
+              "updatedAt": "2026-06-05T15:19:00.000Z",
+              "uid": "35240-24107f00-e1fa-4b47-886d-2aece578e48e"
+            },
+            {
+              "name": "parse_question",
+              "item": [
+                {
+                  "name": "Parse Question Text",
+                  "id": "d986d53a-a813-426f-a4dc-9fc4da7dca3a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query_text\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/parse_question",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "parse_question"
+                      ]
+                    },
+                    "description": "Parses natural language question text into a structured question object that can be used to create a question. Returns one or more possible interpretations of the question text."
+                  },
+                  "response": [
+                    {
+                      "id": "6bde3980-d865-41e0-9d25-a449e359020a",
+                      "name": "Question parsed successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"query_text\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/parse_question",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "parse_question"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"question\": {\n        \"id\": \"<integer>\",\n        \"query_text\": \"<string>\",\n        \"expiration\": \"<dateTime>\",\n        \"selects\": [\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\",\n              \"id\": \"<integer>\"\n            }\n          },\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\",\n              \"id\": \"<integer>\"\n            }\n          }\n        ],\n        \"group\": {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"and_flag\": \"<boolean>\",\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        },\n        \"management_rights_group\": {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"and_flag\": \"<boolean>\",\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        },\n        \"saved_question\": {\n          \"id\": \"<integer>\"\n        }\n      },\n      \"question_text\": \"<string>\"\n    },\n    {\n      \"question\": {\n        \"id\": \"<integer>\",\n        \"query_text\": \"<string>\",\n        \"expiration\": \"<dateTime>\",\n        \"selects\": [\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\",\n              \"id\": \"<integer>\"\n            }\n          },\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\",\n              \"id\": \"<integer>\"\n            }\n          }\n        ],\n        \"group\": {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"and_flag\": \"<boolean>\",\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        },\n        \"management_rights_group\": {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"and_flag\": \"<boolean>\",\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        },\n        \"saved_question\": {\n          \"id\": \"<integer>\"\n        }\n      },\n      \"question_text\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-6bde3980-d865-41e0-9d25-a449e359020a"
+                    },
+                    {
+                      "id": "d827f3fb-1160-4e36-b05e-b1be61687c3c",
+                      "name": "Unable to parse question text",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"query_text\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/parse_question",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "parse_question"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"text\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-d827f3fb-1160-4e36-b05e-b1be61687c3c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-d986d53a-a813-426f-a4dc-9fc4da7dca3a"
+                }
+              ],
+              "id": "d6c82304-50b3-4d4a-b74c-7a2e5bb46c68",
+              "createdAt": "2026-06-05T15:19:00.000Z",
+              "updatedAt": "2026-06-05T15:19:00.000Z",
+              "uid": "35240-d6c82304-50b3-4d4a-b74c-7a2e5bb46c68"
+            },
+            {
+              "name": "saved_questions",
+              "item": [
+                {
+                  "name": "by-name",
+                  "item": [
+                    {
+                      "name": "{name}",
+                      "item": [
+                        {
+                          "name": "Get A Saved Question By Name",
+                          "id": "c43218b9-2849-46bf-9747-ed01901bb1f8",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/saved_questions/by-name/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "saved_questions",
+                                "by-name",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "d7b0444b-19a9-4e6a-a16f-6af31764b74c",
+                                  "key": "name",
+                                  "value": "<string>",
+                                  "description": "(Required) Name of the saved question"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves the details of a saved question identified by its name. The name must be URL-encoded if it contains special characters."
+                          },
+                          "response": [
+                            {
+                              "id": "b4b21900-7938-49f2-a2d9-e25167db943b",
+                              "name": "Saved question retrieved successfully",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/saved_questions/by-name/:name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "saved_questions",
+                                    "by-name",
+                                    ":name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"query_text\": \"<string>\",\n    \"question\": {\n      \"id\": \"<integer>\",\n      \"query_text\": \"<string>\",\n      \"expiration\": \"<dateTime>\",\n      \"selects\": [\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\",\n            \"id\": \"<integer>\"\n          }\n        },\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\",\n            \"id\": \"<integer>\"\n          }\n        }\n      ],\n      \"group\": {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"and_flag\": \"<boolean>\",\n        \"filters\": [\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\"\n            },\n            \"operator\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\"\n            },\n            \"operator\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      \"management_rights_group\": {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"and_flag\": \"<boolean>\",\n        \"filters\": [\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\"\n            },\n            \"operator\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\"\n            },\n            \"operator\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      \"saved_question\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    \"issue_seconds\": \"<integer>\",\n    \"expire_seconds\": \"<integer>\",\n    \"mod_time\": \"<dateTime>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:19:00.000Z",
+                              "updatedAt": "2026-06-05T15:19:00.000Z",
+                              "uid": "35240-b4b21900-7938-49f2-a2d9-e25167db943b"
+                            },
+                            {
+                              "id": "80515b35-4ed9-4375-a933-1a7bcdd6baba",
+                              "name": "Saved question not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/saved_questions/by-name/:name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "saved_questions",
+                                    "by-name",
+                                    ":name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"text\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:19:00.000Z",
+                              "updatedAt": "2026-06-05T15:19:00.000Z",
+                              "uid": "35240-80515b35-4ed9-4375-a933-1a7bcdd6baba"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:19:00.000Z",
+                          "updatedAt": "2026-06-05T15:19:00.000Z",
+                          "uid": "35240-c43218b9-2849-46bf-9747-ed01901bb1f8"
+                        }
+                      ],
+                      "id": "1c5df935-1cef-4113-8c2a-2acad11ec256",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-1c5df935-1cef-4113-8c2a-2acad11ec256"
+                    }
+                  ],
+                  "id": "6fb6479d-6180-44ff-bfdc-65959f0ab5bb",
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-6fb6479d-6180-44ff-bfdc-65959f0ab5bb"
+                },
+                {
+                  "name": "List Saved Questions",
+                  "id": "9e125ead-8f68-402e-88a9-d0b1a364d007",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/saved_questions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "saved_questions"
+                      ]
+                    },
+                    "description": "Retrieves a list of all saved questions configured on the Tanium server. Saved questions can be run on a schedule to continuously collect data from endpoints."
+                  },
+                  "response": [
+                    {
+                      "id": "219e2a7c-bf3a-4574-ada3-779b789a5b4c",
+                      "name": "Saved questions retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/saved_questions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "saved_questions"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"query_text\": \"<string>\",\n      \"question\": {\n        \"id\": \"<integer>\",\n        \"query_text\": \"<string>\",\n        \"expiration\": \"<dateTime>\",\n        \"selects\": [\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\",\n              \"id\": \"<integer>\"\n            }\n          },\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\",\n              \"id\": \"<integer>\"\n            }\n          }\n        ],\n        \"group\": {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"and_flag\": \"<boolean>\",\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        },\n        \"management_rights_group\": {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"and_flag\": \"<boolean>\",\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        },\n        \"saved_question\": {\n          \"id\": \"<integer>\"\n        }\n      },\n      \"issue_seconds\": \"<integer>\",\n      \"expire_seconds\": \"<integer>\",\n      \"mod_time\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"query_text\": \"<string>\",\n      \"question\": {\n        \"id\": \"<integer>\",\n        \"query_text\": \"<string>\",\n        \"expiration\": \"<dateTime>\",\n        \"selects\": [\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\",\n              \"id\": \"<integer>\"\n            }\n          },\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\",\n              \"id\": \"<integer>\"\n            }\n          }\n        ],\n        \"group\": {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"and_flag\": \"<boolean>\",\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        },\n        \"management_rights_group\": {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"and_flag\": \"<boolean>\",\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        },\n        \"saved_question\": {\n          \"id\": \"<integer>\"\n        }\n      },\n      \"issue_seconds\": \"<integer>\",\n      \"expire_seconds\": \"<integer>\",\n      \"mod_time\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-219e2a7c-bf3a-4574-ada3-779b789a5b4c"
+                    },
+                    {
+                      "id": "140179d1-8d3a-42a8-a0a6-3e443bb659dd",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/saved_questions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "saved_questions"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"text\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-140179d1-8d3a-42a8-a0a6-3e443bb659dd"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-9e125ead-8f68-402e-88a9-d0b1a364d007"
+                }
+              ],
+              "id": "97382822-baf8-43cb-905e-db4c7baecc64",
+              "createdAt": "2026-06-05T15:19:00.000Z",
+              "updatedAt": "2026-06-05T15:19:00.000Z",
+              "uid": "35240-97382822-baf8-43cb-905e-db4c7baecc64"
+            },
+            {
+              "name": "saved_actions",
+              "item": [
+                {
+                  "name": "Create And Execute An Action",
+                  "id": "77c14a61-9752-46f5-bace-b8480118022f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"package_spec\": {\n    \"source_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"parameters\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"action_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"target_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"and_flag\": \"<boolean>\",\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"expire_seconds\": \"<integer>\",\n  \"start_time\": \"<dateTime>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/saved_actions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "saved_actions"
+                      ]
+                    },
+                    "description": "Creates a saved action that deploys a package to targeted endpoints. Actions can target specific computer groups and use action groups for approval workflows."
+                  },
+                  "response": [
+                    {
+                      "id": "34560198-09c0-4988-a239-1391ca4d3dda",
+                      "name": "Action created successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"package_spec\": {\n    \"source_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"parameters\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"action_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"target_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"and_flag\": \"<boolean>\",\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"expire_seconds\": \"<integer>\",\n  \"start_time\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/saved_actions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "saved_actions"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"status\": \"<string>\",\n    \"package_spec\": {\n      \"source_id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    \"action_group\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"and_flag\": \"<boolean>\"\n    },\n    \"target_group\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"and_flag\": \"<boolean>\",\n      \"filters\": [\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\"\n          },\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\"\n          },\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"start_time\": \"<dateTime>\",\n    \"expiration_time\": \"<dateTime>\",\n    \"approved_flag\": \"<integer>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-34560198-09c0-4988-a239-1391ca4d3dda"
+                    },
+                    {
+                      "id": "6102f098-24e2-4b24-ad24-6453d08555d1",
+                      "name": "Invalid action specification",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"package_spec\": {\n    \"source_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"parameters\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"action_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"target_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"and_flag\": \"<boolean>\",\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"expire_seconds\": \"<integer>\",\n  \"start_time\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/saved_actions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "saved_actions"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"text\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-6102f098-24e2-4b24-ad24-6453d08555d1"
+                    },
+                    {
+                      "id": "7115774b-422e-45da-85ec-9231234fde75",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"package_spec\": {\n    \"source_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"parameters\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"action_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"target_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"and_flag\": \"<boolean>\",\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"expire_seconds\": \"<integer>\",\n  \"start_time\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/saved_actions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "saved_actions"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"text\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-7115774b-422e-45da-85ec-9231234fde75"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-77c14a61-9752-46f5-bace-b8480118022f"
+                }
+              ],
+              "id": "6966303e-6a74-42a8-8a3b-c40b312366b1",
+              "createdAt": "2026-06-05T15:19:00.000Z",
+              "updatedAt": "2026-06-05T15:19:00.000Z",
+              "uid": "35240-6966303e-6a74-42a8-8a3b-c40b312366b1"
+            },
+            {
+              "name": "action_groups",
+              "item": [
+                {
+                  "name": "by-name",
+                  "item": [
+                    {
+                      "name": "{name}",
+                      "item": [
+                        {
+                          "name": "Get An Action Group By Name",
+                          "id": "c75f0a4a-a82f-42bb-9cfa-b19ff2431105",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/action_groups/by-name/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "action_groups",
+                                "by-name",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "c1dc27e8-9b0f-4d9b-bb44-9c370940f3f8",
+                                  "key": "name",
+                                  "value": "<string>",
+                                  "description": "(Required) Name of the action group"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves the details of an action group identified by its name. Action groups define approval policies and target restrictions for deploying actions."
+                          },
+                          "response": [
+                            {
+                              "id": "93ce4654-24dd-4c9e-b8d6-0dfd69317c88",
+                              "name": "Action group retrieved successfully",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/action_groups/by-name/:name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "action_groups",
+                                    "by-name",
+                                    ":name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"and_flag\": \"<boolean>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:19:00.000Z",
+                              "updatedAt": "2026-06-05T15:19:00.000Z",
+                              "uid": "35240-93ce4654-24dd-4c9e-b8d6-0dfd69317c88"
+                            },
+                            {
+                              "id": "a171a345-c648-401a-a47f-f2a54322c695",
+                              "name": "Action group not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/action_groups/by-name/:name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "action_groups",
+                                    "by-name",
+                                    ":name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"text\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:19:00.000Z",
+                              "updatedAt": "2026-06-05T15:19:00.000Z",
+                              "uid": "35240-a171a345-c648-401a-a47f-f2a54322c695"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:19:00.000Z",
+                          "updatedAt": "2026-06-05T15:19:00.000Z",
+                          "uid": "35240-c75f0a4a-a82f-42bb-9cfa-b19ff2431105"
+                        }
+                      ],
+                      "id": "ce13017c-a64a-4b29-a58b-8a3c7aa096e0",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-ce13017c-a64a-4b29-a58b-8a3c7aa096e0"
+                    }
+                  ],
+                  "id": "6b2e397f-df60-464a-83bc-155bb23f71c6",
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-6b2e397f-df60-464a-83bc-155bb23f71c6"
+                }
+              ],
+              "id": "7a781afa-2038-4ddd-8422-24b67a987c9d",
+              "createdAt": "2026-06-05T15:19:00.000Z",
+              "updatedAt": "2026-06-05T15:19:00.000Z",
+              "uid": "35240-7a781afa-2038-4ddd-8422-24b67a987c9d"
+            },
+            {
+              "name": "packages",
+              "item": [
+                {
+                  "name": "by-name",
+                  "item": [
+                    {
+                      "name": "{name}",
+                      "item": [
+                        {
+                          "name": "Get A Package By Name",
+                          "id": "f2d1d2bc-63ea-4f4d-b2f8-8fb661624c9a",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/packages/by-name/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "packages",
+                                "by-name",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "99510bf6-2697-40cb-a6cb-310ba2ea5f5c",
+                                  "key": "name",
+                                  "value": "<string>",
+                                  "description": "(Required) Name of the package"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves the details of a deployment package identified by its name. Packages contain scripts and files that are deployed to endpoints via actions."
+                          },
+                          "response": [
+                            {
+                              "id": "e39e30a6-0c88-4876-b608-3a62ae3cd3c8",
+                              "name": "Package retrieved successfully",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/packages/by-name/:name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "packages",
+                                    "by-name",
+                                    ":name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"command\": \"<string>\",\n    \"command_timeout\": \"<integer>\",\n    \"expire_seconds\": \"<integer>\",\n    \"content_set\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    \"files\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"hash\": \"<string>\",\n        \"size\": \"<integer>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"hash\": \"<string>\",\n        \"size\": \"<integer>\"\n      }\n    ],\n    \"parameters\": [\n      {\n        \"key\": \"<string>\",\n        \"default_value\": \"<string>\",\n        \"label\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"default_value\": \"<string>\",\n        \"label\": \"<string>\"\n      }\n    ],\n    \"mod_time\": \"<dateTime>\",\n    \"creation_time\": \"<dateTime>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:19:00.000Z",
+                              "updatedAt": "2026-06-05T15:19:00.000Z",
+                              "uid": "35240-e39e30a6-0c88-4876-b608-3a62ae3cd3c8"
+                            },
+                            {
+                              "id": "4a28c6ce-326d-46e6-a28f-e08e1555bf40",
+                              "name": "Package not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/packages/by-name/:name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "packages",
+                                    "by-name",
+                                    ":name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"text\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:19:00.000Z",
+                              "updatedAt": "2026-06-05T15:19:00.000Z",
+                              "uid": "35240-4a28c6ce-326d-46e6-a28f-e08e1555bf40"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:19:00.000Z",
+                          "updatedAt": "2026-06-05T15:19:00.000Z",
+                          "uid": "35240-f2d1d2bc-63ea-4f4d-b2f8-8fb661624c9a"
+                        }
+                      ],
+                      "id": "1c0f8163-b62a-4db0-942d-5563c47ddc22",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-1c0f8163-b62a-4db0-942d-5563c47ddc22"
+                    }
+                  ],
+                  "id": "018643cd-0720-40aa-897e-d22a23e2df47",
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-018643cd-0720-40aa-897e-d22a23e2df47"
+                },
+                {
+                  "name": "List All Packages",
+                  "id": "d58c66f7-96e6-4aaf-973d-665ec4824ab9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/packages",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "packages"
+                      ]
+                    },
+                    "description": "Retrieves a list of all deployment packages configured on the Tanium server. Packages contain scripts and files that can be deployed to endpoints through actions."
+                  },
+                  "response": [
+                    {
+                      "id": "f623923b-aae8-45c6-80f3-177266d891d3",
+                      "name": "Packages retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/packages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "packages"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"command\": \"<string>\",\n      \"command_timeout\": \"<integer>\",\n      \"expire_seconds\": \"<integer>\",\n      \"content_set\": {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      },\n      \"files\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"hash\": \"<string>\",\n          \"size\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"hash\": \"<string>\",\n          \"size\": \"<integer>\"\n        }\n      ],\n      \"parameters\": [\n        {\n          \"key\": \"<string>\",\n          \"default_value\": \"<string>\",\n          \"label\": \"<string>\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"default_value\": \"<string>\",\n          \"label\": \"<string>\"\n        }\n      ],\n      \"mod_time\": \"<dateTime>\",\n      \"creation_time\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"command\": \"<string>\",\n      \"command_timeout\": \"<integer>\",\n      \"expire_seconds\": \"<integer>\",\n      \"content_set\": {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      },\n      \"files\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"hash\": \"<string>\",\n          \"size\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"hash\": \"<string>\",\n          \"size\": \"<integer>\"\n        }\n      ],\n      \"parameters\": [\n        {\n          \"key\": \"<string>\",\n          \"default_value\": \"<string>\",\n          \"label\": \"<string>\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"default_value\": \"<string>\",\n          \"label\": \"<string>\"\n        }\n      ],\n      \"mod_time\": \"<dateTime>\",\n      \"creation_time\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-f623923b-aae8-45c6-80f3-177266d891d3"
+                    },
+                    {
+                      "id": "7042c0ad-9c07-4efb-8df4-2abbe556c30d",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/packages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "packages"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"text\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-7042c0ad-9c07-4efb-8df4-2abbe556c30d"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-d58c66f7-96e6-4aaf-973d-665ec4824ab9"
+                }
+              ],
+              "id": "f20ce266-f2af-4715-b116-d303660b7325",
+              "createdAt": "2026-06-05T15:19:00.000Z",
+              "updatedAt": "2026-06-05T15:19:00.000Z",
+              "uid": "35240-f20ce266-f2af-4715-b116-d303660b7325"
+            },
+            {
+              "name": "sensors",
+              "item": [
+                {
+                  "name": "by-name",
+                  "item": [
+                    {
+                      "name": "{name}",
+                      "item": [
+                        {
+                          "name": "Get A Sensor By Name",
+                          "id": "c8b2f16f-0cc5-48a1-abc2-cc4ad778e09e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/sensors/by-name/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "sensors",
+                                "by-name",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "b382be34-afd8-4b89-86f3-cc479ce23ea2",
+                                  "key": "name",
+                                  "value": "<string>",
+                                  "description": "(Required) Name of the sensor"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves the details of a sensor identified by its name. Sensors collect data from endpoints and are used in questions to query endpoint state."
+                          },
+                          "response": [
+                            {
+                              "id": "3cb916cb-8181-4f5b-a462-cea51333b77f",
+                              "name": "Sensor retrieved successfully",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/sensors/by-name/:name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "sensors",
+                                    "by-name",
+                                    ":name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"hash\": \"<integer>\",\n    \"description\": \"<string>\",\n    \"category\": \"<string>\",\n    \"max_age_seconds\": \"<integer>\",\n    \"content_set\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    \"queries\": [\n      {\n        \"platform\": \"<string>\",\n        \"script\": \"<string>\",\n        \"script_type\": \"<string>\"\n      },\n      {\n        \"platform\": \"<string>\",\n        \"script\": \"<string>\",\n        \"script_type\": \"<string>\"\n      }\n    ],\n    \"parameters\": [\n      {\n        \"key\": \"<string>\",\n        \"default_value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"default_value\": \"<string>\"\n      }\n    ],\n    \"mod_time\": \"<dateTime>\",\n    \"creation_time\": \"<dateTime>\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:19:00.000Z",
+                              "updatedAt": "2026-06-05T15:19:00.000Z",
+                              "uid": "35240-3cb916cb-8181-4f5b-a462-cea51333b77f"
+                            },
+                            {
+                              "id": "ef685d1a-80dc-44b2-b6f7-3a5196c1e8f6",
+                              "name": "Sensor not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/sensors/by-name/:name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "sensors",
+                                    "by-name",
+                                    ":name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"text\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:19:00.000Z",
+                              "updatedAt": "2026-06-05T15:19:00.000Z",
+                              "uid": "35240-ef685d1a-80dc-44b2-b6f7-3a5196c1e8f6"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:19:00.000Z",
+                          "updatedAt": "2026-06-05T15:19:00.000Z",
+                          "uid": "35240-c8b2f16f-0cc5-48a1-abc2-cc4ad778e09e"
+                        }
+                      ],
+                      "id": "50201068-5653-4480-911d-b2abc8212c58",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-50201068-5653-4480-911d-b2abc8212c58"
+                    }
+                  ],
+                  "id": "d277ffca-962e-40cd-a659-c86f29ca2df2",
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-d277ffca-962e-40cd-a659-c86f29ca2df2"
+                },
+                {
+                  "name": "List All Sensors",
+                  "id": "159bf28b-190f-49c8-9f13-36d8ad244b84",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/sensors",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "sensors"
+                      ]
+                    },
+                    "description": "Retrieves a list of all sensors configured on the Tanium server. Sensors are scripts that collect specific data from endpoints."
+                  },
+                  "response": [
+                    {
+                      "id": "6e6240a5-19be-457f-a752-8b615d7e4cbe",
+                      "name": "Sensors retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/sensors",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "sensors"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"hash\": \"<integer>\",\n      \"description\": \"<string>\",\n      \"category\": \"<string>\",\n      \"max_age_seconds\": \"<integer>\",\n      \"content_set\": {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      },\n      \"queries\": [\n        {\n          \"platform\": \"<string>\",\n          \"script\": \"<string>\",\n          \"script_type\": \"<string>\"\n        },\n        {\n          \"platform\": \"<string>\",\n          \"script\": \"<string>\",\n          \"script_type\": \"<string>\"\n        }\n      ],\n      \"parameters\": [\n        {\n          \"key\": \"<string>\",\n          \"default_value\": \"<string>\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"default_value\": \"<string>\"\n        }\n      ],\n      \"mod_time\": \"<dateTime>\",\n      \"creation_time\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"hash\": \"<integer>\",\n      \"description\": \"<string>\",\n      \"category\": \"<string>\",\n      \"max_age_seconds\": \"<integer>\",\n      \"content_set\": {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      },\n      \"queries\": [\n        {\n          \"platform\": \"<string>\",\n          \"script\": \"<string>\",\n          \"script_type\": \"<string>\"\n        },\n        {\n          \"platform\": \"<string>\",\n          \"script\": \"<string>\",\n          \"script_type\": \"<string>\"\n        }\n      ],\n      \"parameters\": [\n        {\n          \"key\": \"<string>\",\n          \"default_value\": \"<string>\"\n        },\n        {\n          \"key\": \"<string>\",\n          \"default_value\": \"<string>\"\n        }\n      ],\n      \"mod_time\": \"<dateTime>\",\n      \"creation_time\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-6e6240a5-19be-457f-a752-8b615d7e4cbe"
+                    },
+                    {
+                      "id": "c40d1778-5a11-447a-b4d9-f6a1b767c7f1",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/sensors",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "sensors"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"text\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-c40d1778-5a11-447a-b4d9-f6a1b767c7f1"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-159bf28b-190f-49c8-9f13-36d8ad244b84"
+                }
+              ],
+              "id": "ca89a726-d036-4a51-bd98-ed98cb5c2ac9",
+              "createdAt": "2026-06-05T15:19:00.000Z",
+              "updatedAt": "2026-06-05T15:19:00.000Z",
+              "uid": "35240-ca89a726-d036-4a51-bd98-ed98cb5c2ac9"
+            },
+            {
+              "name": "groups",
+              "item": [
+                {
+                  "name": "by-name",
+                  "item": [
+                    {
+                      "name": "{name}",
+                      "item": [
+                        {
+                          "name": "Get A Computer Group By Name",
+                          "id": "0557c745-6fac-458f-886b-4c42990b7f86",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/groups/by-name/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "groups",
+                                "by-name",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a6551e8d-35a6-478e-b5f8-c0977c5f63cd",
+                                  "key": "name",
+                                  "value": "<string>",
+                                  "description": "(Required) Name of the computer group"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves the details of a computer group identified by its name. Computer groups define sets of endpoints based on filter criteria and are used to target questions and actions."
+                          },
+                          "response": [
+                            {
+                              "id": "73ba092b-744b-4065-9a02-899e60716683",
+                              "name": "Group retrieved successfully",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/groups/by-name/:name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "groups",
+                                    "by-name",
+                                    ":name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"type\": \"<integer>\",\n    \"and_flag\": \"<boolean>\",\n    \"sub_groups\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"and_flag\": \"<boolean>\",\n        \"filters\": [\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\"\n            },\n            \"operator\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\"\n            },\n            \"operator\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"and_flag\": \"<boolean>\",\n        \"filters\": [\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\"\n            },\n            \"operator\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"sensor\": {\n              \"name\": \"<string>\",\n              \"hash\": \"<integer>\"\n            },\n            \"operator\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      }\n    ],\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-06-05T15:19:00.000Z",
+                              "updatedAt": "2026-06-05T15:19:00.000Z",
+                              "uid": "35240-73ba092b-744b-4065-9a02-899e60716683"
+                            },
+                            {
+                              "id": "414fb472-be81-46cc-857b-4ada271d9aec",
+                              "name": "Group not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/groups/by-name/:name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "groups",
+                                    "by-name",
+                                    ":name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"text\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:19:00.000Z",
+                              "updatedAt": "2026-06-05T15:19:00.000Z",
+                              "uid": "35240-414fb472-be81-46cc-857b-4ada271d9aec"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:19:00.000Z",
+                          "updatedAt": "2026-06-05T15:19:00.000Z",
+                          "uid": "35240-0557c745-6fac-458f-886b-4c42990b7f86"
+                        }
+                      ],
+                      "id": "4a531f1c-0216-44b5-b9ad-3271817bb180",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-4a531f1c-0216-44b5-b9ad-3271817bb180"
+                    }
+                  ],
+                  "id": "e0c554c8-615e-40e4-8999-4bed97f1fbe5",
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-e0c554c8-615e-40e4-8999-4bed97f1fbe5"
+                },
+                {
+                  "name": "List All Computer Groups",
+                  "id": "d707170f-2085-4bb7-9a55-15cca4ba7353",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/groups",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "groups"
+                      ]
+                    },
+                    "description": "Retrieves a list of all computer groups configured on the Tanium server. Groups organize endpoints for targeted questioning and action deployment."
+                  },
+                  "response": [
+                    {
+                      "id": "427906ec-cbe6-4a9d-b20b-6733d5077c10",
+                      "name": "Groups retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/groups",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "groups"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": \"<integer>\",\n      \"and_flag\": \"<boolean>\",\n      \"sub_groups\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"and_flag\": \"<boolean>\",\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"and_flag\": \"<boolean>\",\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"filters\": [\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\"\n          },\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\"\n          },\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": \"<integer>\",\n      \"and_flag\": \"<boolean>\",\n      \"sub_groups\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"and_flag\": \"<boolean>\",\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"and_flag\": \"<boolean>\",\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"sensor\": {\n                \"name\": \"<string>\",\n                \"hash\": \"<integer>\"\n              },\n              \"operator\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"filters\": [\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\"\n          },\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"sensor\": {\n            \"name\": \"<string>\",\n            \"hash\": \"<integer>\"\n          },\n          \"operator\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-427906ec-cbe6-4a9d-b20b-6733d5077c10"
+                    },
+                    {
+                      "id": "06dc8269-764a-4dad-923d-7c943005e306",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "session",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/groups",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "groups"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"text\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:19:00.000Z",
+                      "updatedAt": "2026-06-05T15:19:00.000Z",
+                      "uid": "35240-06dc8269-764a-4dad-923d-7c943005e306"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:19:00.000Z",
+                  "updatedAt": "2026-06-05T15:19:00.000Z",
+                  "uid": "35240-d707170f-2085-4bb7-9a55-15cca4ba7353"
+                }
+              ],
+              "id": "e076287a-a20e-4e7f-8d9a-73ea04c327b4",
+              "createdAt": "2026-06-05T15:19:00.000Z",
+              "updatedAt": "2026-06-05T15:19:00.000Z",
+              "uid": "35240-e076287a-a20e-4e7f-8d9a-73ea04c327b4"
+            }
+          ],
+          "id": "b7b184c7-677f-45ee-85e9-349fbebb19ed",
+          "createdAt": "2026-06-05T15:19:00.000Z",
+          "updatedAt": "2026-06-05T15:19:00.000Z",
+          "uid": "35240-b7b184c7-677f-45ee-85e9-349fbebb19ed"
+        }
+      ],
+      "id": "7161cd79-b749-41c0-98bf-214626098fde",
+      "createdAt": "2026-06-05T15:19:00.000Z",
+      "updatedAt": "2026-06-05T15:19:00.000Z",
+      "uid": "35240-7161cd79-b749-41c0-98bf-214626098fde"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "session",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tanium_server",
+      "value": "tanium.example.com"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tanium_server}}"
+    }
+  ]
+}

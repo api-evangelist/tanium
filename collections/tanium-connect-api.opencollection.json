@@ -1,0 +1,405 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Connections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/connections",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of connections to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of connections to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all configured connections. Each connection defines the link between a data source in Tanium and an external destination, along with formatting, filtering, and scheduling options."
+        },
+        {
+          "info": {
+            "name": "Create A New Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/connections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new connection linking a data source to a destination with the specified format, filter, and schedule settings. The connection can be configured to deliver data as CSV, JSON, or CEF formats."
+        },
+        {
+          "info": {
+            "name": "Get A Connection By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/connections/:connectionId",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              }
+            ]
+          },
+          "docs": "Retrieves the full configuration and current status of a specific connection, including its source, destination, format, filter, and schedule settings."
+        },
+        {
+          "info": {
+            "name": "Update A Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/connections/:connectionId",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing connection. All connections that share a destination are affected when the destination settings are changed."
+        },
+        {
+          "info": {
+            "name": "Delete A Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/connections/:connectionId",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection to delete"
+              }
+            ]
+          },
+          "docs": "Permanently deletes a connection and its associated schedule. The underlying source and destination configurations are not affected."
+        },
+        {
+          "info": {
+            "name": "Run A Connection On Demand",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/connections/:connectionId/run",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection to run"
+              }
+            ]
+          },
+          "docs": "Triggers an immediate execution of a connection outside of its normal schedule. This sends the current source data to the configured destination."
+        },
+        {
+          "info": {
+            "name": "Enable A Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/connections/:connectionId/enable",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              }
+            ]
+          },
+          "docs": "Enables a previously disabled connection, allowing it to run on its configured schedule."
+        },
+        {
+          "info": {
+            "name": "Disable A Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/connections/:connectionId/disable",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              }
+            ]
+          },
+          "docs": "Disables a connection, preventing it from running on its schedule. The connection configuration is preserved and can be re-enabled later."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Available Data Sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/sources"
+          },
+          "docs": "Retrieves a list of all available data sources that can be used as connection sources. Sources include saved questions, question logs, system status data, and event-driven data from other Tanium modules."
+        },
+        {
+          "info": {
+            "name": "Get A Data Source By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/sources/:sourceId",
+            "params": [
+              {
+                "name": "sourceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the data source"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific data source, including its type, configuration, and available columns for output formatting."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Destinations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Destinations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/destinations"
+          },
+          "docs": "Retrieves a list of all configured destinations. Destinations define where connection data is delivered, such as files, syslog servers, HTTP endpoints, email addresses, or SQL databases."
+        },
+        {
+          "info": {
+            "name": "Create A New Destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/destinations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new destination configuration for receiving connection data. Supported destination types include file, syslog, HTTP/webhook, email, AWS S3, and SQL database."
+        },
+        {
+          "info": {
+            "name": "Get A Destination By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/destinations/:destinationId",
+            "params": [
+              {
+                "name": "destinationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the destination"
+              }
+            ]
+          },
+          "docs": "Retrieves the full configuration of a specific destination including its type and connection details."
+        },
+        {
+          "info": {
+            "name": "Update A Destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/destinations/:destinationId",
+            "params": [
+              {
+                "name": "destinationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the destination"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing destination configuration. All connections using this destination will be affected by the changes."
+        },
+        {
+          "info": {
+            "name": "Delete A Destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/destinations/:destinationId",
+            "params": [
+              {
+                "name": "destinationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the destination to delete"
+              }
+            ]
+          },
+          "docs": "Deletes a destination configuration. The destination cannot be deleted if it is currently used by any active connections."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Schedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/schedules"
+          },
+          "docs": "Retrieves a list of all connection schedules with their current status and next run time. Schedules define how frequently connections execute and deliver data."
+        },
+        {
+          "info": {
+            "name": "Get A Schedule By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/schedules/:scheduleId",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the schedule"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific schedule including its interval, last run status, and next run time."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Connect Service Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/status"
+          },
+          "docs": "Returns the current status of the Tanium Connect service including version information and overall health."
+        },
+        {
+          "info": {
+            "name": "List Connection Execution Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/logs",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of log entries to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of log entries to skip for pagination"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by connection identifier"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of connection execution logs showing the history of data deliveries, including success/failure status and row counts."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

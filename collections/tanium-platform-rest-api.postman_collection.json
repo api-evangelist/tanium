@@ -1,0 +1,3242 @@
+{
+  "item": [
+    {
+      "id": "4d23e983-44aa-4b77-9d58-8fc4507f4df6",
+      "name": "Actions",
+      "description": {
+        "content": "Deploy and manage actions on endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f2c63281-2b25-4820-9db9-5441f36c04b9",
+          "name": "Create And Execute An Action",
+          "request": {
+            "name": "Create And Execute An Action",
+            "description": {
+              "content": "Creates a saved action that deploys a package to targeted endpoints. Actions can target specific computer groups and use action groups for approval workflows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "saved_actions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"package_spec\": {\n    \"source_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"parameters\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"action_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"target_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"and_flag\": \"<boolean>\",\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"expire_seconds\": \"<integer>\",\n  \"start_time\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "29dde33e-fb4c-4507-94e1-bcfb66e4059d",
+              "name": "Action created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "saved_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"package_spec\": {\n    \"source_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"parameters\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"action_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"target_group\": {\n    \"id\": 4563,\n    \"name\": \"string\",\n    \"and_flag\": false,\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 2139\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 9344\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  },\n  \"expire_seconds\": \"<integer>\",\n  \"start_time\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1515,\n    \"name\": \"string\",\n    \"status\": \"string\",\n    \"package_spec\": {\n      \"source_id\": 2199,\n      \"name\": \"string\"\n    },\n    \"action_group\": {\n      \"id\": 2064,\n      \"name\": \"string\",\n      \"and_flag\": false\n    },\n    \"target_group\": {\n      \"id\": 5770,\n      \"name\": \"string\",\n      \"and_flag\": false,\n      \"filters\": [\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 4284\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 8163\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    \"start_time\": \"1987-04-21T06:04:13.824Z\",\n    \"expiration_time\": \"2015-11-14T06:25:51.083Z\",\n    \"approved_flag\": 7346\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0796eb7c-6c4b-4315-8a00-330cf8b75fd8",
+              "name": "Invalid action specification",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "saved_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"package_spec\": {\n    \"source_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"parameters\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"action_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"target_group\": {\n    \"id\": 4563,\n    \"name\": \"string\",\n    \"and_flag\": false,\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 2139\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 9344\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  },\n  \"expire_seconds\": \"<integer>\",\n  \"start_time\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "796ad422-e5d5-4e91-87d3-6f4e05d04db3",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "saved_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"package_spec\": {\n    \"source_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"parameters\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"action_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"target_group\": {\n    \"id\": 4563,\n    \"name\": \"string\",\n    \"and_flag\": false,\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 2139\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 9344\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  },\n  \"expire_seconds\": \"<integer>\",\n  \"start_time\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2c219e36-46a3-45e2-ba29-b3c1b0daa293",
+          "name": "Get An Action Group By Name",
+          "request": {
+            "name": "Get An Action Group By Name",
+            "description": {
+              "content": "Retrieves the details of an action group identified by its name. Action groups define approval policies and target restrictions for deploying actions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "action_groups",
+                "by-name",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the action group"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0edb97bb-d36f-4f4b-9e89-8c2ebf8280f8",
+              "name": "Action group retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "action_groups",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the action group"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 4887,\n    \"name\": \"string\",\n    \"and_flag\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86501442-8bc4-4e6b-8ba6-9cfb596f213d",
+              "name": "Action group not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "action_groups",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the action group"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "b7e5d6ec-0681-49cc-92d8-d52ef7b8e20d",
+      "name": "Authentication",
+      "description": {
+        "content": "Session and token management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "11a92767-84ec-41e7-82f1-fc76524947e4",
+          "name": "Create A New Session",
+          "request": {
+            "name": "Create A New Session",
+            "description": {
+              "content": "Authenticates with the Tanium server using username and password credentials and returns a session token for subsequent API calls. This is the legacy authentication method; API tokens are preferred.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "session",
+                "login"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<password>\",\n  \"domain\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "948995c0-f3f0-4fd5-8977-f15e1843fcb3",
+              "name": "Session created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "session",
+                    "login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<password>\",\n  \"domain\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"session\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e46eba9c-07cd-42a2-8e51-05b51f59a8a0",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "session",
+                    "login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<password>\",\n  \"domain\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c95e2a6-6977-4df6-8e6d-9b0f5a819580",
+              "name": "Access denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "session",
+                    "login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<password>\",\n  \"domain\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5b616a12-aa15-4214-8118-ab82aa51a8f8",
+          "name": "Create An API Token",
+          "request": {
+            "name": "Create An API Token",
+            "description": {
+              "content": "Creates a new API token with optional expiration and trusted IP configuration. API tokens are the preferred authentication method for integrations and automated scripts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "api_tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expire_in_days\": \"<integer>\",\n  \"trusted_ip_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notes\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c5264b93-af32-4657-acb6-c996beed33b8",
+              "name": "API token created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "api_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expire_in_days\": \"<integer>\",\n  \"trusted_ip_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 7506,\n    \"token_string\": \"string\",\n    \"expire_time\": \"1986-01-26T10:47:26.822Z\",\n    \"trusted_ip_addresses\": [\n      \"string\",\n      \"string\"\n    ],\n    \"notes\": \"string\",\n    \"creation_time\": \"1984-05-20T02:01:09.542Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9bba2af8-5874-434f-98db-729fb445dcd3",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "api_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expire_in_days\": \"<integer>\",\n  \"trusted_ip_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c3889b6-b26b-4aac-bbaa-da07f92e278e",
+              "name": "Insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "api_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expire_in_days\": \"<integer>\",\n  \"trusted_ip_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9e57e0f6-2636-416c-a518-a04ec04e276a",
+      "name": "Groups",
+      "description": {
+        "content": "Manage computer and action groups",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "08162d70-74ba-45bb-9617-7e08e6416aa2",
+          "name": "Get A Computer Group By Name",
+          "request": {
+            "name": "Get A Computer Group By Name",
+            "description": {
+              "content": "Retrieves the details of a computer group identified by its name. Computer groups define sets of endpoints based on filter criteria and are used to target questions and actions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "groups",
+                "by-name",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the computer group"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79c1e345-6a41-437f-9326-8f3bfee9d81d",
+              "name": "Group retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "groups",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the computer group"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 9299,\n    \"name\": \"string\",\n    \"type\": 2752,\n    \"and_flag\": false,\n    \"sub_groups\": [\n      {\n        \"id\": 7710,\n        \"name\": \"string\",\n        \"and_flag\": true,\n        \"filters\": [\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 6744\n            },\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 5875\n            },\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      },\n      {\n        \"id\": 5134,\n        \"name\": \"string\",\n        \"and_flag\": true,\n        \"filters\": [\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 1957\n            },\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 6686\n            },\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 2918\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 1397\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b3d1100-48b9-4a4a-aa8f-16ed74b08dd6",
+              "name": "Group not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "groups",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the computer group"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23587850-6e7b-49ff-a252-d3155c983ff7",
+          "name": "List All Computer Groups",
+          "request": {
+            "name": "List All Computer Groups",
+            "description": {
+              "content": "Retrieves a list of all computer groups configured on the Tanium server. Groups organize endpoints for targeted questioning and action deployment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0f45aca2-679c-4914-865c-16c52eb42e28",
+              "name": "Groups retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 3903,\n      \"name\": \"string\",\n      \"type\": 6481,\n      \"and_flag\": true,\n      \"sub_groups\": [\n        {\n          \"id\": 813,\n          \"name\": \"string\",\n          \"and_flag\": true,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"hash\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"operator\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"sensor\": {\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"hash\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"operator\": \"string\",\n              \"value\": \"string\"\n            }\n          ]\n        },\n        {\n          \"id\": 4878,\n          \"name\": \"string\",\n          \"and_flag\": true,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"hash\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"operator\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"sensor\": {\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"hash\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"operator\": \"string\",\n              \"value\": \"string\"\n            }\n          ]\n        }\n      ],\n      \"filters\": [\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 3990\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 3859\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": 3669,\n      \"name\": \"string\",\n      \"type\": 3579,\n      \"and_flag\": false,\n      \"sub_groups\": [\n        {\n          \"id\": 8248,\n          \"name\": \"string\",\n          \"and_flag\": true,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"hash\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"operator\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"sensor\": {\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"hash\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"operator\": \"string\",\n              \"value\": \"string\"\n            }\n          ]\n        },\n        {\n          \"id\": 1894,\n          \"name\": \"string\",\n          \"and_flag\": true,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"hash\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"operator\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"sensor\": {\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"hash\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"operator\": \"string\",\n              \"value\": \"string\"\n            }\n          ]\n        }\n      ],\n      \"filters\": [\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 425\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 1136\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da32d756-a325-4acb-ac7a-f357d5a52859",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "505df3cf-cb9c-4ac3-9a49-6e049c7ae325",
+      "name": "Packages",
+      "description": {
+        "content": "Manage deployment packages",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8f8dc269-7ccc-4a39-a119-1f468043cfe6",
+          "name": "Get A Package By Name",
+          "request": {
+            "name": "Get A Package By Name",
+            "description": {
+              "content": "Retrieves the details of a deployment package identified by its name. Packages contain scripts and files that are deployed to endpoints via actions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "packages",
+                "by-name",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the package"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "53f81442-b3e1-4a4e-95d1-05ab7b222484",
+              "name": "Package retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "packages",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the package"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 3265,\n    \"name\": \"string\",\n    \"display_name\": \"string\",\n    \"command\": \"string\",\n    \"command_timeout\": 2766,\n    \"expire_seconds\": 580,\n    \"content_set\": {\n      \"id\": 2171,\n      \"name\": \"string\"\n    },\n    \"files\": [\n      {\n        \"id\": 8889,\n        \"name\": \"string\",\n        \"hash\": \"string\",\n        \"size\": 9552\n      },\n      {\n        \"id\": 8655,\n        \"name\": \"string\",\n        \"hash\": \"string\",\n        \"size\": 1227\n      }\n    ],\n    \"parameters\": [\n      {\n        \"key\": \"string\",\n        \"default_value\": \"string\",\n        \"label\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"default_value\": \"string\",\n        \"label\": \"string\"\n      }\n    ],\n    \"mod_time\": \"1997-08-19T16:56:46.639Z\",\n    \"creation_time\": \"1976-12-08T01:18:21.587Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7139d340-3cb1-40df-af85-6816e7313fcb",
+              "name": "Package not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "packages",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the package"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c919d83c-9956-42db-9836-5139ab1e4aa7",
+          "name": "List All Packages",
+          "request": {
+            "name": "List All Packages",
+            "description": {
+              "content": "Retrieves a list of all deployment packages configured on the Tanium server. Packages contain scripts and files that can be deployed to endpoints through actions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "packages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79084b9d-5978-4f8a-8b16-ba9bec34578d",
+              "name": "Packages retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "packages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 2594,\n      \"name\": \"string\",\n      \"display_name\": \"string\",\n      \"command\": \"string\",\n      \"command_timeout\": 5322,\n      \"expire_seconds\": 3780,\n      \"content_set\": {\n        \"id\": 2181,\n        \"name\": \"string\"\n      },\n      \"files\": [\n        {\n          \"id\": 2078,\n          \"name\": \"string\",\n          \"hash\": \"string\",\n          \"size\": 836\n        },\n        {\n          \"id\": 4695,\n          \"name\": \"string\",\n          \"hash\": \"string\",\n          \"size\": 8856\n        }\n      ],\n      \"parameters\": [\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\",\n          \"label\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\",\n          \"label\": \"string\"\n        }\n      ],\n      \"mod_time\": \"1955-01-23T06:40:55.242Z\",\n      \"creation_time\": \"1963-01-07T10:01:23.575Z\"\n    },\n    {\n      \"id\": 8221,\n      \"name\": \"string\",\n      \"display_name\": \"string\",\n      \"command\": \"string\",\n      \"command_timeout\": 63,\n      \"expire_seconds\": 7490,\n      \"content_set\": {\n        \"id\": 2116,\n        \"name\": \"string\"\n      },\n      \"files\": [\n        {\n          \"id\": 5129,\n          \"name\": \"string\",\n          \"hash\": \"string\",\n          \"size\": 2502\n        },\n        {\n          \"id\": 6562,\n          \"name\": \"string\",\n          \"hash\": \"string\",\n          \"size\": 4340\n        }\n      ],\n      \"parameters\": [\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\",\n          \"label\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\",\n          \"label\": \"string\"\n        }\n      ],\n      \"mod_time\": \"2010-03-18T00:39:05.682Z\",\n      \"creation_time\": \"2024-04-28T15:47:05.246Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c6019def-2967-4890-8f4a-2e92de487b10",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "packages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "610e01c0-3100-45d7-a1fc-04edad76dd4c",
+      "name": "Questions",
+      "description": {
+        "content": "Ask and retrieve questions from endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8dbbcfae-6556-45f6-a61e-d593f666da30",
+          "name": "Create And Ask A Question",
+          "request": {
+            "name": "Create And Ask A Question",
+            "description": {
+              "content": "Creates a new question and asks it across managed endpoints. The question can be specified as parsed question text or as a structured question object with specific sensors and selectors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "questions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query_text\": \"<string>\",\n  \"selects\": [\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    },\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    }\n  ],\n  \"group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"and_flag\": \"<boolean>\",\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"expiration\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dfdbf457-bbbc-416f-8d3b-7cdaebf720e6",
+              "name": "Question created and asked successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query_text\": \"<string>\",\n  \"selects\": [\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    },\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    }\n  ],\n  \"group\": {\n    \"id\": 2271,\n    \"name\": \"string\",\n    \"and_flag\": false,\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 385\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 1482\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  },\n  \"expiration\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 160,\n    \"query_text\": \"string\",\n    \"expiration\": \"1999-04-08T20:14:20.267Z\",\n    \"selects\": [\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 6230,\n          \"id\": 502\n        }\n      },\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 4003,\n          \"id\": 1178\n        }\n      }\n    ],\n    \"group\": {\n      \"id\": 5796,\n      \"name\": \"string\",\n      \"and_flag\": true,\n      \"filters\": [\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 3225\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 3859\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    \"management_rights_group\": {\n      \"id\": 135,\n      \"name\": \"string\",\n      \"and_flag\": true,\n      \"filters\": [\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 1335\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 5541\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    \"saved_question\": {\n      \"id\": 8312\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37ead0a9-e4d0-4029-a78b-cf2a48ba19ad",
+              "name": "Invalid question format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query_text\": \"<string>\",\n  \"selects\": [\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    },\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    }\n  ],\n  \"group\": {\n    \"id\": 2271,\n    \"name\": \"string\",\n    \"and_flag\": false,\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 385\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 1482\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  },\n  \"expiration\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da670625-f5a1-492c-b69a-de1536682caf",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query_text\": \"<string>\",\n  \"selects\": [\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    },\n    {\n      \"sensor\": {\n        \"name\": \"<string>\",\n        \"hash\": \"<integer>\"\n      }\n    }\n  ],\n  \"group\": {\n    \"id\": 2271,\n    \"name\": \"string\",\n    \"and_flag\": false,\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 385\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 1482\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  },\n  \"expiration\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce791502-77f8-4541-b630-e2ce194b61f1",
+          "name": "Get A Question By ID",
+          "request": {
+            "name": "Get A Question By ID",
+            "description": {
+              "content": "Retrieves the details of a specific question by its numeric identifier, including its status, expiration, and associated sensors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "questions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Numeric identifier of the question"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7eec012d-0229-4f93-ae5a-a95152d6dcad",
+              "name": "Question retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "questions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Numeric identifier of the question"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 160,\n    \"query_text\": \"string\",\n    \"expiration\": \"1999-04-08T20:14:20.267Z\",\n    \"selects\": [\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 6230,\n          \"id\": 502\n        }\n      },\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 4003,\n          \"id\": 1178\n        }\n      }\n    ],\n    \"group\": {\n      \"id\": 5796,\n      \"name\": \"string\",\n      \"and_flag\": true,\n      \"filters\": [\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 3225\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 3859\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    \"management_rights_group\": {\n      \"id\": 135,\n      \"name\": \"string\",\n      \"and_flag\": true,\n      \"filters\": [\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 1335\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 5541\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    \"saved_question\": {\n      \"id\": 8312\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aad10ac5-63ca-4f28-b93d-0d2d578e8864",
+              "name": "Question not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "questions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Numeric identifier of the question"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b7fdfb2-5bd2-4332-9aac-472f86a3133c",
+          "name": "Get Question Results",
+          "request": {
+            "name": "Get Question Results",
+            "description": {
+              "content": "Returns the result data for a specific question identified by its ID. Results include rows of data collected from responding endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "result_data",
+                "question",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Numeric identifier of the question"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f0446eb1-24b5-4924-b1b2-2e9624b037f9",
+              "name": "Question results retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "result_data",
+                    "question",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Numeric identifier of the question"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"max_available_age\": \"string\",\n    \"now\": \"1953-11-03T09:30:01.863Z\",\n    \"result_sets\": [\n      {\n        \"age\": 5437,\n        \"archived_question_id\": 2548,\n        \"columns\": [\n          {\n            \"hash\": 8470,\n            \"name\": \"string\",\n            \"type\": 7514\n          },\n          {\n            \"hash\": 6480,\n            \"name\": \"string\",\n            \"type\": 9328\n          }\n        ],\n        \"estimated_total\": 4769,\n        \"id\": 929,\n        \"mr_tested\": 4348,\n        \"no_results_count\": 9544,\n        \"passed\": 7665,\n        \"row_count\": 7165,\n        \"rows\": [\n          {\n            \"cid\": 9298,\n            \"data\": [\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ],\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ]\n            ],\n            \"id\": 5985\n          },\n          {\n            \"cid\": 9832,\n            \"data\": [\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ],\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ]\n            ],\n            \"id\": 2866\n          }\n        ],\n        \"tested\": 4670\n      },\n      {\n        \"age\": 2344,\n        \"archived_question_id\": 2573,\n        \"columns\": [\n          {\n            \"hash\": 1157,\n            \"name\": \"string\",\n            \"type\": 6590\n          },\n          {\n            \"hash\": 4956,\n            \"name\": \"string\",\n            \"type\": 5088\n          }\n        ],\n        \"estimated_total\": 9641,\n        \"id\": 6818,\n        \"mr_tested\": 9355,\n        \"no_results_count\": 9678,\n        \"passed\": 7388,\n        \"row_count\": 3259,\n        \"rows\": [\n          {\n            \"cid\": 587,\n            \"data\": [\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ],\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ]\n            ],\n            \"id\": 105\n          },\n          {\n            \"cid\": 4820,\n            \"data\": [\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ],\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ]\n            ],\n            \"id\": 428\n          }\n        ],\n        \"tested\": 4967\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f13da1fa-54f3-462c-bde9-d0b4d557c189",
+              "name": "Question not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "result_data",
+                    "question",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Numeric identifier of the question"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0ce1681-367a-41f2-b904-9608301401bb",
+          "name": "Parse Question Text",
+          "request": {
+            "name": "Parse Question Text",
+            "description": {
+              "content": "Parses natural language question text into a structured question object that can be used to create a question. Returns one or more possible interpretations of the question text.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "parse_question"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query_text\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "57a10c6d-fba6-4432-baab-8563ffa8115a",
+              "name": "Question parsed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "parse_question"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query_text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"question\": {\n        \"id\": 9049,\n        \"query_text\": \"string\",\n        \"expiration\": \"2010-02-01T19:15:34.436Z\",\n        \"selects\": [\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 1691,\n              \"id\": 9400\n            }\n          },\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 1862,\n              \"id\": 1287\n            }\n          }\n        ],\n        \"group\": {\n          \"id\": 3129,\n          \"name\": \"string\",\n          \"and_flag\": true,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"management_rights_group\": {\n          \"id\": 6043,\n          \"name\": \"string\",\n          \"and_flag\": true,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"saved_question\": {\n          \"id\": 5865\n        }\n      },\n      \"question_text\": \"string\"\n    },\n    {\n      \"question\": {\n        \"id\": 2384,\n        \"query_text\": \"string\",\n        \"expiration\": \"1994-09-23T08:55:02.198Z\",\n        \"selects\": [\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 7784,\n              \"id\": 8421\n            }\n          },\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 3621,\n              \"id\": 4513\n            }\n          }\n        ],\n        \"group\": {\n          \"id\": 8451,\n          \"name\": \"string\",\n          \"and_flag\": false,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"management_rights_group\": {\n          \"id\": 2084,\n          \"name\": \"string\",\n          \"and_flag\": true,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"saved_question\": {\n          \"id\": 704\n        }\n      },\n      \"question_text\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60a18211-8ee5-4854-99c9-4a4c5a60fe8f",
+              "name": "Unable to parse question text",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "parse_question"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query_text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f1973e38-06f5-4587-a24e-249e8a52ba2c",
+      "name": "Saved Questions",
+      "description": {
+        "content": "Manage saved questions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "86991903-c275-4921-90a0-429da2678621",
+          "name": "List Saved Questions",
+          "request": {
+            "name": "List Saved Questions",
+            "description": {
+              "content": "Retrieves a list of all saved questions configured on the Tanium server. Saved questions can be run on a schedule to continuously collect data from endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "saved_questions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b3f9b7ec-3385-4229-a9b3-bbc67df7aeac",
+              "name": "Saved questions retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "saved_questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 6925,\n      \"name\": \"string\",\n      \"query_text\": \"string\",\n      \"question\": {\n        \"id\": 7732,\n        \"query_text\": \"string\",\n        \"expiration\": \"1990-03-31T20:18:27.451Z\",\n        \"selects\": [\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 8574,\n              \"id\": 9646\n            }\n          },\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 2279,\n              \"id\": 83\n            }\n          }\n        ],\n        \"group\": {\n          \"id\": 9381,\n          \"name\": \"string\",\n          \"and_flag\": true,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"management_rights_group\": {\n          \"id\": 9446,\n          \"name\": \"string\",\n          \"and_flag\": true,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"saved_question\": {\n          \"id\": 2935\n        }\n      },\n      \"issue_seconds\": 448,\n      \"expire_seconds\": 5850,\n      \"mod_time\": \"1969-06-01T15:24:00.753Z\"\n    },\n    {\n      \"id\": 596,\n      \"name\": \"string\",\n      \"query_text\": \"string\",\n      \"question\": {\n        \"id\": 6672,\n        \"query_text\": \"string\",\n        \"expiration\": \"1976-07-09T20:25:46.020Z\",\n        \"selects\": [\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 8360,\n              \"id\": 7100\n            }\n          },\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 225,\n              \"id\": 4306\n            }\n          }\n        ],\n        \"group\": {\n          \"id\": 5445,\n          \"name\": \"string\",\n          \"and_flag\": false,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"management_rights_group\": {\n          \"id\": 5908,\n          \"name\": \"string\",\n          \"and_flag\": true,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"saved_question\": {\n          \"id\": 6226\n        }\n      },\n      \"issue_seconds\": 859,\n      \"expire_seconds\": 3951,\n      \"mod_time\": \"2007-10-10T06:38:21.803Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7e61944-6747-4c27-a070-07aedb048be6",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "saved_questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ad25af6-7e03-4a88-8765-eb6600d02870",
+          "name": "Get A Saved Question By Name",
+          "request": {
+            "name": "Get A Saved Question By Name",
+            "description": {
+              "content": "Retrieves the details of a saved question identified by its name. The name must be URL-encoded if it contains special characters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "saved_questions",
+                "by-name",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the saved question"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "74052147-5297-48ef-8e05-9c045028668f",
+              "name": "Saved question retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "saved_questions",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the saved question"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 5631,\n    \"name\": \"string\",\n    \"query_text\": \"string\",\n    \"question\": {\n      \"id\": 9065,\n      \"query_text\": \"string\",\n      \"expiration\": \"1974-05-25T06:01:13.923Z\",\n      \"selects\": [\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 7264,\n            \"id\": 9488\n          }\n        },\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 3615,\n            \"id\": 4687\n          }\n        }\n      ],\n      \"group\": {\n        \"id\": 4180,\n        \"name\": \"string\",\n        \"and_flag\": false,\n        \"filters\": [\n          {\n            \"sensor\": {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hash\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"sensor\": {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hash\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      },\n      \"management_rights_group\": {\n        \"id\": 6818,\n        \"name\": \"string\",\n        \"and_flag\": true,\n        \"filters\": [\n          {\n            \"sensor\": {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hash\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"sensor\": {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hash\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      },\n      \"saved_question\": {\n        \"id\": 2711\n      }\n    },\n    \"issue_seconds\": 889,\n    \"expire_seconds\": 2819,\n    \"mod_time\": \"1972-10-02T09:55:35.574Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74016419-7287-4949-8cc1-7e27e28fcf6c",
+              "name": "Saved question not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "saved_questions",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the saved question"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6475e979-8ce5-4d4b-b5c2-6de0a1d8358a",
+          "name": "Get Saved Question Results",
+          "request": {
+            "name": "Get Saved Question Results",
+            "description": {
+              "content": "Returns the latest result data for a saved question identified by its numeric ID. Results include rows of data collected from responding endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "result_data",
+                "saved_question",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Numeric identifier of the saved question"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7b66ed7a-c847-415c-a0a9-133033cfd60b",
+              "name": "Saved question results retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "result_data",
+                    "saved_question",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Numeric identifier of the saved question"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"max_available_age\": \"string\",\n    \"now\": \"1953-11-03T09:30:01.863Z\",\n    \"result_sets\": [\n      {\n        \"age\": 5437,\n        \"archived_question_id\": 2548,\n        \"columns\": [\n          {\n            \"hash\": 8470,\n            \"name\": \"string\",\n            \"type\": 7514\n          },\n          {\n            \"hash\": 6480,\n            \"name\": \"string\",\n            \"type\": 9328\n          }\n        ],\n        \"estimated_total\": 4769,\n        \"id\": 929,\n        \"mr_tested\": 4348,\n        \"no_results_count\": 9544,\n        \"passed\": 7665,\n        \"row_count\": 7165,\n        \"rows\": [\n          {\n            \"cid\": 9298,\n            \"data\": [\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ],\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ]\n            ],\n            \"id\": 5985\n          },\n          {\n            \"cid\": 9832,\n            \"data\": [\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ],\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ]\n            ],\n            \"id\": 2866\n          }\n        ],\n        \"tested\": 4670\n      },\n      {\n        \"age\": 2344,\n        \"archived_question_id\": 2573,\n        \"columns\": [\n          {\n            \"hash\": 1157,\n            \"name\": \"string\",\n            \"type\": 6590\n          },\n          {\n            \"hash\": 4956,\n            \"name\": \"string\",\n            \"type\": 5088\n          }\n        ],\n        \"estimated_total\": 9641,\n        \"id\": 6818,\n        \"mr_tested\": 9355,\n        \"no_results_count\": 9678,\n        \"passed\": 7388,\n        \"row_count\": 3259,\n        \"rows\": [\n          {\n            \"cid\": 587,\n            \"data\": [\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ],\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ]\n            ],\n            \"id\": 105\n          },\n          {\n            \"cid\": 4820,\n            \"data\": [\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ],\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ]\n            ],\n            \"id\": 428\n          }\n        ],\n        \"tested\": 4967\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0be0fe9-be77-4580-bd47-aad5e72927a6",
+              "name": "Saved question not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "result_data",
+                    "saved_question",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Numeric identifier of the saved question"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "bd952367-cbd1-4e29-ae54-745d9275bd02",
+      "name": "Sensors",
+      "description": {
+        "content": "Manage endpoint sensors",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "071a2058-54ac-42d8-a2b2-63a2aa8b7659",
+          "name": "Get A Sensor By Name",
+          "request": {
+            "name": "Get A Sensor By Name",
+            "description": {
+              "content": "Retrieves the details of a sensor identified by its name. Sensors collect data from endpoints and are used in questions to query endpoint state.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "sensors",
+                "by-name",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the sensor"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cef38f83-638c-4ec8-ae0d-855cf7a5ff5c",
+              "name": "Sensor retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "sensors",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the sensor"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 6046,\n    \"name\": \"string\",\n    \"hash\": 3881,\n    \"description\": \"string\",\n    \"category\": \"string\",\n    \"max_age_seconds\": 4793,\n    \"content_set\": {\n      \"id\": 7761,\n      \"name\": \"string\"\n    },\n    \"queries\": [\n      {\n        \"platform\": \"string\",\n        \"script\": \"string\",\n        \"script_type\": \"string\"\n      },\n      {\n        \"platform\": \"string\",\n        \"script\": \"string\",\n        \"script_type\": \"string\"\n      }\n    ],\n    \"parameters\": [\n      {\n        \"key\": \"string\",\n        \"default_value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"default_value\": \"string\"\n      }\n    ],\n    \"mod_time\": \"1994-06-07T22:33:01.176Z\",\n    \"creation_time\": \"1984-05-14T19:39:39.771Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "593ce3ec-be79-441b-a6d9-f2e67f0d8919",
+              "name": "Sensor not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "sensors",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the sensor"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb5c5b31-4add-4943-bf9b-8e40f1a414e6",
+          "name": "List All Sensors",
+          "request": {
+            "name": "List All Sensors",
+            "description": {
+              "content": "Retrieves a list of all sensors configured on the Tanium server. Sensors are scripts that collect specific data from endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "sensors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1a2cde26-5248-4e66-9f27-6ff399b799a5",
+              "name": "Sensors retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "sensors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 5926,\n      \"name\": \"string\",\n      \"hash\": 9655,\n      \"description\": \"string\",\n      \"category\": \"string\",\n      \"max_age_seconds\": 566,\n      \"content_set\": {\n        \"id\": 4151,\n        \"name\": \"string\"\n      },\n      \"queries\": [\n        {\n          \"platform\": \"string\",\n          \"script\": \"string\",\n          \"script_type\": \"string\"\n        },\n        {\n          \"platform\": \"string\",\n          \"script\": \"string\",\n          \"script_type\": \"string\"\n        }\n      ],\n      \"parameters\": [\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\"\n        }\n      ],\n      \"mod_time\": \"1948-01-10T15:14:36.379Z\",\n      \"creation_time\": \"1978-01-31T10:11:20.566Z\"\n    },\n    {\n      \"id\": 4520,\n      \"name\": \"string\",\n      \"hash\": 1160,\n      \"description\": \"string\",\n      \"category\": \"string\",\n      \"max_age_seconds\": 325,\n      \"content_set\": {\n        \"id\": 4053,\n        \"name\": \"string\"\n      },\n      \"queries\": [\n        {\n          \"platform\": \"string\",\n          \"script\": \"string\",\n          \"script_type\": \"string\"\n        },\n        {\n          \"platform\": \"string\",\n          \"script\": \"string\",\n          \"script_type\": \"string\"\n        }\n      ],\n      \"parameters\": [\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\"\n        }\n      ],\n      \"mod_time\": \"1956-03-14T16:10:05.178Z\",\n      \"creation_time\": \"1997-09-24T12:08:01.641Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2aa590e9-1f93-4b10-b008-cbcc24e7b7ed",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "sensors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname or IP address of the Tanium server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "tanium.example.com",
+      "key": "tanium_server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tanium_server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "session"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c882b048-6fc8-424d-ab8d-a85dbe49742e",
+    "name": "Tanium Platform REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tanium Platform REST API provides access to core platform functionality including gathering endpoint information, deploying actions, evaluating deployment health, managing packages, sensors, saved questions, and downloading audit logs. Authentication is performed via API tokens passed in the session header.\n\nContact Support:\n Name: Tanium Support",
+      "type": "text/plain"
+    }
+  }
+}

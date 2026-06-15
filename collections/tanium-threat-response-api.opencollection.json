@@ -1,0 +1,996 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Threat Response API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Threat Response Service Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/status"
+          },
+          "docs": "Returns the current status of the Tanium Threat Response service including version information and operational state."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Alerts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Threat Alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/alerts",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of alerts to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of alerts to skip for pagination"
+              },
+              {
+                "name": "computer_ip_address",
+                "value": "",
+                "type": "query",
+                "description": "Filter by computer IP address"
+              },
+              {
+                "name": "computer_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by computer hostname"
+              },
+              {
+                "name": "scan_config_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by scan configuration identifier"
+              },
+              {
+                "name": "intel_doc_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by intel document identifier"
+              },
+              {
+                "name": "severity",
+                "value": "",
+                "type": "query",
+                "description": "Filter by alert severity"
+              },
+              {
+                "name": "priority",
+                "value": "",
+                "type": "query",
+                "description": "Filter by alert priority"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by alert type"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by alert state"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of threat alerts. Alerts can be filtered by computer name, IP address, severity, priority, type, state, and associated intel document or scan configuration."
+        },
+        {
+          "info": {
+            "name": "Get An Alert By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/alerts/:alertId",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the alert"
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific alert including associated computer information, intel document references, and current state."
+        },
+        {
+          "info": {
+            "name": "Update Alert State",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/alerts/:alertId",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "",
+                "type": "path",
+                "description": "Alert ID or comma-separated list of alert IDs"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the state of one or more alerts. Multiple alert IDs can be provided as a comma-separated list in the path. Valid states are unresolved, inprogress, resolved, dismissed, and ignored."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Connections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Endpoint Connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of connections to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of connections to skip for pagination"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by connection status"
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "query",
+                "description": "Filter by endpoint IP address"
+              },
+              {
+                "name": "platform",
+                "value": "",
+                "type": "query",
+                "description": "Filter by endpoint platform"
+              },
+              {
+                "name": "hostname",
+                "value": "",
+                "type": "query",
+                "description": "Filter by endpoint hostname"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of live connections to endpoints. Connections can be filtered by status, IP address, platform, and hostname."
+        },
+        {
+          "info": {
+            "name": "Create A Live Connection To An Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns/connect",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a live connection to a specified endpoint for investigation purposes. Requires the client ID, IP, platform, and hostname of the target endpoint."
+        },
+        {
+          "info": {
+            "name": "Get A Connection By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns/:connectionId",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              }
+            ]
+          },
+          "docs": "Retrieves the details and current status of a specific endpoint connection."
+        },
+        {
+          "info": {
+            "name": "Close A Live Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns/close/:connectionId",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection to close"
+              }
+            ]
+          },
+          "docs": "Closes an active live connection to an endpoint, ending the investigation session."
+        },
+        {
+          "info": {
+            "name": "Delete A Connection Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns/delete/:connectionId",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection to delete"
+              }
+            ]
+          },
+          "docs": "Permanently deletes a connection record from the Threat Response database."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create An Endpoint Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns/:connectionId/snapshot",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              }
+            ]
+          },
+          "docs": "Initiates a snapshot capture from a connected endpoint. The snapshot captures a point-in-time image of endpoint Recorder data for offline analysis."
+        },
+        {
+          "info": {
+            "name": "List All Snapshots",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/snapshot",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of snapshots to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of snapshots to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of all endpoint snapshots captured for investigations."
+        },
+        {
+          "info": {
+            "name": "Delete Snapshots",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/snapshot",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes one or more snapshots by their identifiers. Provide snapshot IDs in the request body."
+        },
+        {
+          "info": {
+            "name": "Delete A Local Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/snapshot/:snapshotId",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the snapshot to delete"
+              }
+            ]
+          },
+          "docs": "Deletes a specific snapshot stored locally on the Tanium server, freeing disk space."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Events By Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns/:connectionId/views/:eventType/events",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              },
+              {
+                "name": "eventType",
+                "value": "",
+                "type": "path",
+                "description": "Type of events to retrieve"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of events to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of events to skip for pagination"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter expression for events"
+              },
+              {
+                "name": "match",
+                "value": "",
+                "type": "query",
+                "description": "Match mode for filter expression"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include"
+              }
+            ]
+          },
+          "docs": "Retrieves Recorder events from a connected endpoint filtered by event type. Supported event types include File, Network, Registry, Process, Driver, Combined, DNS, and Image."
+        },
+        {
+          "info": {
+            "name": "Get Events Count Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns/:connectionId/views/:eventType/eventsCount",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              },
+              {
+                "name": "eventType",
+                "value": "",
+                "type": "path",
+                "description": "Type of events to count"
+              }
+            ]
+          },
+          "docs": "Returns a summary count of Recorder events by type for a specific connection, useful for understanding the volume of activity on an endpoint."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Processes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Events For A Specific Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns/:connectionId/processevents/:processTableId/:eventType",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              },
+              {
+                "name": "processTableId",
+                "value": "",
+                "type": "path",
+                "description": "Process table identifier"
+              },
+              {
+                "name": "eventType",
+                "value": "",
+                "type": "path",
+                "description": "Type of events to retrieve for the process"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of events to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of events to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves events associated with a specific process on a connected endpoint, identified by its process table ID and event type."
+        },
+        {
+          "info": {
+            "name": "Get A Process Tree",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns/:connectionId/processtrees/:processTableId",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              },
+              {
+                "name": "processTableId",
+                "value": "",
+                "type": "path",
+                "description": "Process table identifier"
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Context level for the process tree"
+              }
+            ]
+          },
+          "docs": "Retrieves the process tree for a specific process, showing parent, child, and sibling processes. Useful for understanding process lineage during investigations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "File Downloads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List File Downloads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/filedownload",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of file downloads to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of file downloads to skip for pagination"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results"
+              },
+              {
+                "name": "hostname",
+                "value": "",
+                "type": "query",
+                "description": "Filter by source endpoint hostname"
+              },
+              {
+                "name": "hash",
+                "value": "",
+                "type": "query",
+                "description": "Filter by file hash"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of files that have been downloaded from endpoints during investigations."
+        },
+        {
+          "info": {
+            "name": "Get File Download Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/filedownload/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the downloaded file"
+              }
+            ]
+          },
+          "docs": "Retrieves metadata for a specific downloaded file, including hash values, size, and origin information."
+        },
+        {
+          "info": {
+            "name": "Delete A Downloaded File",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/filedownload/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the file to delete"
+              }
+            ]
+          },
+          "docs": "Deletes a previously downloaded file from the Tanium server, freeing storage space."
+        },
+        {
+          "info": {
+            "name": "Download File Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/filedownload/data/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the file to download"
+              }
+            ]
+          },
+          "docs": "Downloads the actual file content of a previously captured file. The file is returned as a binary download, password-protected with the default password \"infected\"."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "File Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Request A File Download From An Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns/:connectionId/file",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a file download from a connected endpoint. The file is transferred from the endpoint to the Tanium server for analysis."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Intel Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Intel Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/intels",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of intel documents to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of intel documents to skip for pagination"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by intel document name"
+              },
+              {
+                "name": "description",
+                "value": "",
+                "type": "query",
+                "description": "Filter by description text"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by intel document type"
+              },
+              {
+                "name": "label_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by associated label identifier"
+              },
+              {
+                "name": "mitre_technique_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by MITRE ATT&CK technique ID"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of threat intelligence documents configured in Tanium Threat Response."
+        },
+        {
+          "info": {
+            "name": "Upload An Intel Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/intels",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a new threat intelligence document to Tanium Threat Response. Intel documents define indicators of compromise (IOCs) and threat signatures used for alerting and scanning."
+        },
+        {
+          "info": {
+            "name": "Get An Intel Document By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/intels/:intelDocId",
+            "params": [
+              {
+                "name": "intelDocId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the intel document"
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific threat intelligence document including alert counts and label associations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Labels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Labels For An Intel Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/intels/:intelDocId/labels",
+            "params": [
+              {
+                "name": "intelDocId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the intel document"
+              }
+            ]
+          },
+          "docs": "Retrieves the labels associated with a specific intel document. Labels categorize and organize intel documents for easier management."
+        },
+        {
+          "info": {
+            "name": "Add A Label To An Intel Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/intels/:intelDocId/labels",
+            "params": [
+              {
+                "name": "intelDocId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the intel document"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Associates a label with an intel document for classification and organization purposes."
+        },
+        {
+          "info": {
+            "name": "List All Labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/labels",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of labels to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of labels to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of all labels available in Threat Response for categorizing intel documents and signals."
+        },
+        {
+          "info": {
+            "name": "Get A Label By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/labels/:labelId",
+            "params": [
+              {
+                "name": "labelId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the label"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific label including associated indicator and signal counts."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Evidence",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Investigation Evidence",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/evidence",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of evidence items to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of evidence items to skip for pagination"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results"
+              },
+              {
+                "name": "hostname",
+                "value": "",
+                "type": "query",
+                "description": "Filter by endpoint hostname"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by evidence type"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of evidence collected during investigations. Evidence can be filtered by hostname and type."
+        },
+        {
+          "info": {
+            "name": "Create Evidence From A Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/evidence",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an evidence record from a specific process on a connected endpoint, preserving investigation findings."
+        },
+        {
+          "info": {
+            "name": "Get Evidence By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/evidence/:evidenceId",
+            "params": [
+              {
+                "name": "evidenceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the evidence"
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific evidence item including associated process information and timestamps."
+        },
+        {
+          "info": {
+            "name": "Delete Evidence",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/evidence/:evidenceId",
+            "params": [
+              {
+                "name": "evidenceId",
+                "value": "",
+                "type": "path",
+                "description": "Evidence ID or comma-separated list of evidence IDs"
+              }
+            ]
+          },
+          "docs": "Deletes one or more evidence items. Multiple evidence IDs can be provided as a comma-separated list."
+        },
+        {
+          "info": {
+            "name": "Get Evidence Properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/evidence/properties"
+          },
+          "docs": "Retrieves the available property definitions for evidence items, including filterable fields and their value types."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
