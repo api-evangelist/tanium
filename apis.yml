@@ -109,6 +109,10 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 common:
+- type: DomainSecurity
+  url: security/tanium-domain-security.yml
+- type: Authentication
+  url: authentication/tanium-authentication.yml
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/tanium/overview
 - type: Arazzo

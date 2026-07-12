@@ -1,0 +1,20 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/tanium-connect-api-openapi.yml, openapi/tanium-platform-rest-api-openapi.yml,
+  openapi/tanium-threat-response-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiToken
+  type: apiKey
+  in: header
+  parameter: session
+  description: API token passed in the session header for authenticating with the Tanium Connect
+    API.
+  sources:
+  - openapi/tanium-connect-api-openapi.yml
+  - openapi/tanium-platform-rest-api-openapi.yml
+  - openapi/tanium-threat-response-api-openapi.yml
