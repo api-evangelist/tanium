@@ -109,6 +109,8 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 common:
+- type: AgenticAccess
+  url: agentic-access/tanium-agentic-access.yml
 - type: DomainSecurity
   url: security/tanium-domain-security.yml
 - type: Authentication
