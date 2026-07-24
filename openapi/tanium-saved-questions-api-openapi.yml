@@ -1,0 +1,279 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Saved Questions API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Saved Questions
+  description: Manage saved questions
+paths:
+  /api/v2/saved_questions:
+    get:
+      operationId: listSavedQuestions
+      summary: List Saved Questions
+      description: Retrieves a list of all saved questions configured on the Tanium server. Saved questions can be run on a schedule to continuously collect data from endpoints.
+      tags:
+      - Saved Questions
+      responses:
+        '200':
+          description: Saved questions retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SavedQuestion'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/saved_questions/by-name/{name}:
+    get:
+      operationId: getSavedQuestionByName
+      summary: Get A Saved Question By Name
+      description: Retrieves the details of a saved question identified by its name. The name must be URL-encoded if it contains special characters.
+      tags:
+      - Saved Questions
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the saved question
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Saved question retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SavedQuestion'
+        '404':
+          description: Saved question not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/result_data/saved_question/{id}:
+    get:
+      operationId: getSavedQuestionResults
+      summary: Get Saved Question Results
+      description: Returns the latest result data for a saved question identified by its numeric ID. Results include rows of data collected from responding endpoints.
+      tags:
+      - Saved Questions
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Numeric identifier of the saved question
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Saved question results retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ResultSet'
+        '404':
+          description: Saved question not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Question:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the question
+        query_text:
+          type: string
+          description: Human-readable question text
+        expiration:
+          type: string
+          format: date-time
+          description: Question expiration timestamp
+        selects:
+          type: array
+          items:
+            type: object
+            properties:
+              sensor:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  hash:
+                    type: integer
+                  id:
+                    type: integer
+          description: Sensors selected for the question
+        group:
+          $ref: '#/components/schemas/GroupFilter'
+        management_rights_group:
+          $ref: '#/components/schemas/GroupFilter'
+        saved_question:
+          type: object
+          properties:
+            id:
+              type: integer
+          description: Associated saved question reference
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+    ResultSet:
+      type: object
+      properties:
+        max_available_age:
+          type: string
+          description: Maximum age of available results
+        now:
+          type: string
+          format: date-time
+          description: Current server timestamp
+        result_sets:
+          type: array
+          items:
+            type: object
+            properties:
+              age:
+                type: integer
+                description: Age of the result in seconds
+              archived_question_id:
+                type: integer
+              columns:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    hash:
+                      type: integer
+                    name:
+                      type: string
+                    type:
+                      type: integer
+              estimated_total:
+                type: integer
+                description: Estimated total rows
+              id:
+                type: integer
+              mr_tested:
+                type: integer
+              no_results_count:
+                type: integer
+              passed:
+                type: integer
+              row_count:
+                type: integer
+              rows:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    cid:
+                      type: integer
+                    data:
+                      type: array
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            text:
+                              type: string
+                    id:
+                      type: integer
+              tested:
+                type: integer
+    GroupFilter:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Group identifier
+        name:
+          type: string
+          description: Group name
+        and_flag:
+          type: boolean
+          description: Whether filters are combined with AND logic
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              sensor:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  hash:
+                    type: integer
+              operator:
+                type: string
+              value:
+                type: string
+          description: Filter criteria
+    SavedQuestion:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the saved question
+        name:
+          type: string
+          description: Name of the saved question
+        query_text:
+          type: string
+          description: The question text
+        question:
+          $ref: '#/components/schemas/Question'
+        issue_seconds:
+          type: integer
+          description: Interval in seconds between question reissues
+        expire_seconds:
+          type: integer
+          description: Seconds until the question expires
+        mod_time:
+          type: string
+          format: date-time
+          description: Last modification timestamp
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

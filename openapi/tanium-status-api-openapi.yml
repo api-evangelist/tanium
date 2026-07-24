@@ -1,0 +1,184 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Status API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Status
+  description: Connect service status and logs
+paths:
+  /plugin/products/connect/v1/status:
+    get:
+      operationId: getConnectStatus
+      summary: Get Connect Service Status
+      description: Returns the current status of the Tanium Connect service including version information and overall health.
+      tags:
+      - Status
+      responses:
+        '200':
+          description: Status retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                        description: Connect module version
+                      status:
+                        type: string
+                        description: Service operational status
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/logs:
+    get:
+      operationId: listConnectionLogs
+      summary: List Connection Execution Logs
+      description: Retrieves a paginated list of connection execution logs showing the history of data deliveries, including success/failure status and row counts.
+      tags:
+      - Status
+      parameters:
+      - name: limit
+        in: query
+        description: Maximum number of log entries to return
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: Number of log entries to skip for pagination
+        schema:
+          type: integer
+      - name: connectionId
+        in: query
+        description: Filter logs by connection identifier
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ConnectionLog'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/status:
+    get:
+      operationId: getThreatResponseStatus
+      summary: Get Threat Response Service Status
+      description: Returns the current status of the Tanium Threat Response service including version information and operational state.
+      tags:
+      - Status
+      responses:
+        '200':
+          description: Status retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                        description: Threat Response version
+                      status:
+                        type: string
+                        description: Service operational status
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+    ConnectionLog:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Log entry identifier
+        connectionId:
+          type: integer
+          description: Associated connection identifier
+        connectionName:
+          type: string
+          description: Name of the connection
+        status:
+          type: string
+          description: Execution status
+          enum:
+          - success
+          - failure
+          - partial
+        rowCount:
+          type: integer
+          description: Number of rows delivered
+        message:
+          type: string
+          description: Status or error message
+        startTime:
+          type: string
+          format: date-time
+          description: Execution start timestamp
+        endTime:
+          type: string
+          format: date-time
+          description: Execution end timestamp
+        duration:
+          type: integer
+          description: Execution duration in milliseconds
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

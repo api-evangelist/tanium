@@ -1,0 +1,272 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Evidence API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Evidence
+  description: Collect and manage investigation evidence
+paths:
+  /plugin/products/threat-response/api/v1/evidence:
+    get:
+      operationId: listEvidence
+      summary: List Investigation Evidence
+      description: Retrieves a paginated list of evidence collected during investigations. Evidence can be filtered by hostname and type.
+      tags:
+      - Evidence
+      parameters:
+      - name: limit
+        in: query
+        description: Maximum number of evidence items to return
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: Number of evidence items to skip for pagination
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        description: Sort order for results
+        schema:
+          type: string
+      - name: hostname
+        in: query
+        description: Filter by endpoint hostname
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: Filter by evidence type
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Evidence retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Evidence'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createEvidence
+      summary: Create Evidence From A Process
+      description: Creates an evidence record from a specific process on a connected endpoint, preserving investigation findings.
+      tags:
+      - Evidence
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - connection_id
+              - ptid
+              - hostname
+              properties:
+                connection_id:
+                  type: string
+                  description: Connection identifier for the endpoint
+                ptid:
+                  type: string
+                  description: Process table identifier
+                hostname:
+                  type: string
+                  description: Hostname of the endpoint
+                summary:
+                  type: string
+                  description: Summary description of the evidence
+      responses:
+        '200':
+          description: Evidence created successfully
+        '400':
+          description: Invalid evidence parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/evidence/{evidenceId}:
+    get:
+      operationId: getEvidence
+      summary: Get Evidence By ID
+      description: Retrieves the full details of a specific evidence item including associated process information and timestamps.
+      tags:
+      - Evidence
+      parameters:
+      - name: evidenceId
+        in: path
+        required: true
+        description: Unique identifier of the evidence
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Evidence retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Evidence'
+        '404':
+          description: Evidence not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteEvidence
+      summary: Delete Evidence
+      description: Deletes one or more evidence items. Multiple evidence IDs can be provided as a comma-separated list.
+      tags:
+      - Evidence
+      parameters:
+      - name: evidenceId
+        in: path
+        required: true
+        description: Evidence ID or comma-separated list of evidence IDs
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Evidence deleted successfully
+        '404':
+          description: Evidence not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/evidence/properties:
+    get:
+      operationId: getEvidenceProperties
+      summary: Get Evidence Properties
+      description: Retrieves the available property definitions for evidence items, including filterable fields and their value types.
+      tags:
+      - Evidence
+      responses:
+        '200':
+          description: Evidence properties retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        value:
+                          type: string
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+    Evidence:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Unique evidence identifier
+        name:
+          type: string
+          description: Evidence item name
+        hostname:
+          type: string
+          description: Source endpoint hostname
+        evidenceType:
+          type: string
+          description: Type of evidence
+        type:
+          type: string
+          description: Evidence classification type
+        summary:
+          type: string
+          description: Summary description
+        size:
+          type: integer
+          description: Evidence size in bytes
+        username:
+          type: string
+          description: Associated user name
+        domain:
+          type: string
+          description: Domain of the associated user
+        commandline:
+          type: string
+          description: Associated command line
+        eventtype:
+          type: string
+          description: Type of event that generated the evidence
+        timestamp:
+          type: string
+          format: date-time
+          description: Evidence timestamp
+        createTime:
+          type: string
+          format: date-time
+          description: Process creation time
+        createTimeRaw:
+          type: string
+          description: Raw process creation timestamp
+        exitCode:
+          type: integer
+          description: Associated process exit code
+        createdAt:
+          type: string
+          format: date-time
+          description: Evidence record creation time
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

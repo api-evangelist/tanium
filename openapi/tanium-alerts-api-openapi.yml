@@ -1,0 +1,253 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Alerts API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Alerts
+  description: Manage threat alerts
+paths:
+  /plugin/products/threat-response/api/v1/alerts:
+    get:
+      operationId: listAlerts
+      summary: List Threat Alerts
+      description: Retrieves a paginated list of threat alerts. Alerts can be filtered by computer name, IP address, severity, priority, type, state, and associated intel document or scan configuration.
+      tags:
+      - Alerts
+      parameters:
+      - name: limit
+        in: query
+        description: Maximum number of alerts to return
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: Number of alerts to skip for pagination
+        schema:
+          type: integer
+      - name: computer_ip_address
+        in: query
+        description: Filter by computer IP address
+        schema:
+          type: string
+      - name: computer_name
+        in: query
+        description: Filter by computer hostname
+        schema:
+          type: string
+      - name: scan_config_id
+        in: query
+        description: Filter by scan configuration identifier
+        schema:
+          type: integer
+      - name: intel_doc_id
+        in: query
+        description: Filter by intel document identifier
+        schema:
+          type: integer
+      - name: severity
+        in: query
+        description: Filter by alert severity
+        schema:
+          type: string
+      - name: priority
+        in: query
+        description: Filter by alert priority
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: Filter by alert type
+        schema:
+          type: string
+      - name: state
+        in: query
+        description: Filter by alert state
+        schema:
+          type: string
+          enum:
+          - unresolved
+          - inprogress
+          - resolved
+          - dismissed
+          - ignored
+      responses:
+        '200':
+          description: Alerts retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Alert'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/alerts/{alertId}:
+    get:
+      operationId: getAlert
+      summary: Get An Alert By ID
+      description: Retrieves the full details of a specific alert including associated computer information, intel document references, and current state.
+      tags:
+      - Alerts
+      parameters:
+      - name: alertId
+        in: path
+        required: true
+        description: Unique identifier of the alert
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Alert retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Alert'
+        '404':
+          description: Alert not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      operationId: updateAlertState
+      summary: Update Alert State
+      description: Updates the state of one or more alerts. Multiple alert IDs can be provided as a comma-separated list in the path. Valid states are unresolved, inprogress, resolved, dismissed, and ignored.
+      tags:
+      - Alerts
+      parameters:
+      - name: alertId
+        in: path
+        required: true
+        description: Alert ID or comma-separated list of alert IDs
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - state
+              properties:
+                state:
+                  type: string
+                  enum:
+                  - unresolved
+                  - inprogress
+                  - resolved
+                  - dismissed
+                  - ignored
+                  description: New state for the alert(s)
+      responses:
+        '200':
+          description: Alert state updated successfully
+        '400':
+          description: Invalid state value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alert not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+    Alert:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique alert identifier
+        priority:
+          type: string
+          description: Alert priority level
+        severity:
+          type: string
+          description: Alert severity level
+        type:
+          type: string
+          description: Type of alert
+        state:
+          type: string
+          description: Current state of the alert
+          enum:
+          - unresolved
+          - inprogress
+          - resolved
+          - dismissed
+          - ignored
+        computerName:
+          type: string
+          description: Name of the affected computer
+        computerIpAddress:
+          type: string
+          description: IP address of the affected computer
+        guid:
+          type: string
+          description: Globally unique identifier for the alert
+        intelDocId:
+          type: integer
+          description: Associated intel document identifier
+        alertedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the alert was generated
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the alert record was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the alert was last updated
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

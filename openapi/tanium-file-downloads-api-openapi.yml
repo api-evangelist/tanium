@@ -1,0 +1,223 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions File Downloads API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: File Downloads
+  description: Download and manage files from endpoints
+paths:
+  /plugin/products/threat-response/api/v1/filedownload:
+    get:
+      operationId: listFileDownloads
+      summary: List File Downloads
+      description: Retrieves a paginated list of files that have been downloaded from endpoints during investigations.
+      tags:
+      - File Downloads
+      parameters:
+      - name: limit
+        in: query
+        description: Maximum number of file downloads to return
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: Number of file downloads to skip for pagination
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        description: Sort order for results
+        schema:
+          type: string
+      - name: hostname
+        in: query
+        description: Filter by source endpoint hostname
+        schema:
+          type: string
+      - name: hash
+        in: query
+        description: Filter by file hash
+        schema:
+          type: string
+      responses:
+        '200':
+          description: File downloads retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FileDownload'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/filedownload/{fileId}:
+    get:
+      operationId: getFileDownload
+      summary: Get File Download Metadata
+      description: Retrieves metadata for a specific downloaded file, including hash values, size, and origin information.
+      tags:
+      - File Downloads
+      parameters:
+      - name: fileId
+        in: path
+        required: true
+        description: Unique identifier of the downloaded file
+        schema:
+          type: string
+      responses:
+        '200':
+          description: File download metadata retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/FileDownload'
+        '404':
+          description: File download not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteFileDownload
+      summary: Delete A Downloaded File
+      description: Deletes a previously downloaded file from the Tanium server, freeing storage space.
+      tags:
+      - File Downloads
+      parameters:
+      - name: fileId
+        in: path
+        required: true
+        description: Unique identifier of the file to delete
+        schema:
+          type: string
+      responses:
+        '200':
+          description: File download deleted successfully
+        '404':
+          description: File download not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/filedownload/data/{fileId}:
+    get:
+      operationId: downloadFileContent
+      summary: Download File Content
+      description: Downloads the actual file content of a previously captured file. The file is returned as a binary download, password-protected with the default password "infected".
+      tags:
+      - File Downloads
+      parameters:
+      - name: fileId
+        in: path
+        required: true
+        description: Unique identifier of the file to download
+        schema:
+          type: string
+      responses:
+        '200':
+          description: File content downloaded successfully
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: File not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    FileDownload:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Unique file download identifier
+        path:
+          type: string
+          description: Original file path on the endpoint
+        hostname:
+          type: string
+          description: Source endpoint hostname
+        hash:
+          type: string
+          description: File hash value
+        size:
+          type: integer
+          description: File size in bytes
+        evidenceType:
+          type: string
+          description: Type of evidence
+        downloaded:
+          type: string
+          format: date-time
+          description: Download completion timestamp
+        processCreationTime:
+          type: string
+          format: date-time
+          description: Associated process creation time
+        createdBy:
+          type: string
+          description: File creator user name
+        createdByProc:
+          type: string
+          description: Process that created the file
+        lastModified:
+          type: string
+          format: date-time
+          description: File last modification time
+        lastModifiedBy:
+          type: string
+          description: User who last modified the file
+        lastModifiedByProc:
+          type: string
+          description: Process that last modified the file
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

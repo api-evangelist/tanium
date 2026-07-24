@@ -1,0 +1,156 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Sensors API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Sensors
+  description: Manage endpoint sensors
+paths:
+  /api/v2/sensors/by-name/{name}:
+    get:
+      operationId: getSensorByName
+      summary: Get A Sensor By Name
+      description: Retrieves the details of a sensor identified by its name. Sensors collect data from endpoints and are used in questions to query endpoint state.
+      tags:
+      - Sensors
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the sensor
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Sensor retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Sensor'
+        '404':
+          description: Sensor not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/sensors:
+    get:
+      operationId: listSensors
+      summary: List All Sensors
+      description: Retrieves a list of all sensors configured on the Tanium server. Sensors are scripts that collect specific data from endpoints.
+      tags:
+      - Sensors
+      responses:
+        '200':
+          description: Sensors retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Sensor'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+    Sensor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the sensor
+        name:
+          type: string
+          description: Name of the sensor
+        hash:
+          type: integer
+          description: Hash identifier for the sensor
+        description:
+          type: string
+          description: Description of what the sensor collects
+        category:
+          type: string
+          description: Category of the sensor
+        max_age_seconds:
+          type: integer
+          description: Maximum age of cached sensor results in seconds
+        content_set:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+          description: Content set the sensor belongs to
+        queries:
+          type: array
+          items:
+            type: object
+            properties:
+              platform:
+                type: string
+                description: Target platform (Windows, Linux, Mac, etc.)
+              script:
+                type: string
+                description: Script content for the sensor
+              script_type:
+                type: string
+                description: Script language type
+          description: Platform-specific query scripts
+        parameters:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              default_value:
+                type: string
+          description: Sensor parameters
+        mod_time:
+          type: string
+          format: date-time
+          description: Last modification timestamp
+        creation_time:
+          type: string
+          format: date-time
+          description: Creation timestamp
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

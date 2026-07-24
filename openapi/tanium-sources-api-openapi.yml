@@ -1,0 +1,140 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Sources API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Sources
+  description: Manage connection data sources
+paths:
+  /plugin/products/connect/v1/sources:
+    get:
+      operationId: listSources
+      summary: List Available Data Sources
+      description: Retrieves a list of all available data sources that can be used as connection sources. Sources include saved questions, question logs, system status data, and event-driven data from other Tanium modules.
+      tags:
+      - Sources
+      responses:
+        '200':
+          description: Sources retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Source'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/sources/{sourceId}:
+    get:
+      operationId: getSource
+      summary: Get A Data Source By ID
+      description: Retrieves the details of a specific data source, including its type, configuration, and available columns for output formatting.
+      tags:
+      - Sources
+      parameters:
+      - name: sourceId
+        in: path
+        required: true
+        description: Unique identifier of the data source
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Source retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Source'
+        '404':
+          description: Source not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+    Source:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique source identifier
+        name:
+          type: string
+          description: Source name
+        type:
+          type: string
+          description: Source type
+          enum:
+          - saved_question
+          - question_log
+          - system_status
+          - event
+          - discover
+          - integrity_monitor
+          - threat_response
+        description:
+          type: string
+          description: Source description
+        savedQuestionId:
+          type: integer
+          description: Associated saved question ID (for saved_question type)
+        columns:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Column name
+              type:
+                type: string
+                description: Column data type
+          description: Available output columns
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

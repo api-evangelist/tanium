@@ -1,0 +1,132 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Schedules API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Schedules
+  description: Manage connection schedules
+paths:
+  /plugin/products/connect/v1/schedules:
+    get:
+      operationId: listSchedules
+      summary: List All Schedules
+      description: Retrieves a list of all connection schedules with their current status and next run time. Schedules define how frequently connections execute and deliver data.
+      tags:
+      - Schedules
+      responses:
+        '200':
+          description: Schedules retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Schedule'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/schedules/{scheduleId}:
+    get:
+      operationId: getSchedule
+      summary: Get A Schedule By ID
+      description: Retrieves the details of a specific schedule including its interval, last run status, and next run time.
+      tags:
+      - Schedules
+      parameters:
+      - name: scheduleId
+        in: path
+        required: true
+        description: Unique identifier of the schedule
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Schedule retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Schedule'
+        '404':
+          description: Schedule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+    Schedule:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique schedule identifier
+        connectionId:
+          type: integer
+          description: Associated connection identifier
+        intervalSeconds:
+          type: integer
+          description: Interval between runs in seconds
+        startTime:
+          type: string
+          format: date-time
+          description: Schedule start time
+        lastRunTime:
+          type: string
+          format: date-time
+          description: Timestamp of the last run
+        nextRunTime:
+          type: string
+          format: date-time
+          description: Timestamp of the next scheduled run
+        lastRunStatus:
+          type: string
+          description: Status of the last run
+        enabled:
+          type: boolean
+          description: Whether the schedule is active
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

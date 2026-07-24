@@ -1,0 +1,227 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Actions
+  description: Deploy and manage actions on endpoints
+paths:
+  /api/v2/saved_actions:
+    post:
+      operationId: createSavedAction
+      summary: Create And Execute An Action
+      description: Creates a saved action that deploys a package to targeted endpoints. Actions can target specific computer groups and use action groups for approval workflows.
+      tags:
+      - Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - package_spec
+              - action_group
+              properties:
+                name:
+                  type: string
+                  description: Name of the action
+                package_spec:
+                  type: object
+                  properties:
+                    source_id:
+                      type: integer
+                      description: Package ID to deploy
+                    name:
+                      type: string
+                      description: Package name to deploy
+                    parameters:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          key:
+                            type: string
+                          value:
+                            type: string
+                      description: Package parameters
+                  description: Package specification for the action
+                action_group:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Action group ID
+                    name:
+                      type: string
+                      description: Action group name
+                  description: Action group for approval and targeting
+                target_group:
+                  $ref: '#/components/schemas/GroupFilter'
+                expire_seconds:
+                  type: integer
+                  description: Seconds until the action expires
+                start_time:
+                  type: string
+                  format: date-time
+                  description: Scheduled start time
+      responses:
+        '200':
+          description: Action created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SavedAction'
+        '400':
+          description: Invalid action specification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/action_groups/by-name/{name}:
+    get:
+      operationId: getActionGroupByName
+      summary: Get An Action Group By Name
+      description: Retrieves the details of an action group identified by its name. Action groups define approval policies and target restrictions for deploying actions.
+      tags:
+      - Actions
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the action group
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Action group retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ActionGroup'
+        '404':
+          description: Action group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    ActionGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the action group
+        name:
+          type: string
+          description: Name of the action group
+        and_flag:
+          type: boolean
+          description: Whether filters are combined with AND logic
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+    SavedAction:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the saved action
+        name:
+          type: string
+          description: Name of the action
+        status:
+          type: string
+          description: Current status of the action
+        package_spec:
+          type: object
+          properties:
+            source_id:
+              type: integer
+            name:
+              type: string
+          description: Package deployed by the action
+        action_group:
+          $ref: '#/components/schemas/ActionGroup'
+        target_group:
+          $ref: '#/components/schemas/GroupFilter'
+        start_time:
+          type: string
+          format: date-time
+          description: Start time of the action
+        expiration_time:
+          type: string
+          format: date-time
+          description: Expiration time of the action
+        approved_flag:
+          type: integer
+          description: Whether the action has been approved
+    GroupFilter:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Group identifier
+        name:
+          type: string
+          description: Group name
+        and_flag:
+          type: boolean
+          description: Whether filters are combined with AND logic
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              sensor:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  hash:
+                    type: integer
+              operator:
+                type: string
+              value:
+                type: string
+          description: Filter criteria
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

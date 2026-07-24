@@ -1,0 +1,116 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions File Operations API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: File Operations
+  description: Browse and manage files on connected endpoints
+paths:
+  /plugin/products/threat-response/api/v1/conns/{connectionId}/file:
+    post:
+      operationId: requestFileFromEndpoint
+      summary: Request A File Download From An Endpoint
+      description: Initiates a file download from a connected endpoint. The file is transferred from the endpoint to the Tanium server for analysis.
+      tags:
+      - File Operations
+      parameters:
+      - name: connectionId
+        in: path
+        required: true
+        description: Unique identifier of the connection
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - path
+              properties:
+                path:
+                  type: string
+                  description: Full file path on the endpoint to download
+      responses:
+        '200':
+          description: File download request initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/FileDownloadTask'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    FileDownloadTask:
+      type: object
+      properties:
+        taskId:
+          type: string
+          description: Task identifier for the download operation
+        status:
+          type: string
+          description: Current task status
+        startTime:
+          type: string
+          format: date-time
+          description: Task start timestamp
+        compress:
+          type: boolean
+          description: Whether the file is compressed during transfer
+        paths:
+          type: array
+          items:
+            type: string
+          description: File paths being downloaded
+        connection:
+          type: object
+          properties:
+            id:
+              type: string
+          description: Associated connection reference
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

@@ -1,0 +1,165 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Authentication API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Authentication
+  description: Session and token management
+paths:
+  /api/v2/session/login:
+    post:
+      operationId: createSession
+      summary: Create A New Session
+      description: Authenticates with the Tanium server using username and password credentials and returns a session token for subsequent API calls. This is the legacy authentication method; API tokens are preferred.
+      tags:
+      - Authentication
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - username
+              - password
+              properties:
+                username:
+                  type: string
+                  description: Tanium console username
+                password:
+                  type: string
+                  format: password
+                  description: Tanium console password
+                domain:
+                  type: string
+                  description: Authentication domain (if applicable)
+      responses:
+        '200':
+          description: Session created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      session:
+                        type: string
+                        description: Session token for subsequent requests
+        '401':
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Access denied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/api_tokens:
+    post:
+      operationId: createApiToken
+      summary: Create An API Token
+      description: Creates a new API token with optional expiration and trusted IP configuration. API tokens are the preferred authentication method for integrations and automated scripts.
+      tags:
+      - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expire_in_days:
+                  type: integer
+                  description: Number of days until the token expires
+                trusted_ip_addresses:
+                  type: array
+                  items:
+                    type: string
+                  description: List of trusted IP addresses allowed to use this token
+                notes:
+                  type: string
+                  description: Notes about the token purpose
+      responses:
+        '200':
+          description: API token created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ApiToken'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    ApiToken:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the API token
+        token_string:
+          type: string
+          description: The API token string to use in the session header. Only returned on creation.
+        expire_time:
+          type: string
+          format: date-time
+          description: Token expiration timestamp
+        trusted_ip_addresses:
+          type: array
+          items:
+            type: string
+          description: List of trusted IP addresses
+        notes:
+          type: string
+          description: Notes about the token
+        creation_time:
+          type: string
+          format: date-time
+          description: Token creation timestamp
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

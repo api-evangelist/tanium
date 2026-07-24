@@ -1,0 +1,224 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Labels API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Labels
+  description: Manage classification labels for intel documents
+paths:
+  /plugin/products/threat-response/api/v1/intels/{intelDocId}/labels:
+    get:
+      operationId: listIntelDocumentLabels
+      summary: List Labels For An Intel Document
+      description: Retrieves the labels associated with a specific intel document. Labels categorize and organize intel documents for easier management.
+      tags:
+      - Labels
+      parameters:
+      - name: intelDocId
+        in: path
+        required: true
+        description: Unique identifier of the intel document
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Labels retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      intelDocId:
+                        type: integer
+                      labels:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Label'
+        '404':
+          description: Intel document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: addLabelToIntelDocument
+      summary: Add A Label To An Intel Document
+      description: Associates a label with an intel document for classification and organization purposes.
+      tags:
+      - Labels
+      parameters:
+      - name: intelDocId
+        in: path
+        required: true
+        description: Unique identifier of the intel document
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - label_id
+              properties:
+                label_id:
+                  type: integer
+                  description: Identifier of the label to associate
+      responses:
+        '200':
+          description: Label added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      intelDocId:
+                        type: integer
+                      labels:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Label'
+        '404':
+          description: Intel document or label not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/labels:
+    get:
+      operationId: listLabels
+      summary: List All Labels
+      description: Retrieves a paginated list of all labels available in Threat Response for categorizing intel documents and signals.
+      tags:
+      - Labels
+      parameters:
+      - name: limit
+        in: query
+        description: Maximum number of labels to return
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: Number of labels to skip for pagination
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Labels retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Label'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/labels/{labelId}:
+    get:
+      operationId: getLabel
+      summary: Get A Label By ID
+      description: Retrieves the details of a specific label including associated indicator and signal counts.
+      tags:
+      - Labels
+      parameters:
+      - name: labelId
+        in: path
+        required: true
+        description: Unique identifier of the label
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Label retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Label'
+        '404':
+          description: Label not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Label:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique label identifier
+        name:
+          type: string
+          description: Label name
+        description:
+          type: string
+          description: Label description
+        indicatorCount:
+          type: integer
+          description: Number of associated indicators
+        signalCount:
+          type: integer
+          description: Number of associated signals
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

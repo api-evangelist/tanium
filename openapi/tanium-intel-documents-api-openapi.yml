@@ -1,0 +1,213 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Intel Documents API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Intel Documents
+  description: Manage threat intelligence documents
+paths:
+  /plugin/products/threat-response/api/v1/intels:
+    post:
+      operationId: uploadIntelDocument
+      summary: Upload An Intel Document
+      description: Uploads a new threat intelligence document to Tanium Threat Response. Intel documents define indicators of compromise (IOCs) and threat signatures used for alerting and scanning.
+      tags:
+      - Intel Documents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the intel document
+                description:
+                  type: string
+                  description: Description of the threat intel
+                type:
+                  type: string
+                  description: Intel document type
+                content:
+                  type: string
+                  description: Intel document content (e.g., STIX, YARA, OpenIOC)
+      responses:
+        '200':
+          description: Intel document uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IntelDocument'
+        '400':
+          description: Invalid intel document format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      operationId: listIntelDocuments
+      summary: List Intel Documents
+      description: Retrieves a paginated list of threat intelligence documents configured in Tanium Threat Response.
+      tags:
+      - Intel Documents
+      parameters:
+      - name: limit
+        in: query
+        description: Maximum number of intel documents to return
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: Number of intel documents to skip for pagination
+        schema:
+          type: integer
+      - name: name
+        in: query
+        description: Filter by intel document name
+        schema:
+          type: string
+      - name: description
+        in: query
+        description: Filter by description text
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: Filter by intel document type
+        schema:
+          type: string
+      - name: label_id
+        in: query
+        description: Filter by associated label identifier
+        schema:
+          type: integer
+      - name: mitre_technique_id
+        in: query
+        description: Filter by MITRE ATT&CK technique ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Intel documents retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IntelDocument'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/intels/{intelDocId}:
+    get:
+      operationId: getIntelDocument
+      summary: Get An Intel Document By ID
+      description: Retrieves the full details of a specific threat intelligence document including alert counts and label associations.
+      tags:
+      - Intel Documents
+      parameters:
+      - name: intelDocId
+        in: path
+        required: true
+        description: Unique identifier of the intel document
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Intel document retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IntelDocument'
+        '404':
+          description: Intel document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+    IntelDocument:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique intel document identifier
+        name:
+          type: string
+          description: Intel document name
+        description:
+          type: string
+          description: Intel document description
+        type:
+          type: string
+          description: Intel document type (STIX, YARA, OpenIOC, etc.)
+        alertCount:
+          type: integer
+          description: Total number of alerts generated
+        unresolvedAlertCount:
+          type: integer
+          description: Number of unresolved alerts
+        labelIds:
+          type: array
+          items:
+            type: integer
+          description: Associated label identifiers
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

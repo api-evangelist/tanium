@@ -1,0 +1,162 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Groups API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Groups
+  description: Manage computer and action groups
+paths:
+  /api/v2/groups/by-name/{name}:
+    get:
+      operationId: getGroupByName
+      summary: Get A Computer Group By Name
+      description: Retrieves the details of a computer group identified by its name. Computer groups define sets of endpoints based on filter criteria and are used to target questions and actions.
+      tags:
+      - Groups
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the computer group
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Group retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Group'
+        '404':
+          description: Group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/groups:
+    get:
+      operationId: listGroups
+      summary: List All Computer Groups
+      description: Retrieves a list of all computer groups configured on the Tanium server. Groups organize endpoints for targeted questioning and action deployment.
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Groups retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Group'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    GroupFilter:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Group identifier
+        name:
+          type: string
+          description: Group name
+        and_flag:
+          type: boolean
+          description: Whether filters are combined with AND logic
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              sensor:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  hash:
+                    type: integer
+              operator:
+                type: string
+              value:
+                type: string
+          description: Filter criteria
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+    Group:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the group
+        name:
+          type: string
+          description: Name of the computer group
+        type:
+          type: integer
+          description: Group type identifier
+        and_flag:
+          type: boolean
+          description: Whether filters are combined with AND logic
+        sub_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupFilter'
+          description: Sub-group filter definitions
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              sensor:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  hash:
+                    type: integer
+              operator:
+                type: string
+                description: Filter operator (e.g., RegexMatch, Contains)
+              value:
+                type: string
+                description: Filter value
+          description: Membership filter criteria
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

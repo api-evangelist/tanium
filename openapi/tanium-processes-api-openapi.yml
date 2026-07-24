@@ -1,0 +1,256 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Processes API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Processes
+  description: Inspect endpoint processes and process trees
+paths:
+  /plugin/products/threat-response/api/v1/conns/{connectionId}/processevents/{processTableId}/{eventType}:
+    get:
+      operationId: getProcessEvents
+      summary: Get Events For A Specific Process
+      description: Retrieves events associated with a specific process on a connected endpoint, identified by its process table ID and event type.
+      tags:
+      - Processes
+      parameters:
+      - name: connectionId
+        in: path
+        required: true
+        description: Unique identifier of the connection
+        schema:
+          type: string
+      - name: processTableId
+        in: path
+        required: true
+        description: Process table identifier
+        schema:
+          type: string
+      - name: eventType
+        in: path
+        required: true
+        description: Type of events to retrieve for the process
+        schema:
+          type: string
+          enum:
+          - File
+          - Network
+          - Registry
+          - Process
+          - Driver
+          - DNS
+          - Image
+      - name: limit
+        in: query
+        description: Maximum number of events to return
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: Number of events to skip for pagination
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Process events retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProcessEvent'
+        '404':
+          description: Connection or process not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/conns/{connectionId}/processtrees/{processTableId}:
+    get:
+      operationId: getProcessTree
+      summary: Get A Process Tree
+      description: Retrieves the process tree for a specific process, showing parent, child, and sibling processes. Useful for understanding process lineage during investigations.
+      tags:
+      - Processes
+      parameters:
+      - name: connectionId
+        in: path
+        required: true
+        description: Unique identifier of the connection
+        schema:
+          type: string
+      - name: processTableId
+        in: path
+        required: true
+        description: Process table identifier
+        schema:
+          type: string
+      - name: context
+        in: query
+        description: Context level for the process tree
+        schema:
+          type: string
+          enum:
+          - parent
+          - node
+          - siblings
+          - children
+      responses:
+        '200':
+          description: Process tree retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProcessInfo'
+        '404':
+          description: Connection or process not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    ProcessInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Process identifier
+        processTableId:
+          type: integer
+          description: Process table identifier
+        uniqueProcessId:
+          type: string
+          description: Globally unique process identifier
+        pid:
+          type: integer
+          description: Operating system process ID
+        processPath:
+          type: string
+          description: Path to the process executable
+        processHash:
+          type: string
+          description: Hash of the process executable
+        hashTypeName:
+          type: string
+          description: Hash algorithm used
+        userName:
+          type: string
+          description: User running the process
+        groupName:
+          type: string
+          description: Group of the process owner
+        createTime:
+          type: string
+          format: date-time
+          description: Process creation time
+        createTimeRaw:
+          type: string
+          description: Raw process creation timestamp
+        endTime:
+          type: string
+          format: date-time
+          description: Process termination time
+        endTimeRaw:
+          type: string
+          description: Raw process termination timestamp
+        exitCode:
+          type: integer
+          description: Process exit code
+        parentProcessTableId:
+          type: integer
+          description: Parent process table identifier
+        childrenCount:
+          type: integer
+          description: Number of child processes
+        fileEventsCount:
+          type: integer
+          description: Number of file events
+        networkEventsCount:
+          type: integer
+          description: Number of network events
+        registryEventsCount:
+          type: integer
+          description: Number of registry events
+        processEventsCount:
+          type: integer
+          description: Number of process events
+        dnsEventsCount:
+          type: integer
+          description: Number of DNS events
+        driverEventsCount:
+          type: integer
+          description: Number of driver events
+        imageEventsCount:
+          type: integer
+          description: Number of image load events
+        securityEventsCount:
+          type: integer
+          description: Number of security events
+        context:
+          type: string
+          description: Process context information
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+    ProcessEvent:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Event identifier
+        type:
+          type: string
+          description: Event type
+        operation:
+          type: string
+          description: Operation performed
+        detail:
+          type: string
+          description: Event detail information
+        timestamp:
+          type: string
+          format: date-time
+          description: Event timestamp
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

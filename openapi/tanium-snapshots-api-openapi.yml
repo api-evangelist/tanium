@@ -1,0 +1,219 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Snapshots API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Snapshots
+  description: Capture and manage endpoint memory snapshots
+paths:
+  /plugin/products/threat-response/api/v1/conns/{connectionId}/snapshot:
+    post:
+      operationId: createSnapshot
+      summary: Create An Endpoint Snapshot
+      description: Initiates a snapshot capture from a connected endpoint. The snapshot captures a point-in-time image of endpoint Recorder data for offline analysis.
+      tags:
+      - Snapshots
+      parameters:
+      - name: connectionId
+        in: path
+        required: true
+        description: Unique identifier of the connection
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Snapshot creation initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SnapshotTask'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/snapshot:
+    get:
+      operationId: listSnapshots
+      summary: List All Snapshots
+      description: Retrieves a paginated list of all endpoint snapshots captured for investigations.
+      tags:
+      - Snapshots
+      parameters:
+      - name: limit
+        in: query
+        description: Maximum number of snapshots to return
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: Number of snapshots to skip for pagination
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Snapshots retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Snapshot'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteSnapshots
+      summary: Delete Snapshots
+      description: Deletes one or more snapshots by their identifiers. Provide snapshot IDs in the request body.
+      tags:
+      - Snapshots
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - ids
+              properties:
+                ids:
+                  type: array
+                  items:
+                    type: string
+                  description: List of snapshot IDs to delete
+      responses:
+        '200':
+          description: Snapshots deleted successfully
+        '404':
+          description: One or more snapshots not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/snapshot/{snapshotId}:
+    delete:
+      operationId: deleteLocalSnapshot
+      summary: Delete A Local Snapshot
+      description: Deletes a specific snapshot stored locally on the Tanium server, freeing disk space.
+      tags:
+      - Snapshots
+      parameters:
+      - name: snapshotId
+        in: path
+        required: true
+        description: Unique identifier of the snapshot to delete
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Local snapshot deleted successfully
+        '404':
+          description: Snapshot not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    SnapshotTask:
+      type: object
+      properties:
+        taskId:
+          type: string
+          description: Task identifier for the snapshot operation
+        status:
+          type: string
+          description: Current task status
+        startTime:
+          type: string
+          format: date-time
+          description: Task start timestamp
+        connection:
+          type: object
+          properties:
+            id:
+              type: string
+          description: Associated connection reference
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+    Snapshot:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Unique snapshot identifier
+        name:
+          type: string
+          description: Snapshot name
+        hostname:
+          type: string
+          description: Source endpoint hostname
+        connectionId:
+          type: string
+          description: Associated connection identifier
+        evidenceType:
+          type: string
+          description: Type of evidence in the snapshot
+        size:
+          type: integer
+          description: Snapshot size in bytes
+        isUpload:
+          type: boolean
+          description: Whether the snapshot was uploaded
+        recorderVersion:
+          type: string
+          description: Recorder version on the endpoint
+        created:
+          type: string
+          format: date-time
+          description: Snapshot creation timestamp
+        completed:
+          type: string
+          format: date-time
+          description: Snapshot completion timestamp
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

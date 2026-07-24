@@ -1,0 +1,316 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Destinations API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Destinations
+  description: Manage connection destinations
+paths:
+  /plugin/products/connect/v1/destinations:
+    get:
+      operationId: listDestinations
+      summary: List All Destinations
+      description: Retrieves a list of all configured destinations. Destinations define where connection data is delivered, such as files, syslog servers, HTTP endpoints, email addresses, or SQL databases.
+      tags:
+      - Destinations
+      responses:
+        '200':
+          description: Destinations retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Destination'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createDestination
+      summary: Create A New Destination
+      description: Creates a new destination configuration for receiving connection data. Supported destination types include file, syslog, HTTP/webhook, email, AWS S3, and SQL database.
+      tags:
+      - Destinations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DestinationCreate'
+      responses:
+        '200':
+          description: Destination created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Destination'
+        '400':
+          description: Invalid destination configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/connect/v1/destinations/{destinationId}:
+    get:
+      operationId: getDestination
+      summary: Get A Destination By ID
+      description: Retrieves the full configuration of a specific destination including its type and connection details.
+      tags:
+      - Destinations
+      parameters:
+      - name: destinationId
+        in: path
+        required: true
+        description: Unique identifier of the destination
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Destination retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Destination'
+        '404':
+          description: Destination not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      operationId: updateDestination
+      summary: Update A Destination
+      description: Updates an existing destination configuration. All connections using this destination will be affected by the changes.
+      tags:
+      - Destinations
+      parameters:
+      - name: destinationId
+        in: path
+        required: true
+        description: Unique identifier of the destination
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DestinationCreate'
+      responses:
+        '200':
+          description: Destination updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Destination'
+        '400':
+          description: Invalid destination configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Destination not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteDestination
+      summary: Delete A Destination
+      description: Deletes a destination configuration. The destination cannot be deleted if it is currently used by any active connections.
+      tags:
+      - Destinations
+      parameters:
+      - name: destinationId
+        in: path
+        required: true
+        description: Unique identifier of the destination to delete
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Destination deleted successfully
+        '400':
+          description: Destination is in use by active connections
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Destination not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Destination:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique destination identifier
+        name:
+          type: string
+          description: Destination name
+        type:
+          type: string
+          description: Destination type
+          enum:
+          - file
+          - syslog
+          - http
+          - email
+          - s3
+          - sql
+        configuration:
+          type: object
+          description: Type-specific destination configuration
+          properties:
+            host:
+              type: string
+              description: Destination hostname (syslog, http, sql)
+            port:
+              type: integer
+              description: Destination port (syslog, sql)
+            protocol:
+              type: string
+              description: Protocol (TCP, UDP for syslog; HTTP, HTTPS for http)
+            url:
+              type: string
+              description: Full URL for HTTP destinations
+            method:
+              type: string
+              description: HTTP method for webhook destinations
+              enum:
+              - POST
+              - PUT
+              - PATCH
+            path:
+              type: string
+              description: File path for file destinations
+            bucket:
+              type: string
+              description: S3 bucket name
+            region:
+              type: string
+              description: AWS region for S3 destinations
+            useTls:
+              type: boolean
+              description: Whether to use TLS encryption
+            headers:
+              type: object
+              additionalProperties:
+                type: string
+              description: Custom HTTP headers for webhook destinations
+        createdAt:
+          type: string
+          format: date-time
+          description: Destination creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Destination last update timestamp
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+    DestinationCreate:
+      type: object
+      required:
+      - name
+      - type
+      - configuration
+      properties:
+        name:
+          type: string
+          description: Destination name
+        type:
+          type: string
+          description: Destination type
+          enum:
+          - file
+          - syslog
+          - http
+          - email
+          - s3
+          - sql
+        configuration:
+          type: object
+          description: Type-specific destination configuration
+          properties:
+            host:
+              type: string
+            port:
+              type: integer
+            protocol:
+              type: string
+            url:
+              type: string
+            method:
+              type: string
+              enum:
+              - POST
+              - PUT
+              - PATCH
+            path:
+              type: string
+            bucket:
+              type: string
+            region:
+              type: string
+            useTls:
+              type: boolean
+            headers:
+              type: object
+              additionalProperties:
+                type: string
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

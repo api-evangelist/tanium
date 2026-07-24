@@ -1,0 +1,335 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Questions API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Questions
+  description: Ask and retrieve questions from endpoints
+paths:
+  /api/v2/questions:
+    post:
+      operationId: createQuestion
+      summary: Create And Ask A Question
+      description: Creates a new question and asks it across managed endpoints. The question can be specified as parsed question text or as a structured question object with specific sensors and selectors.
+      tags:
+      - Questions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query_text:
+                  type: string
+                  description: Natural language question text to parse and ask
+                selects:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      sensor:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            description: Sensor name
+                          hash:
+                            type: integer
+                            description: Sensor hash identifier
+                  description: List of sensor selections for the question
+                group:
+                  $ref: '#/components/schemas/GroupFilter'
+                expiration:
+                  type: string
+                  format: date-time
+                  description: Question expiration time
+      responses:
+        '200':
+          description: Question created and asked successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Question'
+        '400':
+          description: Invalid question format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/questions/{id}:
+    get:
+      operationId: getQuestion
+      summary: Get A Question By ID
+      description: Retrieves the details of a specific question by its numeric identifier, including its status, expiration, and associated sensors.
+      tags:
+      - Questions
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Numeric identifier of the question
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Question retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Question'
+        '404':
+          description: Question not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/result_data/question/{id}:
+    get:
+      operationId: getQuestionResults
+      summary: Get Question Results
+      description: Returns the result data for a specific question identified by its ID. Results include rows of data collected from responding endpoints.
+      tags:
+      - Questions
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Numeric identifier of the question
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Question results retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ResultSet'
+        '404':
+          description: Question not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v2/parse_question:
+    post:
+      operationId: parseQuestion
+      summary: Parse Question Text
+      description: Parses natural language question text into a structured question object that can be used to create a question. Returns one or more possible interpretations of the question text.
+      tags:
+      - Questions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - query_text
+              properties:
+                query_text:
+                  type: string
+                  description: Natural language question text to parse
+      responses:
+        '200':
+          description: Question parsed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ParsedQuestion'
+        '400':
+          description: Unable to parse question text
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    ParsedQuestion:
+      type: object
+      properties:
+        question:
+          $ref: '#/components/schemas/Question'
+        question_text:
+          type: string
+          description: Original question text that was parsed
+    Question:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the question
+        query_text:
+          type: string
+          description: Human-readable question text
+        expiration:
+          type: string
+          format: date-time
+          description: Question expiration timestamp
+        selects:
+          type: array
+          items:
+            type: object
+            properties:
+              sensor:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  hash:
+                    type: integer
+                  id:
+                    type: integer
+          description: Sensors selected for the question
+        group:
+          $ref: '#/components/schemas/GroupFilter'
+        management_rights_group:
+          $ref: '#/components/schemas/GroupFilter'
+        saved_question:
+          type: object
+          properties:
+            id:
+              type: integer
+          description: Associated saved question reference
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+    ResultSet:
+      type: object
+      properties:
+        max_available_age:
+          type: string
+          description: Maximum age of available results
+        now:
+          type: string
+          format: date-time
+          description: Current server timestamp
+        result_sets:
+          type: array
+          items:
+            type: object
+            properties:
+              age:
+                type: integer
+                description: Age of the result in seconds
+              archived_question_id:
+                type: integer
+              columns:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    hash:
+                      type: integer
+                    name:
+                      type: string
+                    type:
+                      type: integer
+              estimated_total:
+                type: integer
+                description: Estimated total rows
+              id:
+                type: integer
+              mr_tested:
+                type: integer
+              no_results_count:
+                type: integer
+              passed:
+                type: integer
+              row_count:
+                type: integer
+              rows:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    cid:
+                      type: integer
+                    data:
+                      type: array
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            text:
+                              type: string
+                    id:
+                      type: integer
+              tested:
+                type: integer
+    GroupFilter:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Group identifier
+        name:
+          type: string
+          description: Group name
+        and_flag:
+          type: boolean
+          description: Whether filters are combined with AND logic
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              sensor:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  hash:
+                    type: integer
+              operator:
+                type: string
+              value:
+                type: string
+          description: Filter criteria
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.

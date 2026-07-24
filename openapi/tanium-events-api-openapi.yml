@@ -1,0 +1,246 @@
+openapi: 3.1.0
+info:
+  title: Tanium Connect Actions Events API
+  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  version: 1.0.0
+  contact:
+    name: Tanium Support
+    url: https://community.tanium.com/s/
+  license:
+    name: Proprietary
+    url: https://www.tanium.com/terms-of-use/
+  x-date: '2026-03-04'
+servers:
+- url: https://{tanium_server}
+  description: Tanium Server
+  variables:
+    tanium_server:
+      default: tanium.example.com
+      description: Hostname or IP address of the Tanium server
+security:
+- apiToken: []
+tags:
+- name: Events
+  description: Retrieve Recorder events from endpoints
+paths:
+  /plugin/products/threat-response/api/v1/conns/{connectionId}/views/{eventType}/events:
+    get:
+      operationId: listEvents
+      summary: List Events By Type
+      description: Retrieves Recorder events from a connected endpoint filtered by event type. Supported event types include File, Network, Registry, Process, Driver, Combined, DNS, and Image.
+      tags:
+      - Events
+      parameters:
+      - name: connectionId
+        in: path
+        required: true
+        description: Unique identifier of the connection
+        schema:
+          type: string
+      - name: eventType
+        in: path
+        required: true
+        description: Type of events to retrieve
+        schema:
+          type: string
+          enum:
+          - File
+          - Network
+          - Registry
+          - Process
+          - Driver
+          - Combined
+          - DNS
+          - Image
+      - name: limit
+        in: query
+        description: Maximum number of events to return
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: Number of events to skip for pagination
+        schema:
+          type: integer
+      - name: filter
+        in: query
+        description: Filter expression for events
+        schema:
+          type: string
+      - name: match
+        in: query
+        description: Match mode for filter expression
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: Sort order for results
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: Comma-separated list of fields to include
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Events retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /plugin/products/threat-response/api/v1/conns/{connectionId}/views/{eventType}/eventsCount:
+    get:
+      operationId: getEventsSummary
+      summary: Get Events Count Summary
+      description: Returns a summary count of Recorder events by type for a specific connection, useful for understanding the volume of activity on an endpoint.
+      tags:
+      - Events
+      parameters:
+      - name: connectionId
+        in: path
+        required: true
+        description: Unique identifier of the connection
+        schema:
+          type: string
+      - name: eventType
+        in: path
+        required: true
+        description: Type of events to count
+        schema:
+          type: string
+          enum:
+          - File
+          - Network
+          - Registry
+          - Process
+          - Driver
+          - Combined
+          - DNS
+          - Image
+      responses:
+        '200':
+          description: Event count retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      count:
+                        type: integer
+                        description: Total number of events of the specified type
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Event identifier
+        timestamp:
+          type: string
+          format: date-time
+          description: Event timestamp
+        operation:
+          type: string
+          description: Operation type performed
+        processId:
+          type: integer
+          description: Process identifier
+        pid:
+          type: integer
+          description: Operating system process ID
+        processPath:
+          type: string
+          description: Path to the process executable
+        processTableId:
+          type: integer
+          description: Process table identifier
+        processCommandLine:
+          type: string
+          description: Full command line of the process
+        parentCommandLine:
+          type: string
+          description: Command line of the parent process
+        processHash:
+          type: string
+          description: Hash of the process executable
+        userName:
+          type: string
+          description: User running the process
+        groupName:
+          type: string
+          description: Group of the process owner
+        file:
+          type: string
+          description: File path involved in the event
+        remoteAddress:
+          type: string
+          description: Remote IP address for network events
+        remoteAddressPort:
+          type: integer
+          description: Remote port for network events
+        localAddress:
+          type: string
+          description: Local IP address for network events
+        localAddressPort:
+          type: integer
+          description: Local port for network events
+        keyPath:
+          type: string
+          description: Registry key path for registry events
+        valueName:
+          type: string
+          description: Registry value name for registry events
+        exitCode:
+          type: integer
+          description: Process exit code
+        imageLoaded:
+          type: string
+          description: Path to loaded image for image events
+        signature:
+          type: string
+          description: Digital signature information
+        signed:
+          type: boolean
+          description: Whether the file is digitally signed
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      name: session
+      in: header
+      description: API token passed in the session header for authenticating with the Tanium Connect API.
