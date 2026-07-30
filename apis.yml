@@ -5,6 +5,19 @@ description: >-
   all endpoints. It offers a suite of APIs including a GraphQL-based API Gateway and platform REST APIs for integrating
   with endpoint management, security, compliance, and threat response capabilities.
 type: Index
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
 image: https://www.tanium.com/images/tanium-logo.png
@@ -23,9 +36,9 @@ apis:
 - aid: tanium:api-gateway
   name: Tanium API Gateway
   description: >-
-    The Tanium API Gateway is a GraphQL interface for querying data and taking action in Tanium. It is the preferred
-    method for integrating with Tanium, supporting asset queries, endpoint actions, and data retrieval across the
-    platform.
+    The Tanium API Gateway is a GraphQL interface for querying data and taking action in Tanium. It is
+    the preferred method for integrating with Tanium, supporting asset queries, endpoint actions, and
+    data retrieval across the platform.
   humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
   tags:
   - API Gateway
@@ -44,64 +57,468 @@ apis:
     url: https://developer.tanium.com/site/global/apis/graphql/schema/
   - url: graphql/tanium-graphql.md
     type: GraphQL
-- aid: tanium:platform-rest-api
-  name: Tanium Platform REST API
-  description: >-
-    The Tanium Platform REST API provides access to core platform functionality including gathering endpoint
-    information, deploying actions, evaluating deployment health, managing certificates, updating packages, and
-    downloading audit logs.
-  humanURL: https://developer.tanium.com/apis/api_intro
+- aid: tanium:tanium-actions-api
+  name: Tanium Actions API
+  description: Deploy and manage actions on endpoints
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
   tags:
   - Actions
-  - Endpoints
-  - Platform
-  - REST API
-  - Security
   properties:
+  - type: OpenAPI
+    url: openapi/tanium-actions-api-openapi.yml
   - type: Documentation
     url: https://developer.tanium.com/apis/api_intro
   - type: IntegrationGuide
     url: https://developer.tanium.com/guides/core-platform/integration_methods
   - type: Authentication
     url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
-  - type: OpenAPI
-    url: openapi/tanium-platform-rest-api-openapi.yml
-- aid: tanium:threat-response-api
-  name: Tanium Threat Response API
-  description: >-
-    The Tanium Threat Response REST API enables starting investigations, viewing Recorder events, gathering evidence,
-    and performing file and directory operations on endpoints for threat detection and incident response.
-  humanURL: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
-  tags:
-  - Incident Response
-  - Investigations
-  - Security
-  - Threat Detection
-  - Threat Response
-  properties:
   - type: Documentation
     url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
   - type: GettingStarted
-    url: https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
-  - type: OpenAPI
-    url: openapi/tanium-threat-response-api-openapi.yml
-- aid: tanium:connect-api
-  name: Tanium Connect API
-  description: >-
-    The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to
-    downstream systems via files, syslog, webhooks, and other destination types on a schedule or triggered by events.
-  humanURL: https://docs.tanium.com/connect/connect/index.html
-  tags:
-  - Connections
-  - Data Delivery
-  - Integration
-  - Syslog
-  - Webhooks
-  properties:
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
   - type: Documentation
     url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-alerts-api
+  name: Tanium Alerts API
+  description: Manage threat alerts
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Alerts
+  properties:
   - type: OpenAPI
-    url: openapi/tanium-connect-api-openapi.yml
+    url: openapi/tanium-alerts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-authentication-api
+  name: Tanium Authentication API
+  description: Session and token management
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-connections-api
+  name: Tanium Connections API
+  description: Manage data delivery connections
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Connections
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-connections-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-destinations-api
+  name: Tanium Destinations API
+  description: Manage connection destinations
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Destinations
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-destinations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-events-api
+  name: Tanium Events API
+  description: Retrieve Recorder events from endpoints
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-events-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-evidence-api
+  name: Tanium Evidence API
+  description: Collect and manage investigation evidence
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Evidence
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-evidence-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-file-downloads-api
+  name: Tanium File Downloads API
+  description: Download and manage files from endpoints
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - File Downloads
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-file-downloads-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-file-operations-api
+  name: Tanium File Operations API
+  description: Browse and manage files on connected endpoints
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - File Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-file-operations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-groups-api
+  name: Tanium Groups API
+  description: Manage computer and action groups
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-groups-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-intel-documents-api
+  name: Tanium Intel Documents API
+  description: Manage threat intelligence documents
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Intel Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-intel-documents-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-labels-api
+  name: Tanium Labels API
+  description: Manage classification labels for intel documents
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Labels
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-labels-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-packages-api
+  name: Tanium Packages API
+  description: Manage deployment packages
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Packages
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-packages-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-processes-api
+  name: Tanium Processes API
+  description: Inspect endpoint processes and process trees
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Processes
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-processes-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-questions-api
+  name: Tanium Questions API
+  description: Ask and retrieve questions from endpoints
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Questions
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-questions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-saved-questions-api
+  name: Tanium Saved Questions API
+  description: Manage saved questions
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Saved Questions
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-saved-questions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-schedules-api
+  name: Tanium Schedules API
+  description: Manage connection schedules
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Schedules
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-schedules-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-sensors-api
+  name: Tanium Sensors API
+  description: Manage endpoint sensors
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Sensors
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-sensors-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-snapshots-api
+  name: Tanium Snapshots API
+  description: Capture and manage endpoint memory snapshots
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Snapshots
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-snapshots-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-sources-api
+  name: Tanium Sources API
+  description: Manage connection data sources
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Sources
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-sources-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
+- aid: tanium:tanium-status-api
+  name: Tanium Status API
+  description: Connect service status and logs
+  humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/tanium-status-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tanium.com/apis/api_intro
+  - type: IntegrationGuide
+    url: https://developer.tanium.com/guides/core-platform/integration_methods
+  - type: Authentication
+    url: https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html
+  - type: Documentation
+    url: https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp
+  - type: GettingStarted
+    url: >-
+      https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html
+  - type: Documentation
+    url: https://docs.tanium.com/connect/connect/index.html
 integrations:
 - name: Become a Partner
 - name: View all partners
