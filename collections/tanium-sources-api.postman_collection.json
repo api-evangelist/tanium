@@ -1,0 +1,390 @@
+{
+  "item": [
+    {
+      "id": "c6e13089-0143-4feb-b9e3-903eabe49324",
+      "name": "Sources",
+      "description": {
+        "content": "Manage connection data sources",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "144e2ef7-c15e-4f3c-90af-27360f6c9b3a",
+          "name": "List Available Data Sources",
+          "request": {
+            "name": "List Available Data Sources",
+            "description": {
+              "content": "Retrieves a list of all available data sources that can be used as connection sources. Sources include saved questions, question logs, system status data, and event-driven data from other Tanium modules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "connect",
+                "v1",
+                "sources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b2845fa7-4c2e-4eec-b9d3-40d211be0acf",
+              "name": "Sources retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 4392,\n      \"name\": \"string\",\n      \"type\": \"question_log\",\n      \"description\": \"string\",\n      \"savedQuestionId\": 75,\n      \"columns\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": 940,\n      \"name\": \"string\",\n      \"type\": \"system_status\",\n      \"description\": \"string\",\n      \"savedQuestionId\": 9204,\n      \"columns\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"type\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3455f897-5918-4821-ab45-44f4d64152b3",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a46beb5-d4dd-4925-a67a-273f39de37ee",
+          "name": "Get A Data Source By ID",
+          "request": {
+            "name": "Get A Data Source By ID",
+            "description": {
+              "content": "Retrieves the details of a specific data source, including its type, configuration, and available columns for output formatting.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "connect",
+                "v1",
+                "sources",
+                ":sourceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "sourceId",
+                  "description": "(Required) Unique identifier of the data source"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a4d0573d-b98b-4499-aba9-a0aa253beedd",
+              "name": "Source retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "sources",
+                    ":sourceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "sourceId",
+                      "description": "(Required) Unique identifier of the data source"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 6885,\n    \"name\": \"string\",\n    \"type\": \"system_status\",\n    \"description\": \"string\",\n    \"savedQuestionId\": 7342,\n    \"columns\": [\n      {\n        \"name\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"type\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d125171-4a9e-48e1-9c4d-fb517f33bd4f",
+              "name": "Source not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "sources",
+                    ":sourceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "sourceId",
+                      "description": "(Required) Unique identifier of the data source"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname or IP address of the Tanium server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "tanium.example.com",
+      "key": "tanium_server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tanium_server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "session"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f04ac9b7-eece-475f-817a-097e73c220f7",
+    "name": "Tanium Connect Actions Sources API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.\n\nContact Support:\n Name: Tanium Support",
+      "type": "text/plain"
+    }
+  }
+}

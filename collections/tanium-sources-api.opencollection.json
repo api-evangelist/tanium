@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions Sources API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Available Data Sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/sources"
+          },
+          "docs": "Retrieves a list of all available data sources that can be used as connection sources. Sources include saved questions, question logs, system status data, and event-driven data from other Tanium modules."
+        },
+        {
+          "info": {
+            "name": "Get A Data Source By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/sources/:sourceId",
+            "params": [
+              {
+                "name": "sourceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the data source"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific data source, including its type, configuration, and available columns for output formatting."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

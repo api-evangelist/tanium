@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions Events API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Events By Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns/:connectionId/views/:eventType/events",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              },
+              {
+                "name": "eventType",
+                "value": "",
+                "type": "path",
+                "description": "Type of events to retrieve"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of events to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of events to skip for pagination"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter expression for events"
+              },
+              {
+                "name": "match",
+                "value": "",
+                "type": "query",
+                "description": "Match mode for filter expression"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include"
+              }
+            ]
+          },
+          "docs": "Retrieves Recorder events from a connected endpoint filtered by event type. Supported event types include File, Network, Registry, Process, Driver, Combined, DNS, and Image."
+        },
+        {
+          "info": {
+            "name": "Get Events Count Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns/:connectionId/views/:eventType/eventsCount",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              },
+              {
+                "name": "eventType",
+                "value": "",
+                "type": "path",
+                "description": "Type of events to count"
+              }
+            ]
+          },
+          "docs": "Returns a summary count of Recorder events by type for a specific connection, useful for understanding the volume of activity on an endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

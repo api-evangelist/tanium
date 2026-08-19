@@ -1,0 +1,824 @@
+{
+  "item": [
+    {
+      "id": "a344df2c-5e57-4a0b-831d-afc1d12c2f4b",
+      "name": "Labels",
+      "description": {
+        "content": "Manage classification labels for intel documents",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "625fd28b-8cc4-4a4d-b1d7-8d2405d9e684",
+          "name": "List Labels For An Intel Document",
+          "request": {
+            "name": "List Labels For An Intel Document",
+            "description": {
+              "content": "Retrieves the labels associated with a specific intel document. Labels categorize and organize intel documents for easier management.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "threat-response",
+                "api",
+                "v1",
+                "intels",
+                ":intelDocId",
+                "labels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "intelDocId",
+                  "description": "(Required) Unique identifier of the intel document"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f6817901-e0f1-45ea-b27a-4eb6d97c2f70",
+              "name": "Labels retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "intels",
+                    ":intelDocId",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "intelDocId",
+                      "description": "(Required) Unique identifier of the intel document"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"intelDocId\": 9841,\n    \"labels\": [\n      {\n        \"id\": 1133,\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"indicatorCount\": 9479,\n        \"signalCount\": 1388,\n        \"createdAt\": \"1967-09-27T08:52:06.441Z\",\n        \"updatedAt\": \"1971-04-05T20:42:51.563Z\"\n      },\n      {\n        \"id\": 1997,\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"indicatorCount\": 5646,\n        \"signalCount\": 5353,\n        \"createdAt\": \"1991-10-01T07:14:32.135Z\",\n        \"updatedAt\": \"2000-12-29T10:26:18.372Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d26ad85-3265-430e-a481-31cab551b5e4",
+              "name": "Intel document not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "intels",
+                    ":intelDocId",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "intelDocId",
+                      "description": "(Required) Unique identifier of the intel document"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9bb5fb5a-2fd0-4ed9-a8f8-091fc2f3ff76",
+          "name": "Add A Label To An Intel Document",
+          "request": {
+            "name": "Add A Label To An Intel Document",
+            "description": {
+              "content": "Associates a label with an intel document for classification and organization purposes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "threat-response",
+                "api",
+                "v1",
+                "intels",
+                ":intelDocId",
+                "labels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "intelDocId",
+                  "description": "(Required) Unique identifier of the intel document"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"label_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6886fccf-f285-42c4-b11e-81154549d639",
+              "name": "Label added successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "intels",
+                    ":intelDocId",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "intelDocId",
+                      "description": "(Required) Unique identifier of the intel document"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"intelDocId\": 9841,\n    \"labels\": [\n      {\n        \"id\": 1133,\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"indicatorCount\": 9479,\n        \"signalCount\": 1388,\n        \"createdAt\": \"1967-09-27T08:52:06.441Z\",\n        \"updatedAt\": \"1971-04-05T20:42:51.563Z\"\n      },\n      {\n        \"id\": 1997,\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"indicatorCount\": 5646,\n        \"signalCount\": 5353,\n        \"createdAt\": \"1991-10-01T07:14:32.135Z\",\n        \"updatedAt\": \"2000-12-29T10:26:18.372Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d86267c8-1123-4ab5-920b-714e908a689b",
+              "name": "Intel document or label not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "intels",
+                    ":intelDocId",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "intelDocId",
+                      "description": "(Required) Unique identifier of the intel document"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af9b358d-a419-4ab2-80e1-e6690e93ef69",
+          "name": "List All Labels",
+          "request": {
+            "name": "List All Labels",
+            "description": {
+              "content": "Retrieves a paginated list of all labels available in Threat Response for categorizing intel documents and signals.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "threat-response",
+                "api",
+                "v1",
+                "labels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of labels to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Number of labels to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "15595f0b-ac63-497d-a3c5-49d319627ed2",
+              "name": "Labels retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 893,\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"indicatorCount\": 3770,\n      \"signalCount\": 7550,\n      \"createdAt\": \"1991-05-15T16:41:16.509Z\",\n      \"updatedAt\": \"1988-10-20T20:27:14.908Z\"\n    },\n    {\n      \"id\": 590,\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"indicatorCount\": 3685,\n      \"signalCount\": 6064,\n      \"createdAt\": \"1954-11-06T16:26:31.059Z\",\n      \"updatedAt\": \"2009-03-14T16:16:18.234Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5effc2db-568d-4706-a0c0-c7111d2f2371",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c4a20c8-23bf-48eb-a306-6971f33bdfcc",
+          "name": "Get A Label By ID",
+          "request": {
+            "name": "Get A Label By ID",
+            "description": {
+              "content": "Retrieves the details of a specific label including associated indicator and signal counts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "threat-response",
+                "api",
+                "v1",
+                "labels",
+                ":labelId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "labelId",
+                  "description": "(Required) Unique identifier of the label"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5005ebea-9213-41e2-a855-4dc5993d2fc0",
+              "name": "Label retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "labels",
+                    ":labelId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "labelId",
+                      "description": "(Required) Unique identifier of the label"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 8611,\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"indicatorCount\": 5357,\n    \"signalCount\": 4470,\n    \"createdAt\": \"1948-08-20T05:21:40.737Z\",\n    \"updatedAt\": \"1998-09-20T16:30:19.069Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80b51dc9-3ff9-4fbb-960b-6ab7f1af4207",
+              "name": "Label not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "labels",
+                    ":labelId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "labelId",
+                      "description": "(Required) Unique identifier of the label"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname or IP address of the Tanium server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "tanium.example.com",
+      "key": "tanium_server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tanium_server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "session"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4df0f8d4-28df-4f6f-9556-4c7ceab640d2",
+    "name": "Tanium Connect Actions Labels API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.\n\nContact Support:\n Name: Tanium Support",
+      "type": "text/plain"
+    }
+  }
+}

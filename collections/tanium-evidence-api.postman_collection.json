@@ -1,0 +1,988 @@
+{
+  "item": [
+    {
+      "id": "aa797b76-58ce-4f98-afb3-8986411c22de",
+      "name": "Evidence",
+      "description": {
+        "content": "Collect and manage investigation evidence",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "20bf22a2-f29b-4124-9fb3-128cbc20abfb",
+          "name": "List Investigation Evidence",
+          "request": {
+            "name": "List Investigation Evidence",
+            "description": {
+              "content": "Retrieves a paginated list of evidence collected during investigations. Evidence can be filtered by hostname and type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "threat-response",
+                "api",
+                "v1",
+                "evidence"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of evidence items to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Number of evidence items to skip for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order for results"
+                },
+                {
+                  "disabled": false,
+                  "key": "hostname",
+                  "value": "<string>",
+                  "description": "Filter by endpoint hostname"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter by evidence type"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "adf97574-5d16-41cc-8bb8-316d7054c1ee",
+              "name": "Evidence retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "evidence"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uuid\": \"string\",\n      \"name\": \"string\",\n      \"hostname\": \"string\",\n      \"evidenceType\": \"string\",\n      \"type\": \"string\",\n      \"summary\": \"string\",\n      \"size\": 7864,\n      \"username\": \"string\",\n      \"domain\": \"string\",\n      \"commandline\": \"string\",\n      \"eventtype\": \"string\",\n      \"timestamp\": \"1979-12-12T04:07:11.323Z\",\n      \"createTime\": \"1968-08-05T04:06:24.011Z\",\n      \"createTimeRaw\": \"string\",\n      \"exitCode\": 628,\n      \"createdAt\": \"2019-11-06T19:00:19.293Z\"\n    },\n    {\n      \"uuid\": \"string\",\n      \"name\": \"string\",\n      \"hostname\": \"string\",\n      \"evidenceType\": \"string\",\n      \"type\": \"string\",\n      \"summary\": \"string\",\n      \"size\": 6850,\n      \"username\": \"string\",\n      \"domain\": \"string\",\n      \"commandline\": \"string\",\n      \"eventtype\": \"string\",\n      \"timestamp\": \"2011-03-22T17:38:06.187Z\",\n      \"createTime\": \"1988-12-09T00:17:06.934Z\",\n      \"createTimeRaw\": \"string\",\n      \"exitCode\": 8371,\n      \"createdAt\": \"1980-01-27T19:41:29.857Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c997b237-2e9b-451e-929c-f9746a81cdc0",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "evidence"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "304936d4-2eb3-4180-8d98-ceaa24aea750",
+          "name": "Create Evidence From A Process",
+          "request": {
+            "name": "Create Evidence From A Process",
+            "description": {
+              "content": "Creates an evidence record from a specific process on a connected endpoint, preserving investigation findings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "threat-response",
+                "api",
+                "v1",
+                "evidence"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"connection_id\": \"<string>\",\n  \"ptid\": \"<string>\",\n  \"hostname\": \"<string>\",\n  \"summary\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "129319ec-2373-45f2-a8dd-1f4334f93368",
+              "name": "Evidence created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "evidence"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connection_id\": \"<string>\",\n  \"ptid\": \"<string>\",\n  \"hostname\": \"<string>\",\n  \"summary\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f1e0d6b9-48a3-44dd-9568-b03edbc8a585",
+              "name": "Invalid evidence parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "evidence"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connection_id\": \"<string>\",\n  \"ptid\": \"<string>\",\n  \"hostname\": \"<string>\",\n  \"summary\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a31ebfcd-ff04-4b1d-87fc-d687d76dae50",
+          "name": "Get Evidence By ID",
+          "request": {
+            "name": "Get Evidence By ID",
+            "description": {
+              "content": "Retrieves the full details of a specific evidence item including associated process information and timestamps.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "threat-response",
+                "api",
+                "v1",
+                "evidence",
+                ":evidenceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "evidenceId",
+                  "description": "(Required) Unique identifier of the evidence"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7948d26f-8cfd-4ac6-915a-5d4d874bc5e9",
+              "name": "Evidence retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "evidence",
+                    ":evidenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "evidenceId",
+                      "description": "(Required) Unique identifier of the evidence"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"uuid\": \"string\",\n    \"name\": \"string\",\n    \"hostname\": \"string\",\n    \"evidenceType\": \"string\",\n    \"type\": \"string\",\n    \"summary\": \"string\",\n    \"size\": 8803,\n    \"username\": \"string\",\n    \"domain\": \"string\",\n    \"commandline\": \"string\",\n    \"eventtype\": \"string\",\n    \"timestamp\": \"1998-09-17T09:06:15.769Z\",\n    \"createTime\": \"2019-05-23T13:44:58.880Z\",\n    \"createTimeRaw\": \"string\",\n    \"exitCode\": 7127,\n    \"createdAt\": \"2016-10-05T20:33:20.740Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2cdf2e6-311f-4812-9de6-d8a136f31ded",
+              "name": "Evidence not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "evidence",
+                    ":evidenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "evidenceId",
+                      "description": "(Required) Unique identifier of the evidence"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a60b3f74-5eb5-4c75-91e2-b932cd263f5e",
+          "name": "Delete Evidence",
+          "request": {
+            "name": "Delete Evidence",
+            "description": {
+              "content": "Deletes one or more evidence items. Multiple evidence IDs can be provided as a comma-separated list.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "threat-response",
+                "api",
+                "v1",
+                "evidence",
+                ":evidenceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "evidenceId",
+                  "description": "(Required) Evidence ID or comma-separated list of evidence IDs"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "acf55ebd-3655-4535-8e7c-e82e18ab27bd",
+              "name": "Evidence deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "evidence",
+                    ":evidenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "evidenceId",
+                      "description": "(Required) Evidence ID or comma-separated list of evidence IDs"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a002a746-c089-464b-af2b-1853356e1dd5",
+              "name": "Evidence not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "evidence",
+                    ":evidenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "evidenceId",
+                      "description": "(Required) Evidence ID or comma-separated list of evidence IDs"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e6ab2dc-60bb-4a45-8111-6bdf774159ac",
+          "name": "Get Evidence Properties",
+          "request": {
+            "name": "Get Evidence Properties",
+            "description": {
+              "content": "Retrieves the available property definitions for evidence items, including filterable fields and their value types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "threat-response",
+                "api",
+                "v1",
+                "evidence",
+                "properties"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ee6a9dc8-d4f7-4984-861d-2f65c2687579",
+              "name": "Evidence properties retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "evidence",
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"type\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "415719b0-9ce3-4495-80b3-87a4ed1dcd60",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "evidence",
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname or IP address of the Tanium server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "tanium.example.com",
+      "key": "tanium_server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tanium_server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "session"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7836ef88-7f77-4200-a7e8-0cb0de5490fb",
+    "name": "Tanium Connect Actions Evidence API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.\n\nContact Support:\n Name: Tanium Support",
+      "type": "text/plain"
+    }
+  }
+}

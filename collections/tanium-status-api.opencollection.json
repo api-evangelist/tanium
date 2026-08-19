@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions Status API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Connect Service Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/status"
+          },
+          "docs": "Returns the current status of the Tanium Connect service including version information and overall health."
+        },
+        {
+          "info": {
+            "name": "List Connection Execution Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/logs",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of log entries to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of log entries to skip for pagination"
+              },
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by connection identifier"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of connection execution logs showing the history of data deliveries, including success/failure status and row counts."
+        },
+        {
+          "info": {
+            "name": "Get Threat Response Service Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/status"
+          },
+          "docs": "Returns the current status of the Tanium Threat Response service including version information and operational state."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

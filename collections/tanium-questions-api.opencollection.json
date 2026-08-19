@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions Questions API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Questions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create And Ask A Question",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/api/v2/questions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new question and asks it across managed endpoints. The question can be specified as parsed question text or as a structured question object with specific sensors and selectors."
+        },
+        {
+          "info": {
+            "name": "Get A Question By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/questions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric identifier of the question"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific question by its numeric identifier, including its status, expiration, and associated sensors."
+        },
+        {
+          "info": {
+            "name": "Get Question Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/result_data/question/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric identifier of the question"
+              }
+            ]
+          },
+          "docs": "Returns the result data for a specific question identified by its ID. Results include rows of data collected from responding endpoints."
+        },
+        {
+          "info": {
+            "name": "Parse Question Text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/api/v2/parse_question",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Parses natural language question text into a structured question object that can be used to create a question. Returns one or more possible interpretations of the question text."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

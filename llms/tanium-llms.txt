@@ -1,0 +1,10 @@
+# llms.txt
+
+## Table of contents
+
+ - [Introduction to Tanium APIs](https://developer.tanium.com/apis/api_intro.md)
+ - [Site Access For Customers](https://developer.tanium.com/customer_access.md)
+ - [Tanium Integration Use Cases](https://developer.tanium.com/use_cases.md)
+ - [Tanium Integration Methods](https://developer.tanium.com/guides/core-platform/integration_methods.md)
+ - [Welcome Tanium Developers!](https://developer.tanium.com/guides/other/welcome.md)
+

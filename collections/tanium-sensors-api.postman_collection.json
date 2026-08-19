@@ -1,0 +1,381 @@
+{
+  "item": [
+    {
+      "id": "d8472a60-2609-4fc7-bbfa-f27cd94f2069",
+      "name": "Sensors",
+      "description": {
+        "content": "Manage endpoint sensors",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "37ad4033-2dea-4393-a826-30363f21f15d",
+          "name": "Get A Sensor By Name",
+          "request": {
+            "name": "Get A Sensor By Name",
+            "description": {
+              "content": "Retrieves the details of a sensor identified by its name. Sensors collect data from endpoints and are used in questions to query endpoint state.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "sensors",
+                "by-name",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the sensor"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa5a3805-8867-45c3-85f7-62f6a6aa29b8",
+              "name": "Sensor retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "sensors",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the sensor"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 349,\n    \"name\": \"string\",\n    \"hash\": 6182,\n    \"description\": \"string\",\n    \"category\": \"string\",\n    \"max_age_seconds\": 364,\n    \"content_set\": {\n      \"id\": 3423,\n      \"name\": \"string\"\n    },\n    \"queries\": [\n      {\n        \"platform\": \"string\",\n        \"script\": \"string\",\n        \"script_type\": \"string\"\n      },\n      {\n        \"platform\": \"string\",\n        \"script\": \"string\",\n        \"script_type\": \"string\"\n      }\n    ],\n    \"parameters\": [\n      {\n        \"key\": \"string\",\n        \"default_value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"default_value\": \"string\"\n      }\n    ],\n    \"mod_time\": \"2020-09-16T10:55:09.319Z\",\n    \"creation_time\": \"1990-04-26T18:05:52.845Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83c8d67f-254a-4fe7-bd66-2853c7483935",
+              "name": "Sensor not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "sensors",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the sensor"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b0112dc-5e68-41a1-8499-bf43fe9850b0",
+          "name": "List All Sensors",
+          "request": {
+            "name": "List All Sensors",
+            "description": {
+              "content": "Retrieves a list of all sensors configured on the Tanium server. Sensors are scripts that collect specific data from endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "sensors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "67d53c2b-1fcc-44f7-b0b3-1ce9f7965afc",
+              "name": "Sensors retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "sensors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 4528,\n      \"name\": \"string\",\n      \"hash\": 1633,\n      \"description\": \"string\",\n      \"category\": \"string\",\n      \"max_age_seconds\": 9946,\n      \"content_set\": {\n        \"id\": 7036,\n        \"name\": \"string\"\n      },\n      \"queries\": [\n        {\n          \"platform\": \"string\",\n          \"script\": \"string\",\n          \"script_type\": \"string\"\n        },\n        {\n          \"platform\": \"string\",\n          \"script\": \"string\",\n          \"script_type\": \"string\"\n        }\n      ],\n      \"parameters\": [\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\"\n        }\n      ],\n      \"mod_time\": \"2020-10-01T21:56:40.100Z\",\n      \"creation_time\": \"1968-01-25T00:37:36.251Z\"\n    },\n    {\n      \"id\": 6804,\n      \"name\": \"string\",\n      \"hash\": 5404,\n      \"description\": \"string\",\n      \"category\": \"string\",\n      \"max_age_seconds\": 2096,\n      \"content_set\": {\n        \"id\": 4281,\n        \"name\": \"string\"\n      },\n      \"queries\": [\n        {\n          \"platform\": \"string\",\n          \"script\": \"string\",\n          \"script_type\": \"string\"\n        },\n        {\n          \"platform\": \"string\",\n          \"script\": \"string\",\n          \"script_type\": \"string\"\n        }\n      ],\n      \"parameters\": [\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\"\n        }\n      ],\n      \"mod_time\": \"1948-07-10T17:55:48.370Z\",\n      \"creation_time\": \"2025-06-13T04:50:14.053Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b90c4d5b-87e8-4367-b0a3-f248983da187",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "sensors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname or IP address of the Tanium server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "tanium.example.com",
+      "key": "tanium_server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tanium_server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "session"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3f05b7b6-07b5-4936-8163-301b02de94f0",
+    "name": "Tanium Connect Actions Sensors API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.\n\nContact Support:\n Name: Tanium Support",
+      "type": "text/plain"
+    }
+  }
+}

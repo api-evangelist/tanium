@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions Saved Questions API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Saved Questions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Saved Questions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/saved_questions"
+          },
+          "docs": "Retrieves a list of all saved questions configured on the Tanium server. Saved questions can be run on a schedule to continuously collect data from endpoints."
+        },
+        {
+          "info": {
+            "name": "Get A Saved Question By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/saved_questions/by-name/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the saved question"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a saved question identified by its name. The name must be URL-encoded if it contains special characters."
+        },
+        {
+          "info": {
+            "name": "Get Saved Question Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/result_data/saved_question/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric identifier of the saved question"
+              }
+            ]
+          },
+          "docs": "Returns the latest result data for a saved question identified by its numeric ID. Results include rows of data collected from responding endpoints."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions Packages API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Packages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get A Package By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/packages/by-name/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the package"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a deployment package identified by its name. Packages contain scripts and files that are deployed to endpoints via actions."
+        },
+        {
+          "info": {
+            "name": "List All Packages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/packages"
+          },
+          "docs": "Retrieves a list of all deployment packages configured on the Tanium server. Packages contain scripts and files that can be deployed to endpoints through actions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

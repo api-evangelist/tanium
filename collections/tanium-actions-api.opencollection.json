@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Actions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create And Execute An Action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/api/v2/saved_actions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a saved action that deploys a package to targeted endpoints. Actions can target specific computer groups and use action groups for approval workflows."
+        },
+        {
+          "info": {
+            "name": "Get An Action Group By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/api/v2/action_groups/by-name/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the action group"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an action group identified by its name. Action groups define approval policies and target restrictions for deploying actions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

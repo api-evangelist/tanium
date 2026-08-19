@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions Snapshots API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create An Endpoint Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns/:connectionId/snapshot",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              }
+            ]
+          },
+          "docs": "Initiates a snapshot capture from a connected endpoint. The snapshot captures a point-in-time image of endpoint Recorder data for offline analysis."
+        },
+        {
+          "info": {
+            "name": "List All Snapshots",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/snapshot",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of snapshots to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of snapshots to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of all endpoint snapshots captured for investigations."
+        },
+        {
+          "info": {
+            "name": "Delete Snapshots",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/snapshot",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes one or more snapshots by their identifiers. Provide snapshot IDs in the request body."
+        },
+        {
+          "info": {
+            "name": "Delete A Local Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/snapshot/:snapshotId",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the snapshot to delete"
+              }
+            ]
+          },
+          "docs": "Deletes a specific snapshot stored locally on the Tanium server, freeing disk space."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

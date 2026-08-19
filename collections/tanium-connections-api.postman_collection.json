@@ -1,0 +1,2634 @@
+{
+  "item": [
+    {
+      "id": "cbb42b5c-5ddc-409a-ab54-986e2c39a1b5",
+      "name": "Connections",
+      "description": {
+        "content": "Manage data delivery connections",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b3b35f8a-1b5a-4c2c-b0a4-5b6f14c9e305",
+          "name": "List All Connections",
+          "request": {
+            "name": "List All Connections",
+            "description": {
+              "content": "Retrieves a list of all configured connections. Each connection defines the link between a data source in Tanium and an external destination, along with formatting, filtering, and scheduling options.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "connect",
+                "v1",
+                "connections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of connections to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Number of connections to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "972a5e1d-eb50-4a42-99c4-d9123ccf0776",
+              "name": "Connections retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 4444,\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"enabled\": false,\n      \"source\": {\n        \"id\": 8210,\n        \"name\": \"string\",\n        \"type\": \"saved_question\",\n        \"description\": \"string\",\n        \"savedQuestionId\": 1066,\n        \"columns\": [\n          {\n            \"name\": \"string\",\n            \"type\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"type\": \"string\"\n          }\n        ]\n      },\n      \"destination\": {\n        \"id\": 224,\n        \"name\": \"string\",\n        \"type\": \"email\",\n        \"configuration\": {\n          \"host\": \"string\",\n          \"port\": 3386,\n          \"protocol\": \"string\",\n          \"url\": \"string\",\n          \"method\": \"PATCH\",\n          \"path\": \"string\",\n          \"bucket\": \"string\",\n          \"region\": \"string\",\n          \"useTls\": false,\n          \"headers\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        },\n        \"createdAt\": \"2002-09-25T22:21:56.417Z\",\n        \"updatedAt\": \"2011-04-09T16:22:27.448Z\"\n      },\n      \"schedule\": {\n        \"id\": 1833,\n        \"connectionId\": 5247,\n        \"intervalSeconds\": 1769,\n        \"startTime\": \"1972-04-03T17:11:14.545Z\",\n        \"lastRunTime\": \"1972-05-01T11:44:35.045Z\",\n        \"nextRunTime\": \"1958-10-17T04:55:37.842Z\",\n        \"lastRunStatus\": \"string\",\n        \"enabled\": false\n      },\n      \"format\": {\n        \"type\": \"keyvalue\",\n        \"options\": {\n          \"delimiter\": \"string\",\n          \"headerRow\": true,\n          \"timestampFormat\": \"string\"\n        }\n      },\n      \"filter\": {\n        \"enabled\": true,\n        \"rules\": [\n          {\n            \"column\": \"string\",\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"column\": \"string\",\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      },\n      \"lastRunStatus\": \"string\",\n      \"lastRunTime\": \"2024-11-06T19:58:26.575Z\",\n      \"createdAt\": \"1965-11-11T04:04:58.265Z\",\n      \"updatedAt\": \"1954-04-09T23:56:38.783Z\"\n    },\n    {\n      \"id\": 5764,\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"enabled\": false,\n      \"source\": {\n        \"id\": 8937,\n        \"name\": \"string\",\n        \"type\": \"threat_response\",\n        \"description\": \"string\",\n        \"savedQuestionId\": 1922,\n        \"columns\": [\n          {\n            \"name\": \"string\",\n            \"type\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"type\": \"string\"\n          }\n        ]\n      },\n      \"destination\": {\n        \"id\": 924,\n        \"name\": \"string\",\n        \"type\": \"s3\",\n        \"configuration\": {\n          \"host\": \"string\",\n          \"port\": 1425,\n          \"protocol\": \"string\",\n          \"url\": \"string\",\n          \"method\": \"POST\",\n          \"path\": \"string\",\n          \"bucket\": \"string\",\n          \"region\": \"string\",\n          \"useTls\": true,\n          \"headers\": {\n            \"key_0\": \"string\"\n          }\n        },\n        \"createdAt\": \"1954-11-03T20:17:17.999Z\",\n        \"updatedAt\": \"1988-12-21T00:10:30.822Z\"\n      },\n      \"schedule\": {\n        \"id\": 698,\n        \"connectionId\": 3313,\n        \"intervalSeconds\": 5405,\n        \"startTime\": \"1988-09-21T12:10:25.759Z\",\n        \"lastRunTime\": \"2015-08-15T04:48:14.692Z\",\n        \"nextRunTime\": \"1951-12-12T15:16:58.395Z\",\n        \"lastRunStatus\": \"string\",\n        \"enabled\": true\n      },\n      \"format\": {\n        \"type\": \"leef\",\n        \"options\": {\n          \"delimiter\": \"string\",\n          \"headerRow\": false,\n          \"timestampFormat\": \"string\"\n        }\n      },\n      \"filter\": {\n        \"enabled\": false,\n        \"rules\": [\n          {\n            \"column\": \"string\",\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"column\": \"string\",\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      },\n      \"lastRunStatus\": \"string\",\n      \"lastRunTime\": \"1995-05-30T22:15:40.995Z\",\n      \"createdAt\": \"2014-12-07T14:05:12.179Z\",\n      \"updatedAt\": \"1997-04-26T06:31:36.579Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fd6d265-d2ed-425a-b33a-6a789bb1213c",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "06f14ce1-5949-48df-9950-b5cd51696ca6",
+          "name": "Create A New Connection",
+          "request": {
+            "name": "Create A New Connection",
+            "description": {
+              "content": "Creates a new connection linking a data source to a destination with the specified format, filter, and schedule settings. The connection can be configured to deliver data as CSV, JSON, or CEF formats.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "connect",
+                "v1",
+                "connections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"source\": {\n    \"id\": \"<integer>\",\n    \"type\": \"<string>\"\n  },\n  \"destination\": {\n    \"id\": \"<integer>\"\n  },\n  \"description\": \"<string>\",\n  \"enabled\": true,\n  \"schedule\": {\n    \"intervalSeconds\": \"<integer>\",\n    \"startTime\": \"<dateTime>\"\n  },\n  \"format\": {\n    \"type\": \"<string>\",\n    \"options\": {\n      \"delimiter\": \"<string>\",\n      \"headerRow\": \"<boolean>\",\n      \"timestampFormat\": \"<string>\"\n    }\n  },\n  \"filter\": {\n    \"enabled\": \"<boolean>\",\n    \"rules\": [\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "63f62400-8264-45c4-93c6-99604aa7cf1f",
+              "name": "Connection created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"source\": {\n    \"id\": \"<integer>\",\n    \"type\": \"<string>\"\n  },\n  \"destination\": {\n    \"id\": \"<integer>\"\n  },\n  \"description\": \"<string>\",\n  \"enabled\": true,\n  \"schedule\": {\n    \"intervalSeconds\": \"<integer>\",\n    \"startTime\": \"<dateTime>\"\n  },\n  \"format\": {\n    \"type\": \"<string>\",\n    \"options\": {\n      \"delimiter\": \"<string>\",\n      \"headerRow\": \"<boolean>\",\n      \"timestampFormat\": \"<string>\"\n    }\n  },\n  \"filter\": {\n    \"enabled\": \"<boolean>\",\n    \"rules\": [\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1528,\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"enabled\": false,\n    \"source\": {\n      \"id\": 5996,\n      \"name\": \"string\",\n      \"type\": \"saved_question\",\n      \"description\": \"string\",\n      \"savedQuestionId\": 4310,\n      \"columns\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    \"destination\": {\n      \"id\": 744,\n      \"name\": \"string\",\n      \"type\": \"http\",\n      \"configuration\": {\n        \"host\": \"string\",\n        \"port\": 7263,\n        \"protocol\": \"string\",\n        \"url\": \"string\",\n        \"method\": \"PUT\",\n        \"path\": \"string\",\n        \"bucket\": \"string\",\n        \"region\": \"string\",\n        \"useTls\": false,\n        \"headers\": {\n          \"key_0\": \"string\"\n        }\n      },\n      \"createdAt\": \"1999-10-29T02:46:42.063Z\",\n      \"updatedAt\": \"1983-03-18T16:46:42.325Z\"\n    },\n    \"schedule\": {\n      \"id\": 6436,\n      \"connectionId\": 5445,\n      \"intervalSeconds\": 1263,\n      \"startTime\": \"1987-04-22T21:41:34.635Z\",\n      \"lastRunTime\": \"1961-11-09T10:33:31.105Z\",\n      \"nextRunTime\": \"1975-05-15T04:18:44.867Z\",\n      \"lastRunStatus\": \"string\",\n      \"enabled\": true\n    },\n    \"format\": {\n      \"type\": \"leef\",\n      \"options\": {\n        \"delimiter\": \"string\",\n        \"headerRow\": true,\n        \"timestampFormat\": \"string\"\n      }\n    },\n    \"filter\": {\n      \"enabled\": false,\n      \"rules\": [\n        {\n          \"column\": \"string\",\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"column\": \"string\",\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    \"lastRunStatus\": \"string\",\n    \"lastRunTime\": \"1986-12-09T19:54:28.067Z\",\n    \"createdAt\": \"2012-12-10T09:01:50.027Z\",\n    \"updatedAt\": \"2005-05-12T16:56:44.518Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8659e3d-eea2-4168-a72d-7e2492a4eb19",
+              "name": "Invalid connection configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"source\": {\n    \"id\": \"<integer>\",\n    \"type\": \"<string>\"\n  },\n  \"destination\": {\n    \"id\": \"<integer>\"\n  },\n  \"description\": \"<string>\",\n  \"enabled\": true,\n  \"schedule\": {\n    \"intervalSeconds\": \"<integer>\",\n    \"startTime\": \"<dateTime>\"\n  },\n  \"format\": {\n    \"type\": \"<string>\",\n    \"options\": {\n      \"delimiter\": \"<string>\",\n      \"headerRow\": \"<boolean>\",\n      \"timestampFormat\": \"<string>\"\n    }\n  },\n  \"filter\": {\n    \"enabled\": \"<boolean>\",\n    \"rules\": [\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3dde4a1-a61b-4c9d-96ab-26b18d7b6ddd",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"source\": {\n    \"id\": \"<integer>\",\n    \"type\": \"<string>\"\n  },\n  \"destination\": {\n    \"id\": \"<integer>\"\n  },\n  \"description\": \"<string>\",\n  \"enabled\": true,\n  \"schedule\": {\n    \"intervalSeconds\": \"<integer>\",\n    \"startTime\": \"<dateTime>\"\n  },\n  \"format\": {\n    \"type\": \"<string>\",\n    \"options\": {\n      \"delimiter\": \"<string>\",\n      \"headerRow\": \"<boolean>\",\n      \"timestampFormat\": \"<string>\"\n    }\n  },\n  \"filter\": {\n    \"enabled\": \"<boolean>\",\n    \"rules\": [\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f59a57b-14d9-4f7c-bf5e-5863269141ce",
+          "name": "Get A Connection By ID",
+          "request": {
+            "name": "Get A Connection By ID",
+            "description": {
+              "content": "Retrieves the full configuration and current status of a specific connection, including its source, destination, format, filter, and schedule settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "connect",
+                "v1",
+                "connections",
+                ":connectionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "connectionId",
+                  "description": "(Required) Unique identifier of the connection"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2145b040-e460-47a1-89f6-7d61ddf21fcb",
+              "name": "Connection retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1528,\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"enabled\": false,\n    \"source\": {\n      \"id\": 5996,\n      \"name\": \"string\",\n      \"type\": \"saved_question\",\n      \"description\": \"string\",\n      \"savedQuestionId\": 4310,\n      \"columns\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    \"destination\": {\n      \"id\": 744,\n      \"name\": \"string\",\n      \"type\": \"http\",\n      \"configuration\": {\n        \"host\": \"string\",\n        \"port\": 7263,\n        \"protocol\": \"string\",\n        \"url\": \"string\",\n        \"method\": \"PUT\",\n        \"path\": \"string\",\n        \"bucket\": \"string\",\n        \"region\": \"string\",\n        \"useTls\": false,\n        \"headers\": {\n          \"key_0\": \"string\"\n        }\n      },\n      \"createdAt\": \"1999-10-29T02:46:42.063Z\",\n      \"updatedAt\": \"1983-03-18T16:46:42.325Z\"\n    },\n    \"schedule\": {\n      \"id\": 6436,\n      \"connectionId\": 5445,\n      \"intervalSeconds\": 1263,\n      \"startTime\": \"1987-04-22T21:41:34.635Z\",\n      \"lastRunTime\": \"1961-11-09T10:33:31.105Z\",\n      \"nextRunTime\": \"1975-05-15T04:18:44.867Z\",\n      \"lastRunStatus\": \"string\",\n      \"enabled\": true\n    },\n    \"format\": {\n      \"type\": \"leef\",\n      \"options\": {\n        \"delimiter\": \"string\",\n        \"headerRow\": true,\n        \"timestampFormat\": \"string\"\n      }\n    },\n    \"filter\": {\n      \"enabled\": false,\n      \"rules\": [\n        {\n          \"column\": \"string\",\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"column\": \"string\",\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    \"lastRunStatus\": \"string\",\n    \"lastRunTime\": \"1986-12-09T19:54:28.067Z\",\n    \"createdAt\": \"2012-12-10T09:01:50.027Z\",\n    \"updatedAt\": \"2005-05-12T16:56:44.518Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30760826-4882-4589-817a-2e4cc44734ff",
+              "name": "Connection not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9fe0459-26b4-4b1b-aa88-281f825c9286",
+          "name": "Update A Connection",
+          "request": {
+            "name": "Update A Connection",
+            "description": {
+              "content": "Updates the configuration of an existing connection. All connections that share a destination are affected when the destination settings are changed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "connect",
+                "v1",
+                "connections",
+                ":connectionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "connectionId",
+                  "description": "(Required) Unique identifier of the connection"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"source\": {\n    \"id\": \"<integer>\",\n    \"type\": \"<string>\"\n  },\n  \"destination\": {\n    \"id\": \"<integer>\"\n  },\n  \"schedule\": {\n    \"intervalSeconds\": \"<integer>\",\n    \"startTime\": \"<dateTime>\"\n  },\n  \"format\": {\n    \"type\": \"<string>\",\n    \"options\": {\n      \"delimiter\": \"<string>\",\n      \"headerRow\": \"<boolean>\",\n      \"timestampFormat\": \"<string>\"\n    }\n  },\n  \"filter\": {\n    \"enabled\": \"<boolean>\",\n    \"rules\": [\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "367a3306-876a-4798-974d-01404fbc5645",
+              "name": "Connection updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"source\": {\n    \"id\": \"<integer>\",\n    \"type\": \"<string>\"\n  },\n  \"destination\": {\n    \"id\": \"<integer>\"\n  },\n  \"schedule\": {\n    \"intervalSeconds\": \"<integer>\",\n    \"startTime\": \"<dateTime>\"\n  },\n  \"format\": {\n    \"type\": \"<string>\",\n    \"options\": {\n      \"delimiter\": \"<string>\",\n      \"headerRow\": \"<boolean>\",\n      \"timestampFormat\": \"<string>\"\n    }\n  },\n  \"filter\": {\n    \"enabled\": \"<boolean>\",\n    \"rules\": [\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1528,\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"enabled\": false,\n    \"source\": {\n      \"id\": 5996,\n      \"name\": \"string\",\n      \"type\": \"saved_question\",\n      \"description\": \"string\",\n      \"savedQuestionId\": 4310,\n      \"columns\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    \"destination\": {\n      \"id\": 744,\n      \"name\": \"string\",\n      \"type\": \"http\",\n      \"configuration\": {\n        \"host\": \"string\",\n        \"port\": 7263,\n        \"protocol\": \"string\",\n        \"url\": \"string\",\n        \"method\": \"PUT\",\n        \"path\": \"string\",\n        \"bucket\": \"string\",\n        \"region\": \"string\",\n        \"useTls\": false,\n        \"headers\": {\n          \"key_0\": \"string\"\n        }\n      },\n      \"createdAt\": \"1999-10-29T02:46:42.063Z\",\n      \"updatedAt\": \"1983-03-18T16:46:42.325Z\"\n    },\n    \"schedule\": {\n      \"id\": 6436,\n      \"connectionId\": 5445,\n      \"intervalSeconds\": 1263,\n      \"startTime\": \"1987-04-22T21:41:34.635Z\",\n      \"lastRunTime\": \"1961-11-09T10:33:31.105Z\",\n      \"nextRunTime\": \"1975-05-15T04:18:44.867Z\",\n      \"lastRunStatus\": \"string\",\n      \"enabled\": true\n    },\n    \"format\": {\n      \"type\": \"leef\",\n      \"options\": {\n        \"delimiter\": \"string\",\n        \"headerRow\": true,\n        \"timestampFormat\": \"string\"\n      }\n    },\n    \"filter\": {\n      \"enabled\": false,\n      \"rules\": [\n        {\n          \"column\": \"string\",\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"column\": \"string\",\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    \"lastRunStatus\": \"string\",\n    \"lastRunTime\": \"1986-12-09T19:54:28.067Z\",\n    \"createdAt\": \"2012-12-10T09:01:50.027Z\",\n    \"updatedAt\": \"2005-05-12T16:56:44.518Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6695ad4-f1fb-49df-aad0-699c5c05e3ac",
+              "name": "Invalid connection configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"source\": {\n    \"id\": \"<integer>\",\n    \"type\": \"<string>\"\n  },\n  \"destination\": {\n    \"id\": \"<integer>\"\n  },\n  \"schedule\": {\n    \"intervalSeconds\": \"<integer>\",\n    \"startTime\": \"<dateTime>\"\n  },\n  \"format\": {\n    \"type\": \"<string>\",\n    \"options\": {\n      \"delimiter\": \"<string>\",\n      \"headerRow\": \"<boolean>\",\n      \"timestampFormat\": \"<string>\"\n    }\n  },\n  \"filter\": {\n    \"enabled\": \"<boolean>\",\n    \"rules\": [\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45470d5b-f63a-4c33-b720-efdeefea118c",
+              "name": "Connection not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"source\": {\n    \"id\": \"<integer>\",\n    \"type\": \"<string>\"\n  },\n  \"destination\": {\n    \"id\": \"<integer>\"\n  },\n  \"schedule\": {\n    \"intervalSeconds\": \"<integer>\",\n    \"startTime\": \"<dateTime>\"\n  },\n  \"format\": {\n    \"type\": \"<string>\",\n    \"options\": {\n      \"delimiter\": \"<string>\",\n      \"headerRow\": \"<boolean>\",\n      \"timestampFormat\": \"<string>\"\n    }\n  },\n  \"filter\": {\n    \"enabled\": \"<boolean>\",\n    \"rules\": [\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"column\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d99706a-30e7-4a14-bb77-62f814108551",
+          "name": "Delete A Connection",
+          "request": {
+            "name": "Delete A Connection",
+            "description": {
+              "content": "Permanently deletes a connection and its associated schedule. The underlying source and destination configurations are not affected.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "connect",
+                "v1",
+                "connections",
+                ":connectionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "connectionId",
+                  "description": "(Required) Unique identifier of the connection to delete"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f741d20f-1ca1-4dc8-9fe6-d0a2030c1792",
+              "name": "Connection deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection to delete"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "62cd5662-d3d5-4dc5-bd39-d5f3855d4832",
+              "name": "Connection not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection to delete"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "522a52e1-faa3-4a02-81ba-21a78a354c15",
+          "name": "Run A Connection On Demand",
+          "request": {
+            "name": "Run A Connection On Demand",
+            "description": {
+              "content": "Triggers an immediate execution of a connection outside of its normal schedule. This sends the current source data to the configured destination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "connect",
+                "v1",
+                "connections",
+                ":connectionId",
+                "run"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "connectionId",
+                  "description": "(Required) Unique identifier of the connection to run"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eb9901f0-89d2-429b-9b16-d9121d19f351",
+              "name": "Connection execution initiated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections",
+                    ":connectionId",
+                    "run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection to run"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"string\",\n    \"runId\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a9f14ae-ac83-4923-b63c-90c0207fe486",
+              "name": "Connection not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections",
+                    ":connectionId",
+                    "run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection to run"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "671d456e-0cb8-4d70-83ae-ecd6654eb082",
+          "name": "Enable A Connection",
+          "request": {
+            "name": "Enable A Connection",
+            "description": {
+              "content": "Enables a previously disabled connection, allowing it to run on its configured schedule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "connect",
+                "v1",
+                "connections",
+                ":connectionId",
+                "enable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "connectionId",
+                  "description": "(Required) Unique identifier of the connection"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8ffa414b-cc7d-4cf2-9f9f-007917186960",
+              "name": "Connection enabled successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections",
+                    ":connectionId",
+                    "enable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1528,\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"enabled\": false,\n    \"source\": {\n      \"id\": 5996,\n      \"name\": \"string\",\n      \"type\": \"saved_question\",\n      \"description\": \"string\",\n      \"savedQuestionId\": 4310,\n      \"columns\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    \"destination\": {\n      \"id\": 744,\n      \"name\": \"string\",\n      \"type\": \"http\",\n      \"configuration\": {\n        \"host\": \"string\",\n        \"port\": 7263,\n        \"protocol\": \"string\",\n        \"url\": \"string\",\n        \"method\": \"PUT\",\n        \"path\": \"string\",\n        \"bucket\": \"string\",\n        \"region\": \"string\",\n        \"useTls\": false,\n        \"headers\": {\n          \"key_0\": \"string\"\n        }\n      },\n      \"createdAt\": \"1999-10-29T02:46:42.063Z\",\n      \"updatedAt\": \"1983-03-18T16:46:42.325Z\"\n    },\n    \"schedule\": {\n      \"id\": 6436,\n      \"connectionId\": 5445,\n      \"intervalSeconds\": 1263,\n      \"startTime\": \"1987-04-22T21:41:34.635Z\",\n      \"lastRunTime\": \"1961-11-09T10:33:31.105Z\",\n      \"nextRunTime\": \"1975-05-15T04:18:44.867Z\",\n      \"lastRunStatus\": \"string\",\n      \"enabled\": true\n    },\n    \"format\": {\n      \"type\": \"leef\",\n      \"options\": {\n        \"delimiter\": \"string\",\n        \"headerRow\": true,\n        \"timestampFormat\": \"string\"\n      }\n    },\n    \"filter\": {\n      \"enabled\": false,\n      \"rules\": [\n        {\n          \"column\": \"string\",\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"column\": \"string\",\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    \"lastRunStatus\": \"string\",\n    \"lastRunTime\": \"1986-12-09T19:54:28.067Z\",\n    \"createdAt\": \"2012-12-10T09:01:50.027Z\",\n    \"updatedAt\": \"2005-05-12T16:56:44.518Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bea0645-dfa1-49fc-8732-9c00daa9ccfa",
+              "name": "Connection not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections",
+                    ":connectionId",
+                    "enable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb9d8e45-bd06-4a92-b553-44e3a909253a",
+          "name": "Disable A Connection",
+          "request": {
+            "name": "Disable A Connection",
+            "description": {
+              "content": "Disables a connection, preventing it from running on its schedule. The connection configuration is preserved and can be re-enabled later.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "connect",
+                "v1",
+                "connections",
+                ":connectionId",
+                "disable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "connectionId",
+                  "description": "(Required) Unique identifier of the connection"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d0c3188-a1da-4d3c-965c-aa3b09b2a49d",
+              "name": "Connection disabled successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections",
+                    ":connectionId",
+                    "disable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1528,\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"enabled\": false,\n    \"source\": {\n      \"id\": 5996,\n      \"name\": \"string\",\n      \"type\": \"saved_question\",\n      \"description\": \"string\",\n      \"savedQuestionId\": 4310,\n      \"columns\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    \"destination\": {\n      \"id\": 744,\n      \"name\": \"string\",\n      \"type\": \"http\",\n      \"configuration\": {\n        \"host\": \"string\",\n        \"port\": 7263,\n        \"protocol\": \"string\",\n        \"url\": \"string\",\n        \"method\": \"PUT\",\n        \"path\": \"string\",\n        \"bucket\": \"string\",\n        \"region\": \"string\",\n        \"useTls\": false,\n        \"headers\": {\n          \"key_0\": \"string\"\n        }\n      },\n      \"createdAt\": \"1999-10-29T02:46:42.063Z\",\n      \"updatedAt\": \"1983-03-18T16:46:42.325Z\"\n    },\n    \"schedule\": {\n      \"id\": 6436,\n      \"connectionId\": 5445,\n      \"intervalSeconds\": 1263,\n      \"startTime\": \"1987-04-22T21:41:34.635Z\",\n      \"lastRunTime\": \"1961-11-09T10:33:31.105Z\",\n      \"nextRunTime\": \"1975-05-15T04:18:44.867Z\",\n      \"lastRunStatus\": \"string\",\n      \"enabled\": true\n    },\n    \"format\": {\n      \"type\": \"leef\",\n      \"options\": {\n        \"delimiter\": \"string\",\n        \"headerRow\": true,\n        \"timestampFormat\": \"string\"\n      }\n    },\n    \"filter\": {\n      \"enabled\": false,\n      \"rules\": [\n        {\n          \"column\": \"string\",\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"column\": \"string\",\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    \"lastRunStatus\": \"string\",\n    \"lastRunTime\": \"1986-12-09T19:54:28.067Z\",\n    \"createdAt\": \"2012-12-10T09:01:50.027Z\",\n    \"updatedAt\": \"2005-05-12T16:56:44.518Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27994a8a-0ffc-44ba-9f88-7d130eb9325c",
+              "name": "Connection not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "connect",
+                    "v1",
+                    "connections",
+                    ":connectionId",
+                    "disable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cdd91609-ea13-4d84-9c01-ee91d26dc6b3",
+          "name": "List Endpoint Connections",
+          "request": {
+            "name": "List Endpoint Connections",
+            "description": {
+              "content": "Retrieves a paginated list of live connections to endpoints. Connections can be filtered by status, IP address, platform, and hostname.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "threat-response",
+                "api",
+                "v1",
+                "conns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of connections to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Number of connections to skip for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by connection status"
+                },
+                {
+                  "disabled": false,
+                  "key": "ip",
+                  "value": "<string>",
+                  "description": "Filter by endpoint IP address"
+                },
+                {
+                  "disabled": false,
+                  "key": "platform",
+                  "value": "<string>",
+                  "description": "Filter by endpoint platform"
+                },
+                {
+                  "disabled": false,
+                  "key": "hostname",
+                  "value": "<string>",
+                  "description": "Filter by endpoint hostname"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "657db7c0-1dd3-4907-8b65-c65bf5aa9c1a",
+              "name": "Connections retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "conns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"hostname\": \"string\",\n      \"ip\": \"string\",\n      \"platform\": \"string\",\n      \"status\": \"string\",\n      \"initiatedAt\": \"2021-01-06T22:12:34.073Z\",\n      \"connectedAt\": \"1975-07-24T18:10:46.687Z\",\n      \"message\": \"string\",\n      \"clientId\": \"string\",\n      \"userId\": 2880,\n      \"eid\": \"string\",\n      \"personaId\": 9817,\n      \"hasTools\": false\n    },\n    {\n      \"id\": \"string\",\n      \"hostname\": \"string\",\n      \"ip\": \"string\",\n      \"platform\": \"string\",\n      \"status\": \"string\",\n      \"initiatedAt\": \"2019-09-20T04:04:55.879Z\",\n      \"connectedAt\": \"2024-11-01T00:36:07.909Z\",\n      \"message\": \"string\",\n      \"clientId\": \"string\",\n      \"userId\": 1452,\n      \"eid\": \"string\",\n      \"personaId\": 1005,\n      \"hasTools\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69f74db6-bae6-4fbd-8724-86f59eb27516",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "conns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "09fdffbd-c90a-4448-af07-70a249faf6cf",
+          "name": "Create A Live Connection To An Endpoint",
+          "request": {
+            "name": "Create A Live Connection To An Endpoint",
+            "description": {
+              "content": "Initiates a live connection to a specified endpoint for investigation purposes. Requires the client ID, IP, platform, and hostname of the target endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "threat-response",
+                "api",
+                "v1",
+                "conns",
+                "connect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"client_id\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"platform\": \"<string>\",\n  \"hostname\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ae4d8992-50c6-4cf4-a5bd-b1bcc9210e0c",
+              "name": "Connection initiated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "conns",
+                    "connect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client_id\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"platform\": \"<string>\",\n  \"hostname\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"hostname\": \"string\",\n    \"ip\": \"string\",\n    \"platform\": \"string\",\n    \"status\": \"string\",\n    \"initiatedAt\": \"2026-03-01T06:11:11.120Z\",\n    \"connectedAt\": \"1975-10-23T14:57:48.547Z\",\n    \"message\": \"string\",\n    \"clientId\": \"string\",\n    \"userId\": 3749,\n    \"eid\": \"string\",\n    \"personaId\": 6257,\n    \"hasTools\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21f602a9-9cbc-4ef8-8738-a7a296f57f3f",
+              "name": "Invalid connection parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "conns",
+                    "connect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client_id\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"platform\": \"<string>\",\n  \"hostname\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03038b37-b07a-4174-90ff-ee8a54d6e2e8",
+          "name": "Get A Connection By ID",
+          "request": {
+            "name": "Get A Connection By ID",
+            "description": {
+              "content": "Retrieves the details and current status of a specific endpoint connection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "threat-response",
+                "api",
+                "v1",
+                "conns",
+                ":connectionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connectionId",
+                  "description": "(Required) Unique identifier of the connection"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f76abf55-904e-45ee-907a-866dddc28726",
+              "name": "Connection retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "conns",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"hostname\": \"string\",\n    \"ip\": \"string\",\n    \"platform\": \"string\",\n    \"status\": \"string\",\n    \"initiatedAt\": \"2026-03-01T06:11:11.120Z\",\n    \"connectedAt\": \"1975-10-23T14:57:48.547Z\",\n    \"message\": \"string\",\n    \"clientId\": \"string\",\n    \"userId\": 3749,\n    \"eid\": \"string\",\n    \"personaId\": 6257,\n    \"hasTools\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1685d47-d291-49b3-a92f-34907c1eef95",
+              "name": "Connection not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "conns",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05060704-ac3d-48af-b6f8-3d4a2618a3e0",
+          "name": "Close A Live Connection",
+          "request": {
+            "name": "Close A Live Connection",
+            "description": {
+              "content": "Closes an active live connection to an endpoint, ending the investigation session.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "threat-response",
+                "api",
+                "v1",
+                "conns",
+                "close",
+                ":connectionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connectionId",
+                  "description": "(Required) Unique identifier of the connection to close"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f69017a1-cbaf-4467-a905-9c2f13b904e5",
+              "name": "Connection closed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "conns",
+                    "close",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection to close"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "66093291-e5de-45fc-afd5-4f165d0c4735",
+              "name": "Connection not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "conns",
+                    "close",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection to close"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57514726-a7fb-4367-bf54-76c611efc43a",
+          "name": "Delete A Connection Record",
+          "request": {
+            "name": "Delete A Connection Record",
+            "description": {
+              "content": "Permanently deletes a connection record from the Threat Response database.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plugin",
+                "products",
+                "threat-response",
+                "api",
+                "v1",
+                "conns",
+                "delete",
+                ":connectionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connectionId",
+                  "description": "(Required) Unique identifier of the connection to delete"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c20a975e-7f1a-4d71-bc58-5d357bd8c616",
+              "name": "Connection deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "conns",
+                    "delete",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection to delete"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e4125e0e-1c44-4c0c-bd4c-955a6a252d7c",
+              "name": "Connection not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plugin",
+                    "products",
+                    "threat-response",
+                    "api",
+                    "v1",
+                    "conns",
+                    "delete",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connectionId",
+                      "description": "(Required) Unique identifier of the connection to delete"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\",\n  \"errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname or IP address of the Tanium server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "tanium.example.com",
+      "key": "tanium_server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tanium_server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "session"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "55a3889c-2cc7-403f-b1af-3efee7862c04",
+    "name": "Tanium Connect Actions Connections API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.\n\nContact Support:\n Name: Tanium Support",
+      "type": "text/plain"
+    }
+  }
+}

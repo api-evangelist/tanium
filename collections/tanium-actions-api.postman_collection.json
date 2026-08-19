@@ -1,0 +1,470 @@
+{
+  "item": [
+    {
+      "id": "ac95217e-dcdb-4969-ba19-e078f77ae41d",
+      "name": "Actions",
+      "description": {
+        "content": "Deploy and manage actions on endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "05d695ec-2114-43d2-87bd-bce61cfa28b2",
+          "name": "Create And Execute An Action",
+          "request": {
+            "name": "Create And Execute An Action",
+            "description": {
+              "content": "Creates a saved action that deploys a package to targeted endpoints. Actions can target specific computer groups and use action groups for approval workflows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "saved_actions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"package_spec\": {\n    \"source_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"parameters\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"action_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"target_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"and_flag\": \"<boolean>\",\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"<string>\",\n          \"hash\": \"<integer>\"\n        },\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"expire_seconds\": \"<integer>\",\n  \"start_time\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "07a6fc73-cdf7-49d7-b658-aad7349db8a6",
+              "name": "Action created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "saved_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"package_spec\": {\n    \"source_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"parameters\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"action_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"target_group\": {\n    \"id\": 6874,\n    \"name\": \"string\",\n    \"and_flag\": true,\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 4864\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 2323\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  },\n  \"expire_seconds\": \"<integer>\",\n  \"start_time\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 5671,\n    \"name\": \"string\",\n    \"status\": \"string\",\n    \"package_spec\": {\n      \"source_id\": 5253,\n      \"name\": \"string\"\n    },\n    \"action_group\": {\n      \"id\": 6492,\n      \"name\": \"string\",\n      \"and_flag\": false\n    },\n    \"target_group\": {\n      \"id\": 2478,\n      \"name\": \"string\",\n      \"and_flag\": false,\n      \"filters\": [\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 118\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 1535\n          },\n          \"operator\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    \"start_time\": \"2014-01-19T11:34:58.295Z\",\n    \"expiration_time\": \"2000-04-03T07:37:11.388Z\",\n    \"approved_flag\": 9727\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb0ded36-9913-4ce9-93c4-ea9ef667b436",
+              "name": "Invalid action specification",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "saved_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"package_spec\": {\n    \"source_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"parameters\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"action_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"target_group\": {\n    \"id\": 6874,\n    \"name\": \"string\",\n    \"and_flag\": true,\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 4864\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 2323\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  },\n  \"expire_seconds\": \"<integer>\",\n  \"start_time\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a05fd6f6-115b-4224-97cc-c9b75b3fdd68",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "saved_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"package_spec\": {\n    \"source_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"parameters\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"action_group\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"target_group\": {\n    \"id\": 6874,\n    \"name\": \"string\",\n    \"and_flag\": true,\n    \"filters\": [\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 4864\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"sensor\": {\n          \"name\": \"string\",\n          \"hash\": 2323\n        },\n        \"operator\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  },\n  \"expire_seconds\": \"<integer>\",\n  \"start_time\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2234d2f9-ad05-48fd-9bfb-d6b8c794dfe8",
+          "name": "Get An Action Group By Name",
+          "request": {
+            "name": "Get An Action Group By Name",
+            "description": {
+              "content": "Retrieves the details of an action group identified by its name. Action groups define approval policies and target restrictions for deploying actions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "action_groups",
+                "by-name",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the action group"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19d5f596-8c9d-4619-9eaa-907f0503987d",
+              "name": "Action group retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "action_groups",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the action group"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 4057,\n    \"name\": \"string\",\n    \"and_flag\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a82ed71-b390-4974-aa75-22ae11860bbd",
+              "name": "Action group not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "action_groups",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the action group"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname or IP address of the Tanium server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "tanium.example.com",
+      "key": "tanium_server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tanium_server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "session"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d28fc965-faa4-4a45-9666-3929674e3572",
+    "name": "Tanium Connect Actions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.\n\nContact Support:\n Name: Tanium Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions Evidence API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Evidence",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Investigation Evidence",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/evidence",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of evidence items to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of evidence items to skip for pagination"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results"
+              },
+              {
+                "name": "hostname",
+                "value": "",
+                "type": "query",
+                "description": "Filter by endpoint hostname"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by evidence type"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of evidence collected during investigations. Evidence can be filtered by hostname and type."
+        },
+        {
+          "info": {
+            "name": "Create Evidence From A Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/evidence",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an evidence record from a specific process on a connected endpoint, preserving investigation findings."
+        },
+        {
+          "info": {
+            "name": "Get Evidence By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/evidence/:evidenceId",
+            "params": [
+              {
+                "name": "evidenceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the evidence"
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific evidence item including associated process information and timestamps."
+        },
+        {
+          "info": {
+            "name": "Delete Evidence",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/evidence/:evidenceId",
+            "params": [
+              {
+                "name": "evidenceId",
+                "value": "",
+                "type": "path",
+                "description": "Evidence ID or comma-separated list of evidence IDs"
+              }
+            ]
+          },
+          "docs": "Deletes one or more evidence items. Multiple evidence IDs can be provided as a comma-separated list."
+        },
+        {
+          "info": {
+            "name": "Get Evidence Properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/evidence/properties"
+          },
+          "docs": "Retrieves the available property definitions for evidence items, including filterable fields and their value types."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

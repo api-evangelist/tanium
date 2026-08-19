@@ -1,0 +1,381 @@
+{
+  "item": [
+    {
+      "id": "08f55414-2b1e-4a20-af17-45a6f9030738",
+      "name": "Packages",
+      "description": {
+        "content": "Manage deployment packages",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fe4746f9-0a42-4945-8344-23c756459f24",
+          "name": "Get A Package By Name",
+          "request": {
+            "name": "Get A Package By Name",
+            "description": {
+              "content": "Retrieves the details of a deployment package identified by its name. Packages contain scripts and files that are deployed to endpoints via actions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "packages",
+                "by-name",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the package"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "49488138-01ee-4096-b28d-406163360a5e",
+              "name": "Package retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "packages",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the package"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 2926,\n    \"name\": \"string\",\n    \"display_name\": \"string\",\n    \"command\": \"string\",\n    \"command_timeout\": 7639,\n    \"expire_seconds\": 9627,\n    \"content_set\": {\n      \"id\": 8845,\n      \"name\": \"string\"\n    },\n    \"files\": [\n      {\n        \"id\": 7851,\n        \"name\": \"string\",\n        \"hash\": \"string\",\n        \"size\": 7011\n      },\n      {\n        \"id\": 378,\n        \"name\": \"string\",\n        \"hash\": \"string\",\n        \"size\": 1972\n      }\n    ],\n    \"parameters\": [\n      {\n        \"key\": \"string\",\n        \"default_value\": \"string\",\n        \"label\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"default_value\": \"string\",\n        \"label\": \"string\"\n      }\n    ],\n    \"mod_time\": \"1974-07-01T15:23:39.100Z\",\n    \"creation_time\": \"1956-08-21T03:46:39.339Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad31c544-61e5-43f9-b3a3-e94f5b22b39d",
+              "name": "Package not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "packages",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the package"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "22cdd0a7-0524-4252-b123-9ffa5ba9daf0",
+          "name": "List All Packages",
+          "request": {
+            "name": "List All Packages",
+            "description": {
+              "content": "Retrieves a list of all deployment packages configured on the Tanium server. Packages contain scripts and files that can be deployed to endpoints through actions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "packages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "06786bd9-230d-4283-9e35-ac2800b96d56",
+              "name": "Packages retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "packages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 7224,\n      \"name\": \"string\",\n      \"display_name\": \"string\",\n      \"command\": \"string\",\n      \"command_timeout\": 5547,\n      \"expire_seconds\": 6489,\n      \"content_set\": {\n        \"id\": 2190,\n        \"name\": \"string\"\n      },\n      \"files\": [\n        {\n          \"id\": 1092,\n          \"name\": \"string\",\n          \"hash\": \"string\",\n          \"size\": 8319\n        },\n        {\n          \"id\": 6,\n          \"name\": \"string\",\n          \"hash\": \"string\",\n          \"size\": 6189\n        }\n      ],\n      \"parameters\": [\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\",\n          \"label\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\",\n          \"label\": \"string\"\n        }\n      ],\n      \"mod_time\": \"2015-09-20T01:36:22.764Z\",\n      \"creation_time\": \"1986-07-06T17:45:24.753Z\"\n    },\n    {\n      \"id\": 4517,\n      \"name\": \"string\",\n      \"display_name\": \"string\",\n      \"command\": \"string\",\n      \"command_timeout\": 771,\n      \"expire_seconds\": 2716,\n      \"content_set\": {\n        \"id\": 9741,\n        \"name\": \"string\"\n      },\n      \"files\": [\n        {\n          \"id\": 6763,\n          \"name\": \"string\",\n          \"hash\": \"string\",\n          \"size\": 3523\n        },\n        {\n          \"id\": 5849,\n          \"name\": \"string\",\n          \"hash\": \"string\",\n          \"size\": 8550\n        }\n      ],\n      \"parameters\": [\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\",\n          \"label\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"default_value\": \"string\",\n          \"label\": \"string\"\n        }\n      ],\n      \"mod_time\": \"1953-06-10T12:54:40.065Z\",\n      \"creation_time\": \"2003-03-26T00:42:37.272Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29720d9f-3e94-479d-8e12-2ef7dd8c4031",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "packages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname or IP address of the Tanium server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "tanium.example.com",
+      "key": "tanium_server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tanium_server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "session"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c87652f9-82ae-4c45-bf69-e9b2f52b9651",
+    "name": "Tanium Connect Actions Packages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.\n\nContact Support:\n Name: Tanium Support",
+      "type": "text/plain"
+    }
+  }
+}

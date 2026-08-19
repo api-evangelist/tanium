@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions Destinations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Destinations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Destinations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/destinations"
+          },
+          "docs": "Retrieves a list of all configured destinations. Destinations define where connection data is delivered, such as files, syslog servers, HTTP endpoints, email addresses, or SQL databases."
+        },
+        {
+          "info": {
+            "name": "Create A New Destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/destinations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new destination configuration for receiving connection data. Supported destination types include file, syslog, HTTP/webhook, email, AWS S3, and SQL database."
+        },
+        {
+          "info": {
+            "name": "Get A Destination By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/destinations/:destinationId",
+            "params": [
+              {
+                "name": "destinationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the destination"
+              }
+            ]
+          },
+          "docs": "Retrieves the full configuration of a specific destination including its type and connection details."
+        },
+        {
+          "info": {
+            "name": "Update A Destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/destinations/:destinationId",
+            "params": [
+              {
+                "name": "destinationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the destination"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing destination configuration. All connections using this destination will be affected by the changes."
+        },
+        {
+          "info": {
+            "name": "Delete A Destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/destinations/:destinationId",
+            "params": [
+              {
+                "name": "destinationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the destination to delete"
+              }
+            ]
+          },
+          "docs": "Deletes a destination configuration. The destination cannot be deleted if it is currently used by any active connections."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

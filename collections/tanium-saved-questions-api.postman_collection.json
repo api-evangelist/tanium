@@ -1,0 +1,556 @@
+{
+  "item": [
+    {
+      "id": "da2d0d4c-c4ab-479a-b9c4-1d9b2369c46d",
+      "name": "Saved Questions",
+      "description": {
+        "content": "Manage saved questions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "48a5b3a0-f0dc-41b2-b006-5e3856f7596e",
+          "name": "List Saved Questions",
+          "request": {
+            "name": "List Saved Questions",
+            "description": {
+              "content": "Retrieves a list of all saved questions configured on the Tanium server. Saved questions can be run on a schedule to continuously collect data from endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "saved_questions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "58f58282-45fa-4eb4-a88c-4d4453fada76",
+              "name": "Saved questions retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "saved_questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 7074,\n      \"name\": \"string\",\n      \"query_text\": \"string\",\n      \"question\": {\n        \"id\": 8465,\n        \"query_text\": \"string\",\n        \"expiration\": \"2009-02-04T16:16:57.277Z\",\n        \"selects\": [\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 9990,\n              \"id\": 7029\n            }\n          },\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 362,\n              \"id\": 4276\n            }\n          }\n        ],\n        \"group\": {\n          \"id\": 6690,\n          \"name\": \"string\",\n          \"and_flag\": true,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"management_rights_group\": {\n          \"id\": 735,\n          \"name\": \"string\",\n          \"and_flag\": false,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"saved_question\": {\n          \"id\": 9612\n        }\n      },\n      \"issue_seconds\": 6220,\n      \"expire_seconds\": 6117,\n      \"mod_time\": \"2014-06-28T07:40:07.244Z\"\n    },\n    {\n      \"id\": 8259,\n      \"name\": \"string\",\n      \"query_text\": \"string\",\n      \"question\": {\n        \"id\": 145,\n        \"query_text\": \"string\",\n        \"expiration\": \"1968-03-07T01:04:12.996Z\",\n        \"selects\": [\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 1620,\n              \"id\": 6406\n            }\n          },\n          {\n            \"sensor\": {\n              \"name\": \"string\",\n              \"hash\": 9510,\n              \"id\": 5047\n            }\n          }\n        ],\n        \"group\": {\n          \"id\": 5352,\n          \"name\": \"string\",\n          \"and_flag\": true,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"management_rights_group\": {\n          \"id\": 5133,\n          \"name\": \"string\",\n          \"and_flag\": false,\n          \"filters\": [\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"sensor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"operator\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"saved_question\": {\n          \"id\": 5127\n        }\n      },\n      \"issue_seconds\": 68,\n      \"expire_seconds\": 8435,\n      \"mod_time\": \"1961-09-08T15:12:06.447Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a62f599c-0ae8-49e5-8b34-732b13efaabb",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "saved_questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b9f6f29-cbc0-428d-a83d-97c3ed54ad98",
+          "name": "Get A Saved Question By Name",
+          "request": {
+            "name": "Get A Saved Question By Name",
+            "description": {
+              "content": "Retrieves the details of a saved question identified by its name. The name must be URL-encoded if it contains special characters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "saved_questions",
+                "by-name",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the saved question"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "21ac54f9-6ba1-4aeb-bb3e-7b801e486d7c",
+              "name": "Saved question retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "saved_questions",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the saved question"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 8921,\n    \"name\": \"string\",\n    \"query_text\": \"string\",\n    \"question\": {\n      \"id\": 7917,\n      \"query_text\": \"string\",\n      \"expiration\": \"2017-11-14T00:43:42.134Z\",\n      \"selects\": [\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 4185,\n            \"id\": 2863\n          }\n        },\n        {\n          \"sensor\": {\n            \"name\": \"string\",\n            \"hash\": 6597,\n            \"id\": 1727\n          }\n        }\n      ],\n      \"group\": {\n        \"id\": 3819,\n        \"name\": \"string\",\n        \"and_flag\": false,\n        \"filters\": [\n          {\n            \"sensor\": {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hash\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"sensor\": {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hash\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      },\n      \"management_rights_group\": {\n        \"id\": 8701,\n        \"name\": \"string\",\n        \"and_flag\": false,\n        \"filters\": [\n          {\n            \"sensor\": {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hash\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"sensor\": {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hash\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"operator\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      },\n      \"saved_question\": {\n        \"id\": 1047\n      }\n    },\n    \"issue_seconds\": 8970,\n    \"expire_seconds\": 8898,\n    \"mod_time\": \"1959-11-21T07:16:11.045Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72c8a92f-16a7-415a-ab5d-532e6e93506c",
+              "name": "Saved question not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "saved_questions",
+                    "by-name",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the saved question"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0bd2756f-aaa9-429b-ac2d-076f7af5f56e",
+          "name": "Get Saved Question Results",
+          "request": {
+            "name": "Get Saved Question Results",
+            "description": {
+              "content": "Returns the latest result data for a saved question identified by its numeric ID. Results include rows of data collected from responding endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "result_data",
+                "saved_question",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Numeric identifier of the saved question"
+                },
+                {
+                  "description": "Hostname or IP address of the Tanium server",
+                  "type": "any",
+                  "value": "{{tanium_server}}",
+                  "key": "tanium_server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5fb799ff-4dcd-40dc-915c-f25d38ec01e3",
+              "name": "Saved question results retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "result_data",
+                    "saved_question",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Numeric identifier of the saved question"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"max_available_age\": \"string\",\n    \"now\": \"1983-11-30T04:05:27.102Z\",\n    \"result_sets\": [\n      {\n        \"age\": 9435,\n        \"archived_question_id\": 3649,\n        \"columns\": [\n          {\n            \"hash\": 6310,\n            \"name\": \"string\",\n            \"type\": 6547\n          },\n          {\n            \"hash\": 4635,\n            \"name\": \"string\",\n            \"type\": 1112\n          }\n        ],\n        \"estimated_total\": 802,\n        \"id\": 3551,\n        \"mr_tested\": 3412,\n        \"no_results_count\": 8256,\n        \"passed\": 7405,\n        \"row_count\": 4074,\n        \"rows\": [\n          {\n            \"cid\": 8834,\n            \"data\": [\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ],\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ]\n            ],\n            \"id\": 1051\n          },\n          {\n            \"cid\": 5750,\n            \"data\": [\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ],\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ]\n            ],\n            \"id\": 1485\n          }\n        ],\n        \"tested\": 1820\n      },\n      {\n        \"age\": 7707,\n        \"archived_question_id\": 781,\n        \"columns\": [\n          {\n            \"hash\": 2121,\n            \"name\": \"string\",\n            \"type\": 7995\n          },\n          {\n            \"hash\": 4313,\n            \"name\": \"string\",\n            \"type\": 9120\n          }\n        ],\n        \"estimated_total\": 9668,\n        \"id\": 8941,\n        \"mr_tested\": 3694,\n        \"no_results_count\": 1887,\n        \"passed\": 4997,\n        \"row_count\": 4557,\n        \"rows\": [\n          {\n            \"cid\": 284,\n            \"data\": [\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ],\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ]\n            ],\n            \"id\": 9537\n          },\n          {\n            \"cid\": 1871,\n            \"data\": [\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ],\n              [\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                },\n                {\n                  \"text\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              ]\n            ],\n            \"id\": 4256\n          }\n        ],\n        \"tested\": 3363\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8032c098-4fe0-4324-9b1d-a11a2b80fd61",
+              "name": "Saved question not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "result_data",
+                    "saved_question",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Numeric identifier of the saved question"
+                    },
+                    {
+                      "description": "Hostname or IP address of the Tanium server",
+                      "type": "any",
+                      "value": "{{tanium_server}}",
+                      "key": "tanium_server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "session",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname or IP address of the Tanium server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "tanium.example.com",
+      "key": "tanium_server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tanium_server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "session"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5b79983d-ae66-4b07-a6ed-db8b8ccd369b",
+    "name": "Tanium Connect Actions Saved Questions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.\n\nContact Support:\n Name: Tanium Support",
+      "type": "text/plain"
+    }
+  }
+}

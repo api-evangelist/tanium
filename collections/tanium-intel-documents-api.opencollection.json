@@ -1,0 +1,115 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions Intel Documents API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Intel Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Intel Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/intels",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of intel documents to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of intel documents to skip for pagination"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by intel document name"
+              },
+              {
+                "name": "description",
+                "value": "",
+                "type": "query",
+                "description": "Filter by description text"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by intel document type"
+              },
+              {
+                "name": "label_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by associated label identifier"
+              },
+              {
+                "name": "mitre_technique_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by MITRE ATT&CK technique ID"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of threat intelligence documents configured in Tanium Threat Response."
+        },
+        {
+          "info": {
+            "name": "Upload An Intel Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/intels",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a new threat intelligence document to Tanium Threat Response. Intel documents define indicators of compromise (IOCs) and threat signatures used for alerting and scanning."
+        },
+        {
+          "info": {
+            "name": "Get An Intel Document By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/intels/:intelDocId",
+            "params": [
+              {
+                "name": "intelDocId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the intel document"
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific threat intelligence document including alert counts and label associations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,141 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions Alerts API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Alerts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Threat Alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/alerts",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of alerts to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of alerts to skip for pagination"
+              },
+              {
+                "name": "computer_ip_address",
+                "value": "",
+                "type": "query",
+                "description": "Filter by computer IP address"
+              },
+              {
+                "name": "computer_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by computer hostname"
+              },
+              {
+                "name": "scan_config_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by scan configuration identifier"
+              },
+              {
+                "name": "intel_doc_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by intel document identifier"
+              },
+              {
+                "name": "severity",
+                "value": "",
+                "type": "query",
+                "description": "Filter by alert severity"
+              },
+              {
+                "name": "priority",
+                "value": "",
+                "type": "query",
+                "description": "Filter by alert priority"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by alert type"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by alert state"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of threat alerts. Alerts can be filtered by computer name, IP address, severity, priority, type, state, and associated intel document or scan configuration."
+        },
+        {
+          "info": {
+            "name": "Get An Alert By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/alerts/:alertId",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the alert"
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific alert including associated computer information, intel document references, and current state."
+        },
+        {
+          "info": {
+            "name": "Update Alert State",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/alerts/:alertId",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "",
+                "type": "path",
+                "description": "Alert ID or comma-separated list of alert IDs"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the state of one or more alerts. Multiple alert IDs can be provided as a comma-separated list in the path. Valid states are unresolved, inprogress, resolved, dismissed, and ignored."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

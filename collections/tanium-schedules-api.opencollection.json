@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions Schedules API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Schedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/schedules"
+          },
+          "docs": "Retrieves a list of all connection schedules with their current status and next run time. Schedules define how frequently connections execute and deliver data."
+        },
+        {
+          "info": {
+            "name": "Get A Schedule By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/connect/v1/schedules/:scheduleId",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the schedule"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific schedule including its interval, last run status, and next run time."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

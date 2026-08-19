@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions Processes API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Processes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Events For A Specific Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns/:connectionId/processevents/:processTableId/:eventType",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              },
+              {
+                "name": "processTableId",
+                "value": "",
+                "type": "path",
+                "description": "Process table identifier"
+              },
+              {
+                "name": "eventType",
+                "value": "",
+                "type": "path",
+                "description": "Type of events to retrieve for the process"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of events to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of events to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves events associated with a specific process on a connected endpoint, identified by its process table ID and event type."
+        },
+        {
+          "info": {
+            "name": "Get A Process Tree",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/conns/:connectionId/processtrees/:processTableId",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the connection"
+              },
+              {
+                "name": "processTableId",
+                "value": "",
+                "type": "path",
+                "description": "Process table identifier"
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Context level for the process tree"
+              }
+            ]
+          },
+          "docs": "Retrieves the process tree for a specific process, showing parent, child, and sibling processes. Useful for understanding process lineage during investigations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

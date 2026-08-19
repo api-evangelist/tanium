@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions File Downloads API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "File Downloads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List File Downloads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/filedownload",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of file downloads to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of file downloads to skip for pagination"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results"
+              },
+              {
+                "name": "hostname",
+                "value": "",
+                "type": "query",
+                "description": "Filter by source endpoint hostname"
+              },
+              {
+                "name": "hash",
+                "value": "",
+                "type": "query",
+                "description": "Filter by file hash"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of files that have been downloaded from endpoints during investigations."
+        },
+        {
+          "info": {
+            "name": "Get File Download Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/filedownload/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the downloaded file"
+              }
+            ]
+          },
+          "docs": "Retrieves metadata for a specific downloaded file, including hash values, size, and origin information."
+        },
+        {
+          "info": {
+            "name": "Delete A Downloaded File",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/filedownload/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the file to delete"
+              }
+            ]
+          },
+          "docs": "Deletes a previously downloaded file from the Tanium server, freeing storage space."
+        },
+        {
+          "info": {
+            "name": "Download File Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/filedownload/data/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the file to download"
+              }
+            ]
+          },
+          "docs": "Downloads the actual file content of a previously captured file. The file is returned as a binary download, password-protected with the default password \"infected\"."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

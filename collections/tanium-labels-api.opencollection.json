@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tanium Connect Actions Labels API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "session",
+      "value": "{{session}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Labels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Labels For An Intel Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/intels/:intelDocId/labels",
+            "params": [
+              {
+                "name": "intelDocId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the intel document"
+              }
+            ]
+          },
+          "docs": "Retrieves the labels associated with a specific intel document. Labels categorize and organize intel documents for easier management."
+        },
+        {
+          "info": {
+            "name": "Add A Label To An Intel Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/intels/:intelDocId/labels",
+            "params": [
+              {
+                "name": "intelDocId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the intel document"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Associates a label with an intel document for classification and organization purposes."
+        },
+        {
+          "info": {
+            "name": "List All Labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/labels",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of labels to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of labels to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of all labels available in Threat Response for categorizing intel documents and signals."
+        },
+        {
+          "info": {
+            "name": "Get A Label By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tanium_server}/plugin/products/threat-response/api/v1/labels/:labelId",
+            "params": [
+              {
+                "name": "labelId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the label"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific label including associated indicator and signal counts."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
