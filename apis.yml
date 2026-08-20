@@ -42,6 +42,11 @@ apis:
   humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
   tags:
   - API Gateway
+  - GraphQL
+  - Integration
+  - Query
+  tags_raw:
+  - API Gateway
   - Endpoints
   - GraphQL
   - Integration
@@ -172,6 +177,8 @@ apis:
   description: Retrieve Recorder events from endpoints
   humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -260,6 +267,8 @@ apis:
   description: Manage computer and action groups
   humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
