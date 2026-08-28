@@ -12,8 +12,11 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: platformApi
-  url: ../openapi/tanium-platform-rest-api-openapi.yml
+- name: questionsApi
+  url: ../openapi/tanium-questions-api-openapi.yml
+  type: openapi
+- name: sensorsApi
+  url: ../openapi/tanium-sensors-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: sensor-question-results

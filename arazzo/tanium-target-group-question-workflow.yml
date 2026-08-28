@@ -11,8 +11,11 @@ info:
     be read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: platformApi
-  url: ../openapi/tanium-platform-rest-api-openapi.yml
+- name: groupsApi
+  url: ../openapi/tanium-groups-api-openapi.yml
+  type: openapi
+- name: questionsApi
+  url: ../openapi/tanium-questions-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: target-group-question

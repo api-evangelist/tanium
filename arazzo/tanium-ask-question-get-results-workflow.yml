@@ -12,8 +12,8 @@ info:
     without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: platformApi
-  url: ../openapi/tanium-platform-rest-api-openapi.yml
+- name: questionsApi
+  url: ../openapi/tanium-questions-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: ask-question-get-results

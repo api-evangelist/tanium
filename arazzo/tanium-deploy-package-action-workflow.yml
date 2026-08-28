@@ -12,8 +12,14 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: platformApi
-  url: ../openapi/tanium-platform-rest-api-openapi.yml
+- name: actionsApi
+  url: ../openapi/tanium-actions-api-openapi.yml
+  type: openapi
+- name: groupsApi
+  url: ../openapi/tanium-groups-api-openapi.yml
+  type: openapi
+- name: packagesApi
+  url: ../openapi/tanium-packages-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: deploy-package-action
