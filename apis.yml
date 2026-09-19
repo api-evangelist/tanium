@@ -168,6 +168,8 @@ apis:
   description: Manage connection destinations
   humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
   tags:
+  - Destination
+  tags_raw:
   - Destinations
   properties:
   - type: OpenAPI
@@ -436,6 +438,8 @@ apis:
   description: Manage connection schedules
   humanURL: https://docs.tanium.com/api_gateway/api_gateway/overview.html
   tags:
+  - Schedule
+  tags_raw:
   - Schedules
   properties:
   - type: OpenAPI
