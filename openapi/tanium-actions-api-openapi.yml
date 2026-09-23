@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Tanium Connect Actions API
-  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
-  version: 1.0.0
+  title: Tanium Platform REST Actions API
+  description: The Tanium Platform REST API provides access to core platform functionality including gathering endpoint information, deploying actions, evaluating deployment health, managing packages, sensors, saved questions, and downloading audit logs. Authentication is performed via API tokens passed in the session header.
+  version: 2.0.0
   contact:
     name: Tanium Support
     url: https://community.tanium.com/s/
@@ -19,6 +19,7 @@ servers:
       description: Hostname or IP address of the Tanium server
 security:
 - apiToken: []
+- sessionToken: []
 tags:
 - name: Actions
   description: Deploy and manage actions on endpoints
@@ -137,6 +138,41 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    GroupFilter:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Group identifier
+        name:
+          type: string
+          description: Group name
+        and_flag:
+          type: boolean
+          description: Whether filters are combined with AND logic
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              sensor:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  hash:
+                    type: integer
+              operator:
+                type: string
+              value:
+                type: string
+          description: Filter criteria
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
     ActionGroup:
       type: object
       properties:
@@ -149,12 +185,6 @@ components:
         and_flag:
           type: boolean
           description: Whether filters are combined with AND logic
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
     SavedAction:
       type: object
       properties:
@@ -190,38 +220,14 @@ components:
         approved_flag:
           type: integer
           description: Whether the action has been approved
-    GroupFilter:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Group identifier
-        name:
-          type: string
-          description: Group name
-        and_flag:
-          type: boolean
-          description: Whether filters are combined with AND logic
-        filters:
-          type: array
-          items:
-            type: object
-            properties:
-              sensor:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  hash:
-                    type: integer
-              operator:
-                type: string
-              value:
-                type: string
-          description: Filter criteria
   securitySchemes:
     apiToken:
       type: apiKey
       name: session
       in: header
-      description: API token passed in the session header for authenticating with the Tanium Connect API.
+      description: API token passed in the session header. Tokens are created via the Tanium console under Administration > Permissions > API Tokens, or via the /api/v2/api_tokens endpoint.
+    sessionToken:
+      type: apiKey
+      name: session
+      in: header
+      description: Session token obtained by authenticating with the /api/v2/session/login endpoint using username and password credentials.

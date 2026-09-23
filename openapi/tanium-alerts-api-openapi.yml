@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Tanium Connect Actions Alerts API
-  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
+  title: Tanium Threat Response Alerts API
+  description: The Tanium Threat Response REST API enables starting investigations, viewing Recorder events, gathering evidence, and performing file and directory operations on endpoints for threat detection and incident response. All endpoints are under the /plugin/products/threat-response/api/v1/ base path.
   version: 1.0.0
   contact:
     name: Tanium Support
@@ -250,4 +250,4 @@ components:
       type: apiKey
       name: session
       in: header
-      description: API token passed in the session header for authenticating with the Tanium Connect API.
+      description: API token passed in the session header for authenticating with the Tanium Threat Response API.

@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Tanium Connect Actions Authentication API
-  description: The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems. Connections link data sources (saved questions, event data, system status) to destinations (files, syslog, HTTP/webhooks, email, SQL databases) and can run on a schedule or be triggered by events. All endpoints are under the /plugin/products/connect/v1/ base path.
-  version: 1.0.0
+  title: Tanium Platform REST Authentication API
+  description: The Tanium Platform REST API provides access to core platform functionality including gathering endpoint information, deploying actions, evaluating deployment health, managing packages, sensors, saved questions, and downloading audit logs. Authentication is performed via API tokens passed in the session header.
+  version: 2.0.0
   contact:
     name: Tanium Support
     url: https://community.tanium.com/s/
@@ -19,6 +19,7 @@ servers:
       description: Hostname or IP address of the Tanium server
 security:
 - apiToken: []
+- sessionToken: []
 tags:
 - name: Authentication
   description: Session and token management
@@ -126,6 +127,12 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
     ApiToken:
       type: object
       properties:
@@ -151,15 +158,14 @@ components:
           type: string
           format: date-time
           description: Token creation timestamp
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
   securitySchemes:
     apiToken:
       type: apiKey
       name: session
       in: header
-      description: API token passed in the session header for authenticating with the Tanium Connect API.
+      description: API token passed in the session header. Tokens are created via the Tanium console under Administration > Permissions > API Tokens, or via the /api/v2/api_tokens endpoint.
+    sessionToken:
+      type: apiKey
+      name: session
+      in: header
+      description: Session token obtained by authenticating with the /api/v2/session/login endpoint using username and password credentials.
