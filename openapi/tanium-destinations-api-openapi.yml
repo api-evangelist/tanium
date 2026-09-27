@@ -177,20 +177,56 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
+    DestinationCreate:
       type: object
+      required:
+      - name
+      - type
+      - configuration
       properties:
-        text:
+        name:
           type: string
-          description: Error message text
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
+          description: Destination name
+        type:
+          type: string
+          description: Destination type
+          enum:
+          - file
+          - syslog
+          - http
+          - email
+          - s3
+          - sql
+        configuration:
+          type: object
+          description: Type-specific destination configuration
+          properties:
+            host:
+              type: string
+            port:
+              type: integer
+            protocol:
+              type: string
+            url:
+              type: string
+            method:
+              type: string
+              enum:
+              - POST
+              - PUT
+              - PATCH
+            path:
+              type: string
+            bucket:
+              type: string
+            region:
+              type: string
+            useTls:
+              type: boolean
+            headers:
+              type: object
+              additionalProperties:
                 type: string
-          description: List of error details
     Destination:
       type: object
       properties:
@@ -258,56 +294,20 @@ components:
           type: string
           format: date-time
           description: Destination last update timestamp
-    DestinationCreate:
+    Error:
       type: object
-      required:
-      - name
-      - type
-      - configuration
       properties:
-        name:
+        text:
           type: string
-          description: Destination name
-        type:
-          type: string
-          description: Destination type
-          enum:
-          - file
-          - syslog
-          - http
-          - email
-          - s3
-          - sql
-        configuration:
-          type: object
-          description: Type-specific destination configuration
-          properties:
-            host:
-              type: string
-            port:
-              type: integer
-            protocol:
-              type: string
-            url:
-              type: string
-            method:
-              type: string
-              enum:
-              - POST
-              - PUT
-              - PATCH
-            path:
-              type: string
-            bucket:
-              type: string
-            region:
-              type: string
-            useTls:
-              type: boolean
-            headers:
-              type: object
-              additionalProperties:
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
                 type: string
+          description: List of error details
   securitySchemes:
     apiToken:
       type: apiKey

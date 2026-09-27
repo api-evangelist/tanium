@@ -151,20 +151,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-          description: List of error details
     Event:
       type: object
       properties:
@@ -238,6 +224,20 @@ components:
         signed:
           type: boolean
           description: Whether the file is digitally signed
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
   securitySchemes:
     apiToken:
       type: apiKey

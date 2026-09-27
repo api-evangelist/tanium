@@ -320,7 +320,7 @@ paths:
           description: Hostname or IP address of the Tanium server
   /plugin/products/threat-response/api/v1/conns:
     get:
-      operationId: listConnections
+      operationId: getPluginProductsThreatResponseApiV1Conns
       summary: List Endpoint Connections
       description: Retrieves a paginated list of live connections to endpoints. Connections can be filtered by status, IP address, platform, and hostname.
       tags:
@@ -374,6 +374,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-operation-id-source: normalized
+      x-operation-id-original: listConnections
     servers:
     - url: https://{tanium_server}
       description: Tanium Server
@@ -383,7 +385,7 @@ paths:
           description: Hostname or IP address of the Tanium server
   /plugin/products/threat-response/api/v1/conns/connect:
     post:
-      operationId: createConnection
+      operationId: postPluginProductsThreatResponseApiV1ConnsConnect
       summary: Create A Live Connection To An Endpoint
       description: Initiates a live connection to a specified endpoint for investigation purposes. Requires the client ID, IP, platform, and hostname of the target endpoint.
       tags:
@@ -428,6 +430,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-operation-id-source: normalized
+      x-operation-id-original: createConnection
     servers:
     - url: https://{tanium_server}
       description: Tanium Server
@@ -437,7 +441,7 @@ paths:
           description: Hostname or IP address of the Tanium server
   /plugin/products/threat-response/api/v1/conns/{connectionId}:
     get:
-      operationId: getConnection
+      operationId: getPluginProductsThreatResponseApiV1ConnsByConnectionId
       summary: Get A Connection By ID
       description: Retrieves the details and current status of a specific endpoint connection.
       tags:
@@ -465,6 +469,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-operation-id-source: normalized
+      x-operation-id-original: getConnection
     servers:
     - url: https://{tanium_server}
       description: Tanium Server
@@ -504,7 +510,7 @@ paths:
           description: Hostname or IP address of the Tanium server
   /plugin/products/threat-response/api/v1/conns/delete/{connectionId}:
     delete:
-      operationId: deleteConnection
+      operationId: deletePluginProductsThreatResponseApiV1ConnsDeleteByConnectionId
       summary: Delete A Connection Record
       description: Permanently deletes a connection record from the Threat Response database.
       tags:
@@ -525,6 +531,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-operation-id-source: normalized
+      x-operation-id-original: deleteConnection
     servers:
     - url: https://{tanium_server}
       description: Tanium Server
@@ -534,93 +542,6 @@ paths:
           description: Hostname or IP address of the Tanium server
 components:
   schemas:
-    ConnectionUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Updated connection name
-        description:
-          type: string
-          description: Updated connection description
-        enabled:
-          type: boolean
-          description: Updated enabled state
-        source:
-          type: object
-          properties:
-            id:
-              type: integer
-            type:
-              type: string
-          description: Updated data source reference
-        destination:
-          type: object
-          properties:
-            id:
-              type: integer
-          description: Updated destination reference
-        schedule:
-          type: object
-          properties:
-            intervalSeconds:
-              type: integer
-            startTime:
-              type: string
-              format: date-time
-          description: Updated schedule configuration
-        format:
-          type: object
-          properties:
-            type:
-              type: string
-              enum:
-              - csv
-              - json
-              - cef
-              - leef
-              - keyvalue
-            options:
-              type: object
-              properties:
-                delimiter:
-                  type: string
-                headerRow:
-                  type: boolean
-                timestampFormat:
-                  type: string
-          description: Updated output format configuration
-        filter:
-          type: object
-          properties:
-            enabled:
-              type: boolean
-            rules:
-              type: array
-              items:
-                type: object
-                properties:
-                  column:
-                    type: string
-                  operator:
-                    type: string
-                  value:
-                    type: string
-          description: Updated data filter configuration
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-          description: List of error details
     ConnectionCreate:
       type: object
       required:
@@ -708,6 +629,79 @@ components:
                   value:
                     type: string
           description: Data filter configuration
+    ConnectionUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Updated connection name
+        description:
+          type: string
+          description: Updated connection description
+        enabled:
+          type: boolean
+          description: Updated enabled state
+        source:
+          type: object
+          properties:
+            id:
+              type: integer
+            type:
+              type: string
+          description: Updated data source reference
+        destination:
+          type: object
+          properties:
+            id:
+              type: integer
+          description: Updated destination reference
+        schedule:
+          type: object
+          properties:
+            intervalSeconds:
+              type: integer
+            startTime:
+              type: string
+              format: date-time
+          description: Updated schedule configuration
+        format:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - csv
+              - json
+              - cef
+              - leef
+              - keyvalue
+            options:
+              type: object
+              properties:
+                delimiter:
+                  type: string
+                headerRow:
+                  type: boolean
+                timestampFormat:
+                  type: string
+          description: Updated output format configuration
+        filter:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            rules:
+              type: array
+              items:
+                type: object
+                properties:
+                  column:
+                    type: string
+                  operator:
+                    type: string
+                  value:
+                    type: string
+          description: Updated data filter configuration
     Connection:
       type: object
       properties:
@@ -792,36 +786,44 @@ components:
           type: string
           format: date-time
           description: Connection last update timestamp
-    Schedule:
+    Source:
       type: object
       properties:
         id:
           type: integer
-          description: Unique schedule identifier
-        connectionId:
+          description: Unique source identifier
+        name:
+          type: string
+          description: Source name
+        type:
+          type: string
+          description: Source type
+          enum:
+          - saved_question
+          - question_log
+          - system_status
+          - event
+          - discover
+          - integrity_monitor
+          - threat_response
+        description:
+          type: string
+          description: Source description
+        savedQuestionId:
           type: integer
-          description: Associated connection identifier
-        intervalSeconds:
-          type: integer
-          description: Interval between runs in seconds
-        startTime:
-          type: string
-          format: date-time
-          description: Schedule start time
-        lastRunTime:
-          type: string
-          format: date-time
-          description: Timestamp of the last run
-        nextRunTime:
-          type: string
-          format: date-time
-          description: Timestamp of the next scheduled run
-        lastRunStatus:
-          type: string
-          description: Status of the last run
-        enabled:
-          type: boolean
-          description: Whether the schedule is active
+          description: Associated saved question ID (for saved_question type)
+        columns:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Column name
+              type:
+                type: string
+                description: Column data type
+          description: Available output columns
     Destination:
       type: object
       properties:
@@ -889,44 +891,50 @@ components:
           type: string
           format: date-time
           description: Destination last update timestamp
-    Source:
+    Schedule:
       type: object
       properties:
         id:
           type: integer
-          description: Unique source identifier
-        name:
-          type: string
-          description: Source name
-        type:
-          type: string
-          description: Source type
-          enum:
-          - saved_question
-          - question_log
-          - system_status
-          - event
-          - discover
-          - integrity_monitor
-          - threat_response
-        description:
-          type: string
-          description: Source description
-        savedQuestionId:
+          description: Unique schedule identifier
+        connectionId:
           type: integer
-          description: Associated saved question ID (for saved_question type)
-        columns:
+          description: Associated connection identifier
+        intervalSeconds:
+          type: integer
+          description: Interval between runs in seconds
+        startTime:
+          type: string
+          format: date-time
+          description: Schedule start time
+        lastRunTime:
+          type: string
+          format: date-time
+          description: Timestamp of the last run
+        nextRunTime:
+          type: string
+          format: date-time
+          description: Timestamp of the next scheduled run
+        lastRunStatus:
+          type: string
+          description: Status of the last run
+        enabled:
+          type: boolean
+          description: Whether the schedule is active
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
           type: array
           items:
             type: object
             properties:
-              name:
+              message:
                 type: string
-                description: Column name
-              type:
-                type: string
-                description: Column data type
-          description: Available output columns
+          description: List of error details
     Connection_2:
       type: object
       properties:

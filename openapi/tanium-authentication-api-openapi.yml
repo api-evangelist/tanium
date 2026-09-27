@@ -127,12 +127,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
     ApiToken:
       type: object
       properties:
@@ -158,6 +152,12 @@ components:
           type: string
           format: date-time
           description: Token creation timestamp
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
   securitySchemes:
     apiToken:
       type: apiKey
