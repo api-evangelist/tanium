@@ -138,18 +138,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    ActionGroup:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique identifier for the action group
-        name:
-          type: string
-          description: Name of the action group
-        and_flag:
-          type: boolean
-          description: Whether filters are combined with AND logic
     GroupFilter:
       type: object
       properties:
@@ -179,6 +167,12 @@ components:
               value:
                 type: string
           description: Filter criteria
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
     SavedAction:
       type: object
       properties:
@@ -214,12 +208,18 @@ components:
         approved_flag:
           type: integer
           description: Whether the action has been approved
-    Error:
+    ActionGroup:
       type: object
       properties:
-        text:
+        id:
+          type: integer
+          description: Unique identifier for the action group
+        name:
           type: string
-          description: Error message text
+          description: Name of the action group
+        and_flag:
+          type: boolean
+          description: Whether filters are combined with AND logic
   securitySchemes:
     apiToken:
       type: apiKey

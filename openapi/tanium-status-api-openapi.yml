@@ -147,6 +147,20 @@ paths:
           description: Hostname or IP address of the Tanium server
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
     ConnectionLog:
       type: object
       properties:
@@ -183,20 +197,6 @@ components:
         duration:
           type: integer
           description: Execution duration in milliseconds
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-          description: List of error details
   securitySchemes:
     apiToken:
       type: apiKey

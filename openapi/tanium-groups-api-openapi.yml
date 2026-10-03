@@ -110,6 +110,12 @@ components:
               value:
                 type: string
           description: Filter criteria
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
     Group:
       type: object
       properties:
@@ -149,12 +155,6 @@ components:
                 type: string
                 description: Filter value
           description: Membership filter criteria
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
   securitySchemes:
     apiToken:
       type: apiKey

@@ -111,35 +111,30 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    GroupFilter:
+    SavedQuestion:
       type: object
       properties:
         id:
           type: integer
-          description: Group identifier
+          description: Unique identifier for the saved question
         name:
           type: string
-          description: Group name
-        and_flag:
-          type: boolean
-          description: Whether filters are combined with AND logic
-        filters:
-          type: array
-          items:
-            type: object
-            properties:
-              sensor:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  hash:
-                    type: integer
-              operator:
-                type: string
-              value:
-                type: string
-          description: Filter criteria
+          description: Name of the saved question
+        query_text:
+          type: string
+          description: The question text
+        question:
+          $ref: '#/components/schemas/Question'
+        issue_seconds:
+          type: integer
+          description: Interval in seconds between question reissues
+        expire_seconds:
+          type: integer
+          description: Seconds until the question expires
+        mod_time:
+          type: string
+          format: date-time
+          description: Last modification timestamp
     Question:
       type: object
       properties:
@@ -178,30 +173,41 @@ components:
             id:
               type: integer
           description: Associated saved question reference
-    SavedQuestion:
+    GroupFilter:
       type: object
       properties:
         id:
           type: integer
-          description: Unique identifier for the saved question
+          description: Group identifier
         name:
           type: string
-          description: Name of the saved question
-        query_text:
+          description: Group name
+        and_flag:
+          type: boolean
+          description: Whether filters are combined with AND logic
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              sensor:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  hash:
+                    type: integer
+              operator:
+                type: string
+              value:
+                type: string
+          description: Filter criteria
+    Error:
+      type: object
+      properties:
+        text:
           type: string
-          description: The question text
-        question:
-          $ref: '#/components/schemas/Question'
-        issue_seconds:
-          type: integer
-          description: Interval in seconds between question reissues
-        expire_seconds:
-          type: integer
-          description: Seconds until the question expires
-        mod_time:
-          type: string
-          format: date-time
-          description: Last modification timestamp
+          description: Error message text
     ResultSet:
       type: object
       properties:
@@ -266,12 +272,6 @@ components:
                       type: integer
               tested:
                 type: integer
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
   securitySchemes:
     apiToken:
       type: apiKey

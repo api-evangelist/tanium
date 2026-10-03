@@ -183,43 +183,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    ParsedQuestion:
-      type: object
-      properties:
-        question:
-          $ref: '#/components/schemas/Question'
-        question_text:
-          type: string
-          description: Original question text that was parsed
-    GroupFilter:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Group identifier
-        name:
-          type: string
-          description: Group name
-        and_flag:
-          type: boolean
-          description: Whether filters are combined with AND logic
-        filters:
-          type: array
-          items:
-            type: object
-            properties:
-              sensor:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  hash:
-                    type: integer
-              operator:
-                type: string
-              value:
-                type: string
-          description: Filter criteria
     Question:
       type: object
       properties:
@@ -258,6 +221,49 @@ components:
             id:
               type: integer
           description: Associated saved question reference
+    GroupFilter:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Group identifier
+        name:
+          type: string
+          description: Group name
+        and_flag:
+          type: boolean
+          description: Whether filters are combined with AND logic
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              sensor:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  hash:
+                    type: integer
+              operator:
+                type: string
+              value:
+                type: string
+          description: Filter criteria
+    ParsedQuestion:
+      type: object
+      properties:
+        question:
+          $ref: '#/components/schemas/Question'
+        question_text:
+          type: string
+          description: Original question text that was parsed
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
     ResultSet:
       type: object
       properties:
@@ -322,12 +328,6 @@ components:
                       type: integer
               tested:
                 type: integer
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
   securitySchemes:
     apiToken:
       type: apiKey

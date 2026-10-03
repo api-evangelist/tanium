@@ -143,6 +143,39 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
+    SnapshotTask:
+      type: object
+      properties:
+        taskId:
+          type: string
+          description: Task identifier for the snapshot operation
+        status:
+          type: string
+          description: Current task status
+        startTime:
+          type: string
+          format: date-time
+          description: Task start timestamp
+        connection:
+          type: object
+          properties:
+            id:
+              type: string
+          description: Associated connection reference
     Snapshot:
       type: object
       properties:
@@ -178,39 +211,6 @@ components:
           type: string
           format: date-time
           description: Snapshot completion timestamp
-    SnapshotTask:
-      type: object
-      properties:
-        taskId:
-          type: string
-          description: Task identifier for the snapshot operation
-        status:
-          type: string
-          description: Current task status
-        startTime:
-          type: string
-          format: date-time
-          description: Task start timestamp
-        connection:
-          type: object
-          properties:
-            id:
-              type: string
-          description: Associated connection reference
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-          description: List of error details
   securitySchemes:
     apiToken:
       type: apiKey

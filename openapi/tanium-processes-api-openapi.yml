@@ -135,6 +135,20 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
     ProcessInfo:
       type: object
       properties:
@@ -215,20 +229,6 @@ components:
         context:
           type: string
           description: Process context information
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-          description: List of error details
     ProcessEvent:
       type: object
       properties:

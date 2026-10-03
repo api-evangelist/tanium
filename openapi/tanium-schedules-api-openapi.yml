@@ -80,6 +80,20 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
     Schedule:
       type: object
       properties:
@@ -110,20 +124,6 @@ components:
         enabled:
           type: boolean
           description: Whether the schedule is active
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-          description: List of error details
   securitySchemes:
     apiToken:
       type: apiKey

@@ -196,6 +196,20 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
     Evidence:
       type: object
       properties:
@@ -250,20 +264,6 @@ components:
           type: string
           format: date-time
           description: Evidence record creation time
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-          description: List of error details
   securitySchemes:
     apiToken:
       type: apiKey
