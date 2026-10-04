@@ -542,44 +542,176 @@ paths:
           description: Hostname or IP address of the Tanium server
 components:
   schemas:
-    Source:
+    ConnectionUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Updated connection name
+        description:
+          type: string
+          description: Updated connection description
+        enabled:
+          type: boolean
+          description: Updated enabled state
+        source:
+          type: object
+          properties:
+            id:
+              type: integer
+            type:
+              type: string
+          description: Updated data source reference
+        destination:
+          type: object
+          properties:
+            id:
+              type: integer
+          description: Updated destination reference
+        schedule:
+          type: object
+          properties:
+            intervalSeconds:
+              type: integer
+            startTime:
+              type: string
+              format: date-time
+          description: Updated schedule configuration
+        format:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - csv
+              - json
+              - cef
+              - leef
+              - keyvalue
+            options:
+              type: object
+              properties:
+                delimiter:
+                  type: string
+                headerRow:
+                  type: boolean
+                timestampFormat:
+                  type: string
+          description: Updated output format configuration
+        filter:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            rules:
+              type: array
+              items:
+                type: object
+                properties:
+                  column:
+                    type: string
+                  operator:
+                    type: string
+                  value:
+                    type: string
+          description: Updated data filter configuration
+    Schedule:
       type: object
       properties:
         id:
           type: integer
-          description: Unique source identifier
+          description: Unique schedule identifier
+        connectionId:
+          type: integer
+          description: Associated connection identifier
+        intervalSeconds:
+          type: integer
+          description: Interval between runs in seconds
+        startTime:
+          type: string
+          format: date-time
+          description: Schedule start time
+        lastRunTime:
+          type: string
+          format: date-time
+          description: Timestamp of the last run
+        nextRunTime:
+          type: string
+          format: date-time
+          description: Timestamp of the next scheduled run
+        lastRunStatus:
+          type: string
+          description: Status of the last run
+        enabled:
+          type: boolean
+          description: Whether the schedule is active
+    Destination:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique destination identifier
         name:
           type: string
-          description: Source name
+          description: Destination name
         type:
           type: string
-          description: Source type
+          description: Destination type
           enum:
-          - saved_question
-          - question_log
-          - system_status
-          - event
-          - discover
-          - integrity_monitor
-          - threat_response
-        description:
+          - file
+          - syslog
+          - http
+          - email
+          - s3
+          - sql
+        configuration:
+          type: object
+          description: Type-specific destination configuration
+          properties:
+            host:
+              type: string
+              description: Destination hostname (syslog, http, sql)
+            port:
+              type: integer
+              description: Destination port (syslog, sql)
+            protocol:
+              type: string
+              description: Protocol (TCP, UDP for syslog; HTTP, HTTPS for http)
+            url:
+              type: string
+              description: Full URL for HTTP destinations
+            method:
+              type: string
+              description: HTTP method for webhook destinations
+              enum:
+              - POST
+              - PUT
+              - PATCH
+            path:
+              type: string
+              description: File path for file destinations
+            bucket:
+              type: string
+              description: S3 bucket name
+            region:
+              type: string
+              description: AWS region for S3 destinations
+            useTls:
+              type: boolean
+              description: Whether to use TLS encryption
+            headers:
+              type: object
+              additionalProperties:
+                type: string
+              description: Custom HTTP headers for webhook destinations
+        createdAt:
           type: string
-          description: Source description
-        savedQuestionId:
-          type: integer
-          description: Associated saved question ID (for saved_question type)
-        columns:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: Column name
-              type:
-                type: string
-                description: Column data type
-          description: Available output columns
+          format: date-time
+          description: Destination creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Destination last update timestamp
     ConnectionCreate:
       type: object
       required:
@@ -667,109 +799,44 @@ components:
                   value:
                     type: string
           description: Data filter configuration
-    Schedule:
+    Source:
       type: object
       properties:
         id:
           type: integer
-          description: Unique schedule identifier
-        connectionId:
-          type: integer
-          description: Associated connection identifier
-        intervalSeconds:
-          type: integer
-          description: Interval between runs in seconds
-        startTime:
-          type: string
-          format: date-time
-          description: Schedule start time
-        lastRunTime:
-          type: string
-          format: date-time
-          description: Timestamp of the last run
-        nextRunTime:
-          type: string
-          format: date-time
-          description: Timestamp of the next scheduled run
-        lastRunStatus:
-          type: string
-          description: Status of the last run
-        enabled:
-          type: boolean
-          description: Whether the schedule is active
-    ConnectionUpdate:
-      type: object
-      properties:
+          description: Unique source identifier
         name:
           type: string
-          description: Updated connection name
+          description: Source name
+        type:
+          type: string
+          description: Source type
+          enum:
+          - saved_question
+          - question_log
+          - system_status
+          - event
+          - discover
+          - integrity_monitor
+          - threat_response
         description:
           type: string
-          description: Updated connection description
-        enabled:
-          type: boolean
-          description: Updated enabled state
-        source:
-          type: object
-          properties:
-            id:
-              type: integer
-            type:
-              type: string
-          description: Updated data source reference
-        destination:
-          type: object
-          properties:
-            id:
-              type: integer
-          description: Updated destination reference
-        schedule:
-          type: object
-          properties:
-            intervalSeconds:
-              type: integer
-            startTime:
-              type: string
-              format: date-time
-          description: Updated schedule configuration
-        format:
-          type: object
-          properties:
-            type:
-              type: string
-              enum:
-              - csv
-              - json
-              - cef
-              - leef
-              - keyvalue
-            options:
-              type: object
-              properties:
-                delimiter:
-                  type: string
-                headerRow:
-                  type: boolean
-                timestampFormat:
-                  type: string
-          description: Updated output format configuration
-        filter:
-          type: object
-          properties:
-            enabled:
-              type: boolean
-            rules:
-              type: array
-              items:
-                type: object
-                properties:
-                  column:
-                    type: string
-                  operator:
-                    type: string
-                  value:
-                    type: string
-          description: Updated data filter configuration
+          description: Source description
+        savedQuestionId:
+          type: integer
+          description: Associated saved question ID (for saved_question type)
+        columns:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Column name
+              type:
+                type: string
+                description: Column data type
+          description: Available output columns
     Connection:
       type: object
       properties:
@@ -854,73 +921,6 @@ components:
           type: string
           format: date-time
           description: Connection last update timestamp
-    Destination:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique destination identifier
-        name:
-          type: string
-          description: Destination name
-        type:
-          type: string
-          description: Destination type
-          enum:
-          - file
-          - syslog
-          - http
-          - email
-          - s3
-          - sql
-        configuration:
-          type: object
-          description: Type-specific destination configuration
-          properties:
-            host:
-              type: string
-              description: Destination hostname (syslog, http, sql)
-            port:
-              type: integer
-              description: Destination port (syslog, sql)
-            protocol:
-              type: string
-              description: Protocol (TCP, UDP for syslog; HTTP, HTTPS for http)
-            url:
-              type: string
-              description: Full URL for HTTP destinations
-            method:
-              type: string
-              description: HTTP method for webhook destinations
-              enum:
-              - POST
-              - PUT
-              - PATCH
-            path:
-              type: string
-              description: File path for file destinations
-            bucket:
-              type: string
-              description: S3 bucket name
-            region:
-              type: string
-              description: AWS region for S3 destinations
-            useTls:
-              type: boolean
-              description: Whether to use TLS encryption
-            headers:
-              type: object
-              additionalProperties:
-                type: string
-              description: Custom HTTP headers for webhook destinations
-        createdAt:
-          type: string
-          format: date-time
-          description: Destination creation timestamp
-        updatedAt:
-          type: string
-          format: date-time
-          description: Destination last update timestamp
     Error:
       type: object
       properties:

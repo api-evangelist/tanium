@@ -135,6 +135,25 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    ProcessEvent:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Event identifier
+        type:
+          type: string
+          description: Event type
+        operation:
+          type: string
+          description: Operation performed
+        detail:
+          type: string
+          description: Event detail information
+        timestamp:
+          type: string
+          format: date-time
+          description: Event timestamp
     Error:
       type: object
       properties:
@@ -229,25 +248,6 @@ components:
         context:
           type: string
           description: Process context information
-    ProcessEvent:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Event identifier
-        type:
-          type: string
-          description: Event type
-        operation:
-          type: string
-          description: Operation performed
-        detail:
-          type: string
-          description: Event detail information
-        timestamp:
-          type: string
-          format: date-time
-          description: Event timestamp
   securitySchemes:
     apiToken:
       type: apiKey

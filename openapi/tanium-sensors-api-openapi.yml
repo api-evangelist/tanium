@@ -81,12 +81,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
     Sensor:
       type: object
       properties:
@@ -149,6 +143,12 @@ components:
           type: string
           format: date-time
           description: Creation timestamp
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
   securitySchemes:
     apiToken:
       type: apiKey

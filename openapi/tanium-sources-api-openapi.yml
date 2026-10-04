@@ -80,20 +80,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-          description: List of error details
     Source:
       type: object
       properties:
@@ -132,6 +118,20 @@ components:
                 type: string
                 description: Column data type
           description: Available output columns
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
   securitySchemes:
     apiToken:
       type: apiKey

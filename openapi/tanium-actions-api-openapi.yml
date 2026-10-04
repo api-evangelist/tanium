@@ -138,41 +138,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    GroupFilter:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Group identifier
-        name:
-          type: string
-          description: Group name
-        and_flag:
-          type: boolean
-          description: Whether filters are combined with AND logic
-        filters:
-          type: array
-          items:
-            type: object
-            properties:
-              sensor:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  hash:
-                    type: integer
-              operator:
-                type: string
-              value:
-                type: string
-          description: Filter criteria
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
     SavedAction:
       type: object
       properties:
@@ -220,6 +185,41 @@ components:
         and_flag:
           type: boolean
           description: Whether filters are combined with AND logic
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
+    GroupFilter:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Group identifier
+        name:
+          type: string
+          description: Group name
+        and_flag:
+          type: boolean
+          description: Whether filters are combined with AND logic
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              sensor:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  hash:
+                    type: integer
+              operator:
+                type: string
+              value:
+                type: string
+          description: Filter criteria
   securitySchemes:
     apiToken:
       type: apiKey

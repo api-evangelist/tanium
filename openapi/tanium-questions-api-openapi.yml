@@ -183,6 +183,84 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    ParsedQuestion:
+      type: object
+      properties:
+        question:
+          $ref: '#/components/schemas/Question'
+        question_text:
+          type: string
+          description: Original question text that was parsed
+    ResultSet:
+      type: object
+      properties:
+        max_available_age:
+          type: string
+          description: Maximum age of available results
+        now:
+          type: string
+          format: date-time
+          description: Current server timestamp
+        result_sets:
+          type: array
+          items:
+            type: object
+            properties:
+              age:
+                type: integer
+                description: Age of the result in seconds
+              archived_question_id:
+                type: integer
+              columns:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    hash:
+                      type: integer
+                    name:
+                      type: string
+                    type:
+                      type: integer
+              estimated_total:
+                type: integer
+                description: Estimated total rows
+              id:
+                type: integer
+              mr_tested:
+                type: integer
+              no_results_count:
+                type: integer
+              passed:
+                type: integer
+              row_count:
+                type: integer
+              rows:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    cid:
+                      type: integer
+                    data:
+                      type: array
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            text:
+                              type: string
+                    id:
+                      type: integer
+              tested:
+                type: integer
+    Error:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Error message text
     Question:
       type: object
       properties:
@@ -250,84 +328,6 @@ components:
               value:
                 type: string
           description: Filter criteria
-    ParsedQuestion:
-      type: object
-      properties:
-        question:
-          $ref: '#/components/schemas/Question'
-        question_text:
-          type: string
-          description: Original question text that was parsed
-    Error:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Error message text
-    ResultSet:
-      type: object
-      properties:
-        max_available_age:
-          type: string
-          description: Maximum age of available results
-        now:
-          type: string
-          format: date-time
-          description: Current server timestamp
-        result_sets:
-          type: array
-          items:
-            type: object
-            properties:
-              age:
-                type: integer
-                description: Age of the result in seconds
-              archived_question_id:
-                type: integer
-              columns:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    hash:
-                      type: integer
-                    name:
-                      type: string
-                    type:
-                      type: integer
-              estimated_total:
-                type: integer
-                description: Estimated total rows
-              id:
-                type: integer
-              mr_tested:
-                type: integer
-              no_results_count:
-                type: integer
-              passed:
-                type: integer
-              row_count:
-                type: integer
-              rows:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    cid:
-                      type: integer
-                    data:
-                      type: array
-                      items:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            text:
-                              type: string
-                    id:
-                      type: integer
-              tested:
-                type: integer
   securitySchemes:
     apiToken:
       type: apiKey
