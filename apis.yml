@@ -41,6 +41,7 @@ tags:
 - Security
 - Threat Detection
 - Unified Endpoint Management
+- Endpoint Security
 created: '2025-02-06'
 modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/tanium/refs/heads/main/apis.yml
@@ -552,6 +553,9 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 common:
+- type: CapabilityMap
+  url: capabilities/tanium-capability-edges.yml
+  name: Tanium Business Capability Map
 - type: AgenticAccess
   url: agentic-access/tanium-agentic-access.yml
 - type: DomainSecurity
