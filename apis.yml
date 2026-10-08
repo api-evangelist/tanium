@@ -553,6 +553,12 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 common:
+- type: Plans
+  url: plans/tanium-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/tanium-rate-limits.yml
+- type: FinOps
+  url: finops/tanium-finops.yml
 - type: CapabilityMap
   url: capabilities/tanium-capability-edges.yml
   name: Tanium Business Capability Map
