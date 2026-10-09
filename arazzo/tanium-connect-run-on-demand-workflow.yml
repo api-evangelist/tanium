@@ -38,7 +38,7 @@ workflows:
     description: >-
       Retrieve the connection by id to confirm its configuration exists before
       triggering a run.
-    operationId: getConnection
+    operationId: getPluginProductsThreatResponseApiV1ConnsByConnectionId
     parameters:
     - name: session
       in: header

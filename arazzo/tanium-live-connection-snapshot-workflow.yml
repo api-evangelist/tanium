@@ -11,6 +11,17 @@ info:
     authentication, so the flow can be read and executed without opening the
     underlying OpenAPI description.
   version: 1.0.0
+  x-realizes-capability-ids:
+  - BC-620.30
+  x-capability-derivation:
+    method: 'deterministic join: sourceDescriptions -> per-tag OpenAPI -> tag/capability edge. No classification at this step.'
+    min_confidence: 0.7
+    sources:
+    - capability_id: BC-620.30
+      capability_name: Threat Detection & Response Management
+      spec: tanium-snapshots-api-openapi.yml
+      confidence: 0.75
+    model: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities, CC BY 4.0
 sourceDescriptions:
 - name: connectionsApi
   url: ../openapi/tanium-connections-api-openapi.yml
@@ -52,7 +63,7 @@ workflows:
   - stepId: openConnection
     description: >-
       Initiate a live connection to the target endpoint for investigation.
-    operationId: createConnection
+    operationId: postPluginProductsThreatResponseApiV1ConnsConnect
     parameters:
     - name: session
       in: header
@@ -72,7 +83,7 @@ workflows:
     description: >-
       Poll the connection by id until its status reports that the endpoint is
       connected and ready for snapshot capture.
-    operationId: getConnection
+    operationId: getPluginProductsThreatResponseApiV1ConnsByConnectionId
     parameters:
     - name: session
       in: header
