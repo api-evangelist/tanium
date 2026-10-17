@@ -143,25 +143,20 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    SnapshotTask:
+    Error:
       type: object
       properties:
-        taskId:
+        text:
           type: string
-          description: Task identifier for the snapshot operation
-        status:
-          type: string
-          description: Current task status
-        startTime:
-          type: string
-          format: date-time
-          description: Task start timestamp
-        connection:
-          type: object
-          properties:
-            id:
-              type: string
-          description: Associated connection reference
+          description: Error message text
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+          description: List of error details
     Snapshot:
       type: object
       properties:
@@ -197,20 +192,25 @@ components:
           type: string
           format: date-time
           description: Snapshot completion timestamp
-    Error:
+    SnapshotTask:
       type: object
       properties:
-        text:
+        taskId:
           type: string
-          description: Error message text
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-          description: List of error details
+          description: Task identifier for the snapshot operation
+        status:
+          type: string
+          description: Current task status
+        startTime:
+          type: string
+          format: date-time
+          description: Task start timestamp
+        connection:
+          type: object
+          properties:
+            id:
+              type: string
+          description: Associated connection reference
   securitySchemes:
     apiToken:
       type: apiKey
