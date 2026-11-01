@@ -1,4 +1,4 @@
-# Tanium (tanium)
+# Tanium
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,161 +66,232 @@
 
 Tanium is a unified endpoint management and security platform that provides real-time visibility and control across all endpoints. It offers a suite of APIs including a GraphQL-based API Gateway and platform REST APIs for integrating with endpoint management, security, compliance, and threat response capabilities.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/tanium/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/tanium/refs/heads/main/apis.yml)
+**Areas:** Compliance · Endpoint Management · Patch Management · Security · Threat Detection · Unified Endpoint Management · Endpoint Security
 
-## Scope
+## Tanium on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Tanium is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/tanium/](https://apis.io/providers/tanium/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (22)
 
-- Compliance
-- Endpoint Management
-- Patch Management
-- Security
-- Threat Detection
-- Unified Endpoint Management
+- [Tanium API Gateway](https://apis.io/apis/tanium/api-gateway/) — The Tanium API Gateway is a GraphQL interface for querying data and taking action in Tanium. It is the preferred method for integrating with Tanium,…
+- [Tanium Actions API](https://apis.io/apis/tanium/tanium-actions-api/) — Deploy and manage actions on endpoints
+- [Tanium Alerts API](https://apis.io/apis/tanium/tanium-alerts-api/) — Manage threat alerts
+- [Tanium Authentication API](https://apis.io/apis/tanium/tanium-authentication-api/) — Session and token management
+- [Tanium Connections API](https://apis.io/apis/tanium/tanium-connections-api/) — Manage data delivery connections
+- [Tanium Destinations API](https://apis.io/apis/tanium/tanium-destinations-api/) — Manage connection destinations
+- [Tanium Events API](https://apis.io/apis/tanium/tanium-events-api/) — Retrieve Recorder events from endpoints
+- [Tanium Evidence API](https://apis.io/apis/tanium/tanium-evidence-api/) — Collect and manage investigation evidence
+- [Tanium File Downloads API](https://apis.io/apis/tanium/tanium-file-downloads-api/) — Download and manage files from endpoints
+- [Tanium File Operations API](https://apis.io/apis/tanium/tanium-file-operations-api/) — Browse and manage files on connected endpoints
+- [Tanium Groups API](https://apis.io/apis/tanium/tanium-groups-api/) — Manage computer and action groups
+- [Tanium Intel Documents API](https://apis.io/apis/tanium/tanium-intel-documents-api/) — Manage threat intelligence documents
+- [Tanium Labels API](https://apis.io/apis/tanium/tanium-labels-api/) — Manage classification labels for intel documents
+- [Tanium Packages API](https://apis.io/apis/tanium/tanium-packages-api/) — Manage deployment packages
+- [Tanium Processes API](https://apis.io/apis/tanium/tanium-processes-api/) — Inspect endpoint processes and process trees
+- [Tanium Questions API](https://apis.io/apis/tanium/tanium-questions-api/) — Ask and retrieve questions from endpoints
+- [Tanium Saved Questions API](https://apis.io/apis/tanium/tanium-saved-questions-api/) — Manage saved questions
+- [Tanium Schedules API](https://apis.io/apis/tanium/tanium-schedules-api/) — Manage connection schedules
+- [Tanium Sensors API](https://apis.io/apis/tanium/tanium-sensors-api/) — Manage endpoint sensors
+- [Tanium Snapshots API](https://apis.io/apis/tanium/tanium-snapshots-api/) — Capture and manage endpoint memory snapshots
+- [Tanium Sources API](https://apis.io/apis/tanium/tanium-sources-api/) — Manage connection data sources
+- [Tanium Status API](https://apis.io/apis/tanium/tanium-status-api/) — Connect service status and logs
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-02-06
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Arazzo workflows (7)
 
-### Tanium API Gateway
+Multi-step workflows that chain operations into a business task.
 
-The Tanium API Gateway is a GraphQL interface for querying data and taking action in Tanium. It is the preferred method for integrating with Tanium, supporting asset queries, endpoint actions, and data retrieval across the platform.
+- [Tanium Ask A Question And Get Results](https://apis.io/arazzos/tanium/tanium-ask-question-get-results-workflow/)
+- [Tanium Connect Run A Connection On Demand](https://apis.io/arazzos/tanium/tanium-connect-run-on-demand-workflow/)
+- [Tanium Deploy A Package As An Action](https://apis.io/arazzos/tanium/tanium-deploy-package-action-workflow/)
+- [Tanium Threat Response Live Connection And Snapshot](https://apis.io/arazzos/tanium/tanium-live-connection-snapshot-workflow/)
+- [Tanium Run A Saved Question By Name](https://apis.io/arazzos/tanium/tanium-run-saved-question-workflow/)
+- [Tanium Ask A Sensor Question And Get Results](https://apis.io/arazzos/tanium/tanium-sensor-question-results-workflow/)
+- [Tanium Ask A Question Scoped To A Computer Group](https://apis.io/arazzos/tanium/tanium-target-group-question-workflow/)
 
-- **Human URL:** [https://docs.tanium.com/api_gateway/api_gateway/overview.html](https://docs.tanium.com/api_gateway/api_gateway/overview.html)
+#### GraphQL (1)
 
-#### Tags
+GraphQL schemas.
 
-- API Gateway
-- Endpoints
-- GraphQL
-- Integration
-- Queries
+- [Tanium GraphQL API](https://apis.io/graphqls/tanium/tanium-graphql/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation](https://docs.tanium.com/api_gateway/api_gateway/overview.html)
-- [Reference](https://docs.tanium.com/api_gateway/api_gateway/api_gateway_examples.html)
-- [Getting Started](https://docs.tanium.com/api_gateway/api_gateway/api_gateway.html)
-- [Graph Q L Schema](https://developer.tanium.com/site/global/apis/graphql/schema/)
-- [Postman Collection](collections/tanium-connect-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/tanium-connect-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/tanium-platform-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/tanium-platform-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/tanium-threat-response-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/tanium-threat-response-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Tanium Platform REST API
+- [Tanium Agentic Access](https://apis.io/agentic-access/tanium/tanium-agentic-access/)
 
-The Tanium Platform REST API provides access to core platform functionality including gathering endpoint information, deploying actions, evaluating deployment health, managing certificates, updating packages, and downloading audit logs.
+#### JSON Schema (7)
 
-- **Human URL:** [https://developer.tanium.com/apis/api_intro](https://developer.tanium.com/apis/api_intro)
+The data models the API reads and writes.
 
-#### Tags
+- [Tanium Action](https://apis.io/schemas/tanium/tanium-action/)
+- [Tanium Threat Alert](https://apis.io/schemas/tanium/tanium-alert/)
+- [Tanium Connect Connection](https://apis.io/schemas/tanium/tanium-connection/)
+- [Tanium Endpoint](https://apis.io/schemas/tanium/tanium-endpoint/)
+- [Tanium Package](https://apis.io/schemas/tanium/tanium-package/)
+- [Tanium Question](https://apis.io/schemas/tanium/tanium-question/)
+- [Tanium Sensor](https://apis.io/schemas/tanium/tanium-sensor/)
 
-- Actions
-- Endpoints
-- Platform
-- REST API
-- Security
+#### JSON Structure (2)
 
-#### Properties
+Data models expressed in JSON Structure.
 
-- [Documentation](https://developer.tanium.com/apis/api_intro)
-- [Integration Guide](https://developer.tanium.com/guides/core-platform/integration_methods)
-- [Authentication](https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html)
-- [OpenAPI](openapi/tanium-platform-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/tanium-platform-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/tanium-platform-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Tanium Action Structure](https://apis.io/json-structure/tanium/tanium-action-structure/)
+- [Tanium Endpoint Structure](https://apis.io/json-structure/tanium/tanium-endpoint-structure/)
 
-### Tanium Threat Response API
+#### JSON-LD (1)
 
-The Tanium Threat Response REST API enables starting investigations, viewing Recorder events, gathering evidence, and performing file and directory operations on endpoints for threat detection and incident response.
+Linked-data contexts for the provider's vocabulary.
 
-- **Human URL:** [https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp](https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp)
+- [Tanium Context](https://apis.io/jsonld/tanium/tanium-context/)
 
-#### Tags
+#### Vocabulary (1)
 
-- Incident Response
-- Investigations
-- Security
-- Threat Detection
-- Threat Response
+The provider's domain terms, defined.
 
-#### Properties
+- [Tanium Vocabulary](https://apis.io/vocabularies/tanium/tanium-vocabulary/)
 
-- [Documentation](https://developer.tanium.com/site/global/docs/how_tos/tr_actions/index.gsp)
-- [Getting Started](https://help.tanium.com/bundle/ug_threat_response_cloud/page/threat_response/gettingstarted.html)
-- [OpenAPI](openapi/tanium-threat-response-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/tanium-threat-response-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/tanium-threat-response-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Examples (3)
 
-### Tanium Connect API
+Example requests and responses.
 
-The Tanium Connect REST API allows creating, editing, and managing connections for delivering endpoint data to downstream systems via files, syslog, webhooks, and other destination types on a schedule or triggered by events.
+- [Tanium Ask Question Example](https://apis.io/examples/tanium/tanium-ask-question-example/)
+- [Tanium Create Connection Example](https://apis.io/examples/tanium/tanium-create-connection-example/)
+- [Tanium Deploy Action Example](https://apis.io/examples/tanium/tanium-deploy-action-example/)
 
-- **Human URL:** [https://docs.tanium.com/connect/connect/index.html](https://docs.tanium.com/connect/connect/index.html)
+#### Collections (27)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Connections
-- Data Delivery
-- Integration
-- Syslog
-- Webhooks
+- [Tanium Connect Actions API](https://apis.io/collections/tanium/open-tanium-actions-api/)
+- [Tanium Connect Actions Alerts API](https://apis.io/collections/tanium/open-tanium-alerts-api/)
+- [Tanium Connect Actions Authentication API](https://apis.io/collections/tanium/open-tanium-authentication-api/)
+- [Tanium Connect API](https://apis.io/collections/tanium/open-tanium-connect-api/)
+- [Tanium Connect Actions Connections API](https://apis.io/collections/tanium/open-tanium-connections-api/)
+- [Tanium Connect Actions Destinations API](https://apis.io/collections/tanium/open-tanium-destinations-api/)
+- [Tanium Connect Actions Events API](https://apis.io/collections/tanium/open-tanium-events-api/)
+- [Tanium Connect Actions Evidence API](https://apis.io/collections/tanium/open-tanium-evidence-api/)
+- [Tanium Connect Actions File Downloads API](https://apis.io/collections/tanium/open-tanium-file-downloads-api/)
+- [Tanium Connect Actions File Operations API](https://apis.io/collections/tanium/open-tanium-file-operations-api/)
+- [Tanium Connect Actions Groups API](https://apis.io/collections/tanium/open-tanium-groups-api/)
+- [Tanium Connect Actions Intel Documents API](https://apis.io/collections/tanium/open-tanium-intel-documents-api/)
+- [Tanium Connect Actions Labels API](https://apis.io/collections/tanium/open-tanium-labels-api/)
+- [Tanium Connect Actions Packages API](https://apis.io/collections/tanium/open-tanium-packages-api/)
+- [Tanium Platform REST API](https://apis.io/collections/tanium/open-tanium-platform-rest-api/)
+- [Tanium Connect Actions Processes API](https://apis.io/collections/tanium/open-tanium-processes-api/)
+- [Tanium Connect Actions Questions API](https://apis.io/collections/tanium/open-tanium-questions-api/)
+- [Tanium Connect Actions Saved Questions API](https://apis.io/collections/tanium/open-tanium-saved-questions-api/)
+- [Tanium Connect Actions Schedules API](https://apis.io/collections/tanium/open-tanium-schedules-api/)
+- [Tanium Connect Actions Sensors API](https://apis.io/collections/tanium/open-tanium-sensors-api/)
+- [Tanium Connect Actions Snapshots API](https://apis.io/collections/tanium/open-tanium-snapshots-api/)
+- [Tanium Connect Actions Sources API](https://apis.io/collections/tanium/open-tanium-sources-api/)
+- [Tanium Connect Actions Status API](https://apis.io/collections/tanium/open-tanium-status-api/)
+- [Tanium Threat Response API](https://apis.io/collections/tanium/open-tanium-threat-response-api/)
+- [Tanium Connect API](https://apis.io/collections/tanium/postman-tanium-connect-api/)
+- …and 2 more published on APIs.io
 
-#### Properties
+#### Governance rules (2)
 
-- [Documentation](https://docs.tanium.com/connect/connect/index.html)
-- [OpenAPI](openapi/tanium-connect-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/tanium-connect-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/tanium-connect-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Spectral rulesets for the provider's contracts.
 
-## Common Properties
+- [Tanium — jsonschema rules](https://apis.io/rules/tanium/tanium-jsonschema-spectral-rules/)
+- [Tanium API Rules](https://apis.io/rules/tanium/tanium-rules/)
 
-- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
-- [LinkedIn](https://www.linkedin.com/company/tanium)
-- [JSON Schema](json-schema/tanium-endpoint-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/tanium-question-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/tanium-alert-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/tanium-sensor-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/tanium-package-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/tanium-action-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/tanium-connection-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/tanium-endpoint-structure.json)
-- [JSON Structure](json-structure/tanium-action-structure.json)
-- [JSON-LD](json-ld/tanium-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Spectral Rules](rules/tanium-rules.yml)
-- [Vocabulary](vocabulary/tanium-vocabulary.yml)
-- [Portal](https://developer.tanium.com/)
-- [Documentation](https://help.tanium.com/)
-- [Getting Started](https://developer.tanium.com/apis/api_intro)
-- [Authentication](https://docs.tanium.com/platform_user/platform_user/console_api_tokens.html)
-- [Blog](https://www.tanium.com/p/tanium-blog/)
-- [Support](https://community.tanium.com/s/)
-- [Terms of Service](https://www.tanium.com/terms-of-use/)
-- [Privacy Policy](https://www.tanium.com/privacy/)
-- [GitHub Organization](https://github.com/tanium)
-- [Community](https://community.tanium.com/s/)
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Tanium Authentication](https://apis.io/security/tanium/tanium-authentication/)
+- [Tanium Domain Security](https://apis.io/security/tanium/tanium-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Tanium Plans Pricing](https://apis.io/plans/tanium/tanium-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Tanium Rate Limits](https://apis.io/rate-limits/tanium/tanium-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Tanium Finops](https://apis.io/finops/tanium/tanium-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.tanium.com/)
-- [Login](https://community.tanium.com/s/login/)
-- [Sign Up](https://community.tanium.com/CommunitiesSelfReg)
-- [S D Ks](https://tanium.github.io/pytan/)
-- [Integration Guide](https://developer.tanium.com/guides/core-platform/integration_methods)
-- [Use Cases](https://developer.tanium.com/use_cases)
+- [Documentation](https://help.tanium.com/)
+- [Getting started](https://developer.tanium.com/apis/api_intro)
+- [Support](https://community.tanium.com/s/)
 - [Changelog](https://help.tanium.com/bundle/releasenotes/page/releasenotes/index.html)
-- [Contact](https://www.tanium.com/contact/)
-- [Integrations](https://www.tanium.com/partners)
-- [L L Ms Txt](https://developer.tanium.com/llms.txt)
+- [Blog](https://www.tanium.com/p/tanium-blog/)
+- [Terms of service](https://www.tanium.com/terms-of-use/)
+- [Privacy policy](https://www.tanium.com/privacy/)
+- [GitHub](https://github.com/tanium)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 45.3** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 69.6 |
+| Contract quality | 56.1 |
+| Contract governance | 27.3 |
+| Operational transparency | 23.7 |
+| Developer ergonomics | 53.6 |
+| Access clarity | 32.9 |
+
+**Agent readiness 25.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | mostly (partial credit) |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/tanium/](https://apis.io/providers/tanium/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Tanium: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/tanium/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
